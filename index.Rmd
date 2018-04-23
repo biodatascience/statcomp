@@ -1,0 +1,22 @@
+---
+title: "BIOS 735 - Statistical Computing"
+author: "Naim Rashid and Michael Love"
+output: 
+  html_document:
+    self_contained: false
+---
+
+### Course information
+
+### Schedule and course notes
+
+For `Rmd` files, go to the
+[course repo](https://github.com/biodatascience/statcomp_src) and navigate the
+directories, or best of all to clone the repo and navigate within RStudio. 
+
+
+| Week | Topic | Dir. | HW | HTML | Title |
+|------|-------|------|----|------|-------|
+| Jan 9 | Introduction | `intro` | link | link | Introduction |
+| April 22, 24 | Wrap-up | `foobar` | link | link | Something |
+
