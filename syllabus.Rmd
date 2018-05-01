@@ -1,0 +1,112 @@
+---
+title: "BIOS 735 - Statistical Computing"
+author: "Naim Rashid and Michael Love"
+output: html_document
+---
+
+# Syllabus
+
+### Objective and description
+
+This class teaches important concepts and skills for statistical
+computing, numerical optimization, and machine learning using case
+studies. After this course, students will have a good understanding of
+the process of producing high-quality and sharable statistical
+programs, algorithms for optimization and numerical integration, and
+will be able to implement and apply some common and powerful machine
+learning methods.
+
+### Content
+
+In this class, students will learn:
+
+* How to write efficient and sharable statistical programs for scientific research
+* Various optimization and numerical integration algorithms
+* How to implement and use common and powerful machine learning methods
+
+### Prerequisites - strictly enforced
+
+* {[BIOS 660, 661, 662, 663](https://sph.unc.edu/bios/courses/)} or {[BCB 720](http://catalog.unc.edu/courses/bcb/)}
+* One programming class at the undergraduate level or [BIOS 611](https://biodatascience.github.io/datasci611/)
+* Prior R experience is required, familiarity with [basic R functions](https://github.com/biodatascience/compbio_src/blob/master/eda/functions.md)
+* Basic knowledge of the Linux environment
+
+### Similar classes
+
+* [BIOS 611 - Introduction to Data Science](https://biodatascience.github.io/datasci611/)
+* [BIOS 651 - Principles of Machine Learning](https://sph.unc.edu/bios/courses/)
+
+### Instructors
+
+* Coordinating instructor: Naim Rashid
+* Co-instructors: Michael Love and Yuchao Jiang (alternate years)
+
+### Graded work
+ 
+The class will be taught through three modules. Two projects (25%
+each), a final presentation (20%), and weekly homework assignments
+(30% total) will make up the final grade for the course.
+
+At the beginning of the course, students will learn to create an R
+package which they will update as the class progresses, implementing
+the methods they learn in each module. This R package will be
+applied to each project and homework assignment. Each student's R
+package will be hosted and iteratively updated on GitHub. Homework
+and projects will be similarly submitted to course instructors through
+GitHub Classrooms.
+
+Grading scale:
+
+* H: Clear excellence
+* P: Entirely satisfactory
+* L: Low passing
+* F: Fail
+
+The School of Public Health grading system is designed so that the
+mode of the grading distribution is P. The last graded assignment will
+be due on the last week of regular classes. 
+
+# Schedule
+
+### Module 1 – Statistical Computing for Scientific Research (3 weeks, Dr. Michael Love/Yuchao Jiang)
+
+* Writing readable and efficient R code
+* Building, documenting, testing, and submitting an R package
+* `Rcpp` for writing C++ code called from R
+* Techniques for handling large datasets
+
+### Module 2 – Optimization and Numerical Integration (6 weeks, Dr. Naim Rashid)
+
+* General Optimization (1.5 weeks)
+    - Newton Raphson, fisher scoring, IRLS
+    - BFGS, Nelder-Mead, gradient descent
+* EM Algorithm (1 week)
+    - EM, ECM 
+    - Other variants: SEM, MCEM, Rejection Controlled EM
+* Constrained optimization (1 week)
+    - Linear and Quadratic Programming
+    - Penalized likelihood methods 
+* General Numerical integration (1/2 week)
+    - Gaussian Quadrature
+    - Monte Carlo Integration
+    - Importance Sampling 
+* General Markov Chain Monte Carlo methods (1 week)
+    - Direct and rejection sampling
+    - Gibbs sampling
+    - Metropolis Hastings
+* Advanced MCMC (1 week)
+    - Slice sampling
+    - Metropolis within Gibbs
+    - Reversible jump MCMC
+
+### Module 3 - Machine Learning Topics (3 weeks, Dr. Michael Love/Yuchao Jiang)
+
+* Machine learning essentials
+  - training and test sets
+  - feature selection
+  - parameter tuning
+  - cross-validation
+* Support Vector Machines
+* Random Forests
+* Gradient Boosting
+* Deep Learning and Neural Networks 

@@ -8,6 +8,8 @@ output:
 
 ### Course information
 
+[Syllabus](syllabus.html)
+
 ### Schedule and course notes
 
 For `Rmd` files, go to the
@@ -18,6 +20,6 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Week | Topic | Dir. | HW | HTML | Title |
 |------|-------|------|----|------|-------|
 | Jan 9 | Introduction | `intro` | link | link | Introduction |
-| Blah | Linear models | `linear` | ... | | Linear models |
+| Blah | Linear models | `linear` | ... | [linearmodel](linear/linearmodel.html) | Linear models |
 | April 22, 24 | Wrap-up | `foobar` | link | link | Something |
 
