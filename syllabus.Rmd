@@ -110,3 +110,10 @@ be due on the last week of regular classes.
 * Random Forests
 * Gradient Boosting
 * Deep Learning and Neural Networks 
+
+---
+
+This page was last updated on `r format(Sys.time(), "%m/%d/%Y")`. 
+
+* [GitHub repo](https://github.com/biodatascience/statcomp_src)
+* [License](https://github.com/biodatascience/statcomp_src/blob/master/LICENSE)

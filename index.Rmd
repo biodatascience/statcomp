@@ -23,3 +23,9 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Blah | Linear models | `linear` | ... | [linearmodel](linear/linearmodel.html) | Linear models |
 | April 22, 24 | Wrap-up | `foobar` | link | link | Something |
 
+---
+
+This page was last updated on `r format(Sys.time(), "%m/%d/%Y")`. 
+
+* [GitHub repo](https://github.com/biodatascience/statcomp_src)
+* [License](https://github.com/biodatascience/statcomp_src/blob/master/LICENSE)
