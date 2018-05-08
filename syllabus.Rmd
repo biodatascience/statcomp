@@ -102,10 +102,10 @@ be due on the last week of regular classes.
 ### Module 3 - Machine Learning Topics (3 weeks, Dr. Michael Love/Yuchao Jiang)
 
 * Machine learning essentials
-  - training and test sets
-  - feature selection
-  - parameter tuning
-  - cross-validation
+    - training and test sets
+    - feature selection
+    - parameter tuning
+    - cross-validation
 * Support Vector Machines
 * Random Forests
 * Gradient Boosting
