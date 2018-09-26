@@ -26,7 +26,7 @@ In this class, students will learn:
 
 ### Prerequisites - strictly enforced
 
-* {[BIOS 660, 661, 662, 663](https://sph.unc.edu/bios/courses/)} or {[BCB 720](http://catalog.unc.edu/courses/bcb/)}
+* [BIOS 660, 661, 662, 663](https://sph.unc.edu/bios/courses/)
 * One programming class at the undergraduate level or [BIOS 611](https://biodatascience.github.io/datasci611/)
 * Prior R experience is required, familiarity with [basic R functions](https://github.com/biodatascience/compbio_src/blob/master/eda/functions.md)
 * Basic knowledge of the Linux environment
