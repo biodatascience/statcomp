@@ -1,5 +1,5 @@
 ---
-title: "BIOS 735 - Statistical Computing"
+title: "BIOS 735 - Introduction to Statistical Computing"
 author: "Naim Rashid and Michael Love"
 output: 
   html_document:
@@ -7,6 +7,8 @@ output:
 ---
 
 ### Course information
+
+1:25-3:10 MW
 
 [Syllabus](syllabus.html)
 
@@ -16,12 +18,28 @@ For `Rmd` files, go to the
 [course repo](https://github.com/biodatascience/statcomp_src) and navigate the
 directories, or best of all to clone the repo and navigate within RStudio. 
 
-
 | Week | Topic | Dir. | HW | HTML | Title |
 |------|-------|------|----|------|-------|
-| Jan 9 | Introduction | `intro` | link | link | Introduction |
-| Blah | Linear models | `linear` | ... | [linearmodel](linear/linearmodel.html) | Linear models |
-| April 22, 24 | Wrap-up | `foobar` | link | link | Something |
+| **Module 1**   | Sci. research | | | | |
+| Jan 9      | R code | `rcode` | [R](#) | [efficient](#) | Readable and efficient R code |
+| Jan 14, 16 | R package | `rpkg` | [📦](#) | [build](#) | Building an R package |
+| | | | | [document](#) | Documenting an R package |
+| | | | | [test](#) | Testing an R package |
+| Jan 23     | C++ from R | `rpkg` | | | |
+| Jan 28, 29 | Large data | `large` | | | |
+| **Module 2**   | Optim. & Num. int. | | | | |
+| Feb 4, 6   | General optim. | `optim` | | | |
+| Feb 11, 13 | EM algorithm | `em` | | | |
+| Feb 20     | Constrained optim. | `constr` | | | |
+| Feb 25, 27 | Numer. integration | `numint` | | | |
+| Mar 4, 6   | General MCMC | `mcmc` | | | |
+| Mar 18, 20 | Advanced MCMC | `mcmc` | | | |
+| Mar 25, 27 | ENAR | | | | |
+| **Module 3** | Mach. learning | | | | |
+| Apr 1, 3   | ML essentials | `ml` | | | |
+| Apr 8, 10  | SVM, RF, GBM | `ml` | | | |
+| Apr 15, 17 | Deep Learning | `deep` | | | |
+| Apr 22, 24 | Wrap-up | | | | |
 
 ---
 

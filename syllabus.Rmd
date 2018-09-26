@@ -1,5 +1,5 @@
 ---
-title: "BIOS 735 - Statistical Computing"
+title: "BIOS 735 - Introduction to Statistical Computing"
 author: "Naim Rashid and Michael Love"
 output: html_document
 ---
@@ -39,7 +39,7 @@ In this class, students will learn:
 ### Instructors
 
 * Coordinating instructor: Naim Rashid
-* Co-instructors: Michael Love and Yuchao Jiang (alternate years)
+* Co-instructors: Michael Love (Yuchao Jiang - alternate years)
 
 ### Graded work
  
@@ -68,7 +68,7 @@ be due on the last week of regular classes.
 
 # Schedule
 
-### Module 1 – Statistical Computing for Scientific Research (3 weeks, Dr. Michael Love/Yuchao Jiang)
+### Module 1 – Statistical Computing for Scientific Research (3 weeks, Dr. Michael Love)
 
 * Writing readable and efficient R code
 * Building, documenting, testing, and submitting an R package
@@ -99,7 +99,7 @@ be due on the last week of regular classes.
     - Metropolis within Gibbs
     - Reversible jump MCMC
 
-### Module 3 - Machine Learning Topics (3 weeks, Dr. Michael Love/Yuchao Jiang)
+### Module 3 - Machine Learning Topics (3 weeks, Dr. Michael Love)
 
 * Machine learning essentials
     - training and test sets
