@@ -91,6 +91,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -155,8 +158,8 @@ $(document).ready(function () {
 <tr class="even">
 <td>Jan 9</td>
 <td>R code</td>
-<td><code>rcode</code></td>
-<td><a href="#">R</a></td>
+<td><code>rpkg</code></td>
+<td><a href="#">hw</a></td>
 <td><a href="#">efficient</a></td>
 <td>Readable and efficient R code</td>
 </tr>
@@ -164,7 +167,7 @@ $(document).ready(function () {
 <td>Jan 14, 16</td>
 <td>R package</td>
 <td><code>rpkg</code></td>
-<td><a href="#">📦</a></td>
+<td><a href="#">hw</a></td>
 <td><a href="#">build</a></td>
 <td>Building an R package</td>
 </tr>
@@ -188,19 +191,43 @@ $(document).ready(function () {
 <td>Jan 23</td>
 <td>C++ from R</td>
 <td><code>rpkg</code></td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#">hw</a></td>
+<td><a href="#">rcpp</a></td>
+<td>Calling C++ with <code>Rcpp</code></td>
 </tr>
 <tr class="odd">
 <td>Jan 28, 29</td>
 <td>Large data</td>
 <td><code>large</code></td>
-<td></td>
-<td></td>
-<td></td>
+<td><a href="#">hw</a></td>
+<td><a href="#">datatable</a></td>
+<td>Reading with <code>data.table</code></td>
 </tr>
 <tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><a href="#">sqlite</a></td>
+<td>Reading with <code>RSQLite</code></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><a href="#">hdf5</a></td>
+<td>Reading with <code>rhdf5</code></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><a href="#">sparse</a></td>
+<td>Sparse data manipulation</td>
+</tr>
+<tr class="odd">
 <td><strong>Module 2</strong></td>
 <td>Optim. &amp; Num. int.</td>
 <td></td>
@@ -208,7 +235,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Feb 4, 6</td>
 <td>General optim.</td>
 <td><code>optim</code></td>
@@ -216,7 +243,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Feb 11, 13</td>
 <td>EM algorithm</td>
 <td><code>em</code></td>
@@ -224,7 +251,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Feb 20</td>
 <td>Constrained optim.</td>
 <td><code>constr</code></td>
@@ -232,7 +259,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Feb 25, 27</td>
 <td>Numer. integration</td>
 <td><code>numint</code></td>
@@ -240,7 +267,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Mar 4, 6</td>
 <td>General MCMC</td>
 <td><code>mcmc</code></td>
@@ -248,7 +275,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Mar 18, 20</td>
 <td>Advanced MCMC</td>
 <td><code>mcmc</code></td>
@@ -256,7 +283,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Mar 25, 27</td>
 <td>ENAR</td>
 <td></td>
@@ -264,7 +291,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><strong>Module 3</strong></td>
 <td>Mach. learning</td>
 <td></td>
@@ -272,7 +299,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Apr 1, 3</td>
 <td>ML essentials</td>
 <td><code>ml</code></td>
@@ -280,7 +307,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Apr 8, 10</td>
 <td>SVM, RF, GBM</td>
 <td><code>ml</code></td>
@@ -288,7 +315,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Apr 15, 17</td>
 <td>Deep Learning</td>
 <td><code>deep</code></td>
@@ -296,7 +323,7 @@ $(document).ready(function () {
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Apr 22, 24</td>
 <td>Wrap-up</td>
 <td></td>
@@ -307,7 +334,7 @@ $(document).ready(function () {
 </tbody>
 </table>
 <hr />
-<p>This page was last updated on 08/03/2018.</p>
+<p>This page was last updated on 10/08/2018.</p>
 <ul>
 <li><a href="https://github.com/biodatascience/statcomp_src">GitHub repo</a></li>
 <li><a href="https://github.com/biodatascience/statcomp_src/blob/master/LICENSE">License</a></li>

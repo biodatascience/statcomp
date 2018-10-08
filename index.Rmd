@@ -21,12 +21,15 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Week | Topic | Dir. | HW | HTML | Title |
 |------|-------|------|----|------|-------|
 | **Module 1**   | Sci. research | | | | |
-| Jan 9      | R code | `rcode` | [R](#) | [efficient](#) | Readable and efficient R code |
-| Jan 14, 16 | R package | `rpkg` | [📦](#) | [build](#) | Building an R package |
+| Jan 9      | R code | `rpkg` | [hw](#) | [efficient](#) | Readable and efficient R code |
+| Jan 14, 16 | R package | `rpkg` | [hw](#) | [build](#) | Building an R package |
 | | | | | [document](#) | Documenting an R package |
 | | | | | [test](#) | Testing an R package |
-| Jan 23     | C++ from R | `rpkg` | | | |
-| Jan 28, 29 | Large data | `large` | | | |
+| Jan 23     | C++ from R | `rpkg` | [hw](#) | [rcpp](#) | Calling C++ with `Rcpp` |
+| Jan 28, 29 | Large data | `large` | [hw](#) | [datatable](#) | Reading with `data.table` |
+| | | | | [sqlite](#) | Reading with `RSQLite` |
+| | | | | [hdf5](#) | Reading with `rhdf5` |
+| | | | | [sparse](#) | Sparse data manipulation |
 | **Module 2**   | Optim. & Num. int. | | | | |
 | Feb 4, 6   | General optim. | `optim` | | | |
 | Feb 11, 13 | EM algorithm | `em` | | | |
