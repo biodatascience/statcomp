@@ -24,7 +24,8 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Jan 9      | R code | `rpkg` | [hw](#) | [efficient](#) | Readable and efficient R code |
 | Jan 14, 16 | R package | `rpkg` | [hw](#) | [build](#) | Building an R package |
 | | | | | [document](#) | Documenting an R package |
-| | | | | [test](#) | Testing an R package |
+| | | | | [test](#) | Writing package tests |
+| | | | | [debug](#) | Debugging in R |
 | Jan 23     | C++ from R | `rpkg` | [hw](#) | [rcpp](#) | Calling C++ with `Rcpp` |
 | Jan 28, 29 | Large data | `large` | [hw](#) | [datatable](#) | Reading with `data.table` |
 | | | | | [sqlite](#) | Reading with `RSQLite` |
