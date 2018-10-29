@@ -21,12 +21,12 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Week | Topic | Dir. | HW | HTML | Title |
 |------|-------|------|----|------|-------|
 | **Module 1**   | Sci. research | | | | |
-| Jan 9      | R code | `rpkg` | [hw](#) | [efficient](#) | Readable and efficient R code |
-| Jan 14, 16 | R package | `rpkg` | [hw](#) | [build](#) | Building an R package |
-| | | | | [document](#) | Documenting an R package |
-| | | | | [test](#) | Writing package tests |
-| | | | | [debug](#) | Debugging in R |
-| Jan 23     | C++ from R | `rpkg` | [hw](#) | [rcpp](#) | Calling C++ with `Rcpp` |
+| Jan 9      | R code | `rpkg` | [hw](#) | [efficient](rpkg/efficient.html) | Readable and efficient R code |
+| Jan 14, 16 | R package | `rpkg` | [hw](#) | [build](rpkg/build.html) | Building an R package |
+| | | | | [document](rpkg/document.html) | Documenting an R package |
+| | | | | [test](rpkg/test.html) | Writing package tests |
+| | | | | [debug](rpkg/debug.html) | Debugging in R |
+| Jan 23     | C++ from R | `rpkg` | [hw](#) | [rcpp](rpkg/rcpp.html) | Calling C++ with `Rcpp` |
 | Jan 28, 29 | Large data | `large` | [hw](#) | [datatable](#) | Reading with `data.table` |
 | | | | | [sqlite](#) | Reading with `RSQLite` |
 | | | | | [hdf5](#) | Reading with `rhdf5` |
