@@ -342,16 +342,22 @@ $(document).ready(function () {
 <li><em>Memoization:</em> If you happen to be writing a function that will take input which has repeated elements, and it is very important for this function to be very fast, memoization can be a useful technique. Memoization entails storing the values of expensive function calls so that they don’t have to be repeated. There is a small overhead in saving and looking up the precomputed values, but if the degree of repeated input is high, the savings of memoization can be large. The <em>memoise</em> package helps with this in R.</li>
 </ul>
 </div>
+<div id="learning-more-about-efficient-code" class="section level1">
+<h1>Learning more about efficient code</h1>
+<p>This course has many topics to cover, and so we can only cover some of the basics for each module, and within each module on each topic. Of course, efficient code is a topic that could expand to fill a semester. We will show some of the most important topics for a Biostatistics student in this lecture note, but I highly recommend this online textbook by Colin Gillespie and Robin Lovelace:</p>
+<ul>
+<li><a href="https://csgillespie.github.io/efficientR/">Efficient R Programming</a></li>
+</ul>
+<p>For example, they have a section on <a href="https://csgillespie.github.io/efficientR/code-profiling.html">code profiling</a>, which is a really useful way to figure out what lines of code are causing the greatest bottlenecks in your package. We don’t have time to sufficiently cover this in this note, but it’s worth reading on your own, and using code profiling if you end up making a package where speed and memory usage are a critical factors. Some of the topics in this book, for example usage of <em>Rcpp</em> and <em>data.table</em> will be covered in later lecture notes.</p>
+</div>
 <div id="benchmarking-r-code" class="section level1">
 <h1>Benchmarking R code</h1>
 <p>We will make use of <em>microbenchmark</em> package to assess efficiency of methods here and again in the course. It is not part of the core set of R packages, so you will need to install it with <code>install.packages</code>.</p>
 <div id="pre-allocation" class="section level2">
 <h2>Pre-allocation</h2>
 <p>You can compare two implementations by passing them to the <code>microbenchmark</code> function:</p>
-<pre class="r"><code>library(microbenchmark)</code></pre>
-<pre><code>## Warning: S3 method &#39;ggplot2::autoplot.microbenchmark&#39; was declared in
-## NAMESPACE but not found</code></pre>
-<pre class="r"><code>slow.sqrt &lt;- function(x) {
+<pre class="r"><code>library(microbenchmark)
+slow.sqrt &lt;- function(x) {
   ans &lt;- numeric(0)
   for (i in seq_along(x)) {
     ans &lt;- c(ans, sqrt(x[i]))
@@ -359,15 +365,13 @@ $(document).ready(function () {
   ans
 }
 microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
-<pre><code>## Warning: S3 methods &#39;ggplot2::autoplot.zoo&#39;, &#39;ggplot2::fortify.zoo&#39; were
-## declared in NAMESPACE but not found</code></pre>
 <pre><code>## Unit: microseconds
-##               expr      min        lq     mean    median       uq
-##       sqrt(1:1000)    4.212    6.0905   11.474    9.2605   15.056
-##  slow.sqrt(1:1000) 1587.948 1868.8915 3656.199 2172.3215 4359.032
+##               expr      min       lq       mean    median       uq
+##       sqrt(1:1000)    4.279    5.175    7.36668    7.1795    8.788
+##  slow.sqrt(1:1000) 1581.832 1678.703 2740.76276 1839.0720 1939.446
 ##        max neval cld
-##     45.132   100  a 
-##  20207.078   100   b</code></pre>
+##     25.631   100  a 
+##  14792.671   100   b</code></pre>
 <p>This benchmark indicates that the vectorized version of the square root is many orders of magnitude faster than a naive implementation. Let’s compare <code>slow.sqrt</code> with a version where we preallocate the vector that stores the eventual output of the function:</p>
 <pre class="r"><code>pre.sqrt &lt;- function(x) {
   ans &lt;- numeric(length(x))
@@ -378,12 +382,12 @@ microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 }
 microbenchmark(pre.sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr      min       lq      mean   median       uq      max
-##   pre.sqrt(1:1000)  110.882  112.378  169.5502  117.703  123.434  5094.78
-##  slow.sqrt(1:1000) 1589.264 1687.943 3110.5745 1855.992 3247.651 15058.17
-##  neval cld
-##    100  a 
-##    100   b</code></pre>
+##               expr      min        lq      mean   median        uq
+##   pre.sqrt(1:1000)  110.687  112.1775  161.5626  118.697  121.9445
+##  slow.sqrt(1:1000) 1584.138 1679.6990 2648.7096 1805.465 1870.4945
+##       max neval cld
+##   4100.31   100  a 
+##  12697.19   100   b</code></pre>
 <p>So simply pre-allocating saves us about an order of magnitude in speed.</p>
 </div>
 <div id="initial-attempts-at-c" class="section level2">
@@ -407,10 +411,10 @@ microbenchmark(sqrt(1:1000),
                rcpp_sqrt1(1:1000),
                rcpp_sqrt2(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##                expr   min     lq     mean median     uq      max neval cld
-##        sqrt(1:1000) 4.525 5.6150 10.16766  6.494 14.958   28.177   100   a
-##  rcpp_sqrt1(1:1000) 6.097 7.1370 40.39749  9.354 13.189 2850.162   100   a
-##  rcpp_sqrt2(1:1000) 6.142 7.4695 22.61830  9.770 17.668 1035.618   100   a</code></pre>
+##                expr   min    lq     mean median     uq      max neval cld
+##        sqrt(1:1000) 4.142 4.217  4.39546 4.2740 4.3905    6.057   100   a
+##  rcpp_sqrt1(1:1000) 5.453 5.641 16.75861 5.7570 5.9345 1066.123   100   a
+##  rcpp_sqrt2(1:1000) 5.597 5.758 14.94226 5.8905 6.1165  882.841   100   a</code></pre>
 <p>Our two C++ implementations are comparable, and now only about 3 times slower than R’s <code>sqrt</code>.</p>
 </div>
 <div id="memoization" class="section level2">
@@ -425,10 +429,10 @@ slow.fn &lt;- function(x) {
 mem.fn &lt;- memoise(slow.fn)
 system.time(sapply(x, slow.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.047   0.025   1.369</code></pre>
+##   0.047   0.025   1.395</code></pre>
 <pre class="r"><code>system.time(sapply(x, mem.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.254   0.008   0.278</code></pre>
+##   0.225   0.000   0.239</code></pre>
 <pre class="r"><code>forget(mem.fn)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>We defined an arbitrary function <code>slow.fn</code> which waits a millisecond before returning the input plus <code>pi</code>. We then run <code>slow.fn</code> on a vector of length 1000, although the values of the vector are limited to then numbers 1 to 10. When we instead call the memoized version of the function, we only incur the millisecond cost of <code>slow.fn</code> 10 times (for each time we need to calculate the value of <code>slow.fn</code> on the numbers 1 to 10). Any repeated calls to <code>slow.fn</code> on a number that <code>mem.fn</code> has already seen instead incur the cost of looking up the value of <code>slow.fn</code> in an in-memory cache.</p>
@@ -458,12 +462,12 @@ all.equal(x1, x2)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>microbenchmark(solve(a,b), slow.solve(a,b))</code></pre>
 <pre><code>## Unit: microseconds
-##              expr      min       lq       mean    median       uq
-##       solve(a, b)  403.021   405.44   418.1218   407.844   413.54
-##  slow.solve(a, b) 9991.240 10215.20 10809.4120 10339.610 10623.88
+##              expr       min        lq       mean   median       uq
+##       solve(a, b)   402.772   405.258   469.4598   407.91   438.70
+##  slow.solve(a, b) 10009.221 10235.339 12074.2675 10430.16 10965.43
 ##        max neval cld
-##    560.395   100  a 
-##  17639.378   100   b</code></pre>
+##    991.437   100  a 
+##  30554.403   100   b</code></pre>
 </div>
 </div>
 
