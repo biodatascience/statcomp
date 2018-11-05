@@ -106,10 +106,11 @@ be due on the last week of regular classes.
     - feature selection
     - parameter tuning
     - cross-validation
-* Support Vector Machines
-* Random Forests
-* Gradient Boosting
-* Deep Learning and Neural Networks 
+* Introductions to:
+    - Support Vector Machines (SVM)
+    - Random Forests (RF)
+    - Gradient Boosting Machines (GBM)
+    - Neural Networks (NN)
 
 ---
 
