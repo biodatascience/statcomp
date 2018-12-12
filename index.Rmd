@@ -38,11 +38,11 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Feb 25, 27 | Numer. integration | `numint` | | | |
 | Mar 4, 6   | General MCMC | `mcmc` | | | |
 | Mar 18, 20 | Advanced MCMC | `mcmc` | | | |
-| Mar 25, 27 | ENAR | | | | |
+| Mar 25, 27 | ENAR/projects | | | | |
 | **Module 3** | Mach. learning | | | | |
 | Apr 1, 3   | ML essentials | `ml` | | | |
 | Apr 8, 10  | SVM, RF | `ml` | | | |
-| Apr 15, 17 | GBM, NN | `ml` | | | |
+| Apr 15, 17 | NN, projects | `ml` | | | |
 | Apr 22, 24 | Wrap-up | | | | |
 
 ---
