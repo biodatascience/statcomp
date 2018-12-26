@@ -525,8 +525,17 @@ ggplot(dat, aes(x1,x2,col=y)) + geom_point() +
 <p>This property of the SVM both allows arbitrary transformations, and means that we can work in arbitrary large spaces, as long as we can calculate <span class="math inline">\(K(x_i, x_j)\)</span>. We can avoid actually calculating <span class="math inline">\(x_i\)</span> or <span class="math inline">\(f(x_i)\)</span>. To give an example, suppose we are interested in classifying documents that contain words. We could count each word as a feature, and give a 1 if the document contains the word, or a 0 if the document does not contain a word. This is a very high dimensional space, if we start to enumerate all the words in a corpus of documents. However, we only need to the dot product between two documents, which amounts to counting the number of words that appear in common, and we never need to enumerate the <span class="math inline">\(x_i\)</span> themselves.</p>
 <p>The radial basis function kernel we used above gives a high value for <span class="math inline">\(K(x_i, x_j)\)</span> if the points are close together, and a value that quickly drops off to zero if the points are not close. It is easy to compute the value of the kernel function for two points, however the feature space is represented by an <a href="https://en.wikipedia.org/wiki/Radial_basis_function_kernel">infinite sum</a>.</p>
 </div>
-<div id="references" class="section level1">
-<h1>References</h1>
+<div id="extensions-to-regression" class="section level1">
+<h1>Extensions to regression</h1>
+<p>We won’t cover these, but I wanted to provide pointers to literature which extends the SVM model to predict continuous covariates. Two such references are:</p>
+<ul>
+<li>Drucker et al. <a href="https://papers.nips.cc/paper/1238-support-vector-regression-machines">Support Vector Regression Machines</a> (1996)</li>
+<li>Suykens and Vandewalle <a href="https://doi.org/10.1023/A:101862860">Least Squares Support Vector Machine Classifiers</a> (1999)</li>
+</ul>
+<p>These can be accessed within <em>caret</em> by selecting one of the <a href="https://topepo.github.io/caret/train-models-by-tag.html#support-vector-machines">SVM models</a> with a <em>regression</em> tag.</p>
+</div>
+<div id="additional-reference-for-these-notes" class="section level1">
+<h1>Additional reference for these notes</h1>
 <ul>
 <li><a href="http://cs229.stanford.edu/notes/cs229-notes3.pdf">Andrew Ng’s notes on SVM</a></li>
 </ul>
