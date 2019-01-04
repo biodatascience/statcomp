@@ -42,8 +42,8 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | **Module 3** | Mach. learning | | | | |
 | Apr 1, 3   | ML essentials | `ml` | [hw](#) | [essentials](ml/essentials.html) | Machine learning essentials |
 | Apr 8, 10  | SVM, RF | `ml` | [hw](#) | [svm](ml/svm.html) | Support vector machines |
-| | | | | rf | Random forests |
-| Apr 15, 17 | NN, projects | `ml` | [hw](#) | nn | Neural networks |
+| | | | | [rf](ml/rf.html) | Random forests |
+| Apr 15, 17 | NN, projects | `ml` | [hw](#) | [nn](ml/nn.html) | Neural networks |
 | Apr 22, 24 | Wrap-up | | | | |
 
 ---
