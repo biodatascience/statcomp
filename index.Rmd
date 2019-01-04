@@ -8,7 +8,7 @@ output:
 
 ### Course information
 
-1:25-3:10 MW
+1:25-3:10 MW in HC 0003
 
 [Syllabus](syllabus.html)
 
@@ -34,10 +34,10 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | **Module 2**   | Optim. & Num. int. | | | | |
 | Feb 4, 6   | General optim. | `optim` | | | |
 | Feb 11, 13 | EM algorithm | `em` | | | |
-| Feb 20     | Constrained optim. | `constr` | | | |
-| Feb 25, 27 | Numer. integration | `numint` | | | |
-| Mar 4, 6   | General MCMC | `mcmc` | | | |
-| Mar 18, 20 | Advanced MCMC | `mcmc` | | | |
+| Feb 20     | Numer. integration | `numint` | | | |
+| Feb 25, 27 | General MCMC | `mcmc` | | | |
+| Mar 4, 6   | Advanced MCMC | `mcmc` | | | |
+| Mar 18, 20 | Constrained optim. | `constr` | | | |
 | Mar 25, 27 | ENAR/projects | | | | |
 | **Module 3** | Mach. learning | | | | |
 | Apr 1, 3   | ML essentials | `ml` | [hw](#) | [essentials](ml/essentials.html) | Machine learning essentials |

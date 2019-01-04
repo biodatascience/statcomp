@@ -97,6 +97,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -104,14 +107,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -129,7 +192,7 @@ $(document).ready(function () {
 
 <div id="course-information" class="section level3">
 <h3>Course information</h3>
-<p>1:25-3:10 MW</p>
+<p>1:25-3:10 MW in HC 0003</p>
 <p><a href="syllabus.html">Syllabus</a></p>
 </div>
 <div id="schedule-and-course-notes" class="section level3">
@@ -261,23 +324,23 @@ $(document).ready(function () {
 </tr>
 <tr class="odd">
 <td>Feb 20</td>
-<td>Constrained optim.</td>
-<td><code>constr</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Feb 25, 27</td>
 <td>Numer. integration</td>
 <td><code>numint</code></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
+<tr class="even">
+<td>Feb 25, 27</td>
+<td>General MCMC</td>
+<td><code>mcmc</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 <tr class="odd">
 <td>Mar 4, 6</td>
-<td>General MCMC</td>
+<td>Advanced MCMC</td>
 <td><code>mcmc</code></td>
 <td></td>
 <td></td>
@@ -285,8 +348,8 @@ $(document).ready(function () {
 </tr>
 <tr class="even">
 <td>Mar 18, 20</td>
-<td>Advanced MCMC</td>
-<td><code>mcmc</code></td>
+<td>Constrained optim.</td>
+<td><code>constr</code></td>
 <td></td>
 <td></td>
 <td></td>
