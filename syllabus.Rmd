@@ -26,7 +26,7 @@ In this class, students will learn:
 
 ### Prerequisites - strictly enforced
 
-* [BIOS 663 & 760](https://sph.unc.edu/bios/courses/) --- **Note this has changed.**
+* [BIOS 663 & 760 (or 762 if Bios DrPH)](https://sph.unc.edu/bios/courses/) --- **Note this has changed.**
 * One programming class at the undergraduate level or [BIOS 611](https://biodatascience.github.io/datasci611/)
 * Prior R experience is required, familiarity with [basic R functions](https://github.com/biodatascience/compbio_src/blob/master/eda/functions.md)
 * Basic knowledge of the Linux environment
@@ -83,9 +83,6 @@ be due on the last week of regular classes.
 * EM Algorithm (1 week)
     - EM, ECM 
     - Other variants: SEM, MCEM, Rejection Controlled EM
-* Constrained optimization (1 week)
-    - Linear and Quadratic Programming
-    - Penalized likelihood methods 
 * General Numerical integration (1/2 week)
     - Gaussian Quadrature
     - Monte Carlo Integration
@@ -98,6 +95,9 @@ be due on the last week of regular classes.
     - Slice sampling
     - Metropolis within Gibbs
     - Reversible jump MCMC
+* Constrained optimization (1 week)
+    - Linear and Quadratic Programming
+    - Penalized likelihood methods 
 
 ### Module 3 - Machine Learning Topics (3 weeks, Dr. Michael Love)
 
