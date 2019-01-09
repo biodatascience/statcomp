@@ -8,7 +8,7 @@ output:
 
 ### Course information
 
-1:25-3:10 MW - MHRC 0003
+1:25-3:10 MW - Rosenau 235
 
 [Syllabus](syllabus.html)
 
