@@ -21,13 +21,13 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Week | Topic | Dir. | HW | HTML | Title |
 |------|-------|------|----|------|-------|
 | **Module 1**   | Sci. research | | | | |
-| Jan 9      | R code | `rpkg` | [HW](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd) | [efficient](rpkg/efficient.html) | Readable and efficient R code |
-| Jan 14, 16 | R package | `rpkg` | [hw](#) | [build](rpkg/build.html) | Building an R package |
+| Jan 9      | R code | `rpkg` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd) | [efficient](rpkg/efficient.html) | Readable and efficient R code |
+| Jan 14, 16 | R package | `rpkg` | [-](#) | [build](rpkg/build.html) | Building an R package |
 | | | | | [document](rpkg/document.html) | Documenting an R package |
 | | | | | [test](rpkg/test.html) | Writing package tests |
 | | | | | [debug](rpkg/debug.html) | Debugging in R |
-| Jan 23     | C++ from R | `rpkg` | [hw](#) | [rcpp](rpkg/rcpp.html) | Calling C++ with `Rcpp` |
-| Jan 28, 29 | Large data | `large` | [hw](#) | [datatable](large/datatable.html) | Working with `data.table` |
+| Jan 23     | C++ from R | `rpkg` | [-](#) | [rcpp](rpkg/rcpp.html) | Calling C++ with `Rcpp` |
+| Jan 28, 29 | Large data | `large` | [-](#) | [datatable](large/datatable.html) | Working with `data.table` |
 | | | | | [sqlite](large/sqlite.html) | Working with `RSQLite` |
 | | | | | [hdf5](large/hdf5.html) | Working with `rhdf5` |
 | | | | | [sparse](large/sparse.html) | Sparse data manipulation |
@@ -40,10 +40,10 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Mar 18, 20 | Constrained optim. | `constr` | | | |
 | Mar 25, 27 | ENAR/projects | | | | |
 | **Module 3** | Mach. learning | | | | |
-| Apr 1, 3   | ML essentials | `ml` | [hw](#) | [essentials](ml/essentials.html) | Machine learning essentials |
-| Apr 8, 10  | SVM, RF | `ml` | [hw](#) | [svm](ml/svm.html) | Support vector machines |
+| Apr 1, 3   | ML essentials | `ml` | [-](#) | [essentials](ml/essentials.html) | Machine learning essentials |
+| Apr 8, 10  | SVM, RF | `ml` | [-](#) | [svm](ml/svm.html) | Support vector machines |
 | | | | | [rf](ml/rf.html) | Random forests |
-| Apr 15, 17 | NN, projects | `ml` | [hw](#) | [nn](ml/nn.html) | Neural networks |
+| Apr 15, 17 | NN, projects | `ml` | [-](#) | [nn](ml/nn.html) | Neural networks |
 | Apr 22, 24 | Wrap-up | | | | |
 
 ---
