@@ -21,7 +21,7 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Week | Topic | Dir. | HW | HTML | Title |
 |------|-------|------|----|------|-------|
 | **Module 1**   | Sci. research | | | | |
-| Jan 9      | R code | `rpkg` | [hw](#) | [efficient](rpkg/efficient.html) | Readable and efficient R code |
+| Jan 9      | R code | `rpkg` | [HW](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd) | [efficient](rpkg/efficient.html) | Readable and efficient R code |
 | Jan 14, 16 | R package | `rpkg` | [hw](#) | [build](rpkg/build.html) | Building an R package |
 | | | | | [document](rpkg/document.html) | Documenting an R package |
 | | | | | [test](rpkg/test.html) | Writing package tests |
