@@ -10,6 +10,9 @@ output:
 
 1:25-3:10 MW - Rosenau 235
 
+Dr. Love office hours: Wed 3:10-4pm (meet me after class)
+Grader office hours: Fri 1-2pm 
+
 [Syllabus](syllabus.html)
 
 ### Schedule and course notes

@@ -66,6 +66,10 @@ The School of Public Health grading system is designed so that the
 mode of the grading distribution is P. The last graded assignment will
 be due on the last week of regular classes. 
 
+*Homework policy* - students are allowed and encouraged to talk about
+ideas and approaches to homework problems in groups, though students
+should write up the code for the assignments **independently**.
+
 # Schedule
 
 ### Module 1 – Statistical Computing for Scientific Research (3 weeks, Dr. Michael Love)
