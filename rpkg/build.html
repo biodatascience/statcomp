@@ -331,7 +331,7 @@ source(&quot;plot_functions.R&quot;)</code></pre>
 <p>A potential user also cannot find out about the purpose of the functions, details about the arguments or output of the function if they are simply brought into R with <code>source</code>. You could provide comments in the R files, but these comments are not accessible from the command line while a potential user is about to use your function. Help for R functions is provided in a specifically formatted file (ending with <code>.Rd</code>) that goes into the <code>man</code> directory of an R package. I strongly recommend to not write these files by hand but instead use in-line documentation called <em>roxygen</em> and help functions from the <em>devtools</em> package to automatically create these help files. This will be covered in detail in another lecture note.</p>
 <p>Two additional references for building R packages are:</p>
 <ul>
-<li><a href="http://r-pkgs.had.co.nz/">R Packages</a> by Hadley Wickham</li>
+<li><a href="http://r-pkgs.had.co.nz/">R Packages</a> by Hadley Wickham (currently out of date with respect to the addition of the <em>usethis</em> package)</li>
 <li><a href="https://cran.r-project.org/doc/manuals/R-exts.html">Writing R Extensions</a> the official guide from CRAN on how to create an R package</li>
 </ul>
 </div>
@@ -343,7 +343,7 @@ source(&quot;plot_functions.R&quot;)</code></pre>
 <li>a <code>NAMESPACE</code> text file, which tells which functions are imported or exported by the package (best written automatically, not manually)</li>
 <li>a directory called <code>R</code> with the R scripts inside</li>
 </ul>
-<p>We can get started by using the <code>create</code> function from the <em>devtools</em> package. Suppose we have an R script with the following function:</p>
+<p>We can get started by using the <code>create_package()</code> function from the <em>usethis</em> package. Suppose we have an R script with the following function:</p>
 <pre class="r"><code>add &lt;- function(x,y,negative=FALSE) {
   z &lt;- x + y
   if (negative) {
@@ -352,27 +352,35 @@ source(&quot;plot_functions.R&quot;)</code></pre>
   z
 }</code></pre>
 <p>Let’s say we will create an R package called <em>foo</em>. We can start with the following:</p>
-<pre class="r"><code>create(&quot;foo&quot;, rstudio=FALSE)</code></pre>
-<p>This will make a directory called <code>foo</code> in the current working directory:</p>
-<pre class="r"><code>list.files(&quot;foo&quot;)</code></pre>
-<pre><code>## [1] &quot;DESCRIPTION&quot; &quot;man&quot;         &quot;NAMESPACE&quot;   &quot;R&quot;           &quot;tests&quot;</code></pre>
+<pre class="r"><code>library(usethis)
+create_package(&quot;foo&quot;, rstudio=FALSE)</code></pre>
+<p>This will make a directory called <code>foo</code> in the current working directory, and will then change the working directory to <code>foo</code>:</p>
+<pre class="r"><code>list.files()</code></pre>
+<pre><code>##  [1] &quot;build.html&quot;       &quot;build.Rmd&quot;        &quot;debug.html&quot;      
+##  [4] &quot;debug.Rmd&quot;        &quot;document.html&quot;    &quot;document.Rmd&quot;    
+##  [7] &quot;efficient.html&quot;   &quot;efficient.Rmd&quot;    &quot;foo&quot;             
+## [10] &quot;foo_0.0.1.tar.gz&quot; &quot;rcpp.html&quot;        &quot;rcpp.Rmd&quot;        
+## [13] &quot;rpkg_HW1.Rmd&quot;     &quot;rpkg_HW2.html&quot;    &quot;rpkg_HW2.Rmd&quot;    
+## [16] &quot;s_diagram.png&quot;    &quot;test.html&quot;        &quot;test.Rmd&quot;</code></pre>
 <p>It will start with a DESCRIPTION file that looks like:</p>
-<pre><code>## Package: foo
-## Title: What the Package Does (one line, title case)
-## Version: 0.0.0.9000
-## Authors@R: person(&quot;First&quot;, &quot;Last&quot;, email = &quot;first.last@example.com&quot;, role = c(&quot;aut&quot;, &quot;cre&quot;))
-## Description: What the package does (one paragraph).
-## Depends: R (&gt;= 3.6.0)
-## License: What license is it under?
-## Encoding: UTF-8
-## LazyData: true</code></pre>
+<pre><code>Package: foobar
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R:
+    person(given = &quot;First&quot;,
+           family = &quot;Last&quot;,
+           role = c(&quot;aut&quot;, &quot;cre&quot;),
+           email = &quot;first.last@example.com&quot;)
+Description: What the package does (one paragraph).
+License: What license it uses
+Encoding: UTF-8
+LazyData: true</code></pre>
 <p>The DESCRIPTION file has a number of fields that we need to populate. We may start editing this file:</p>
 <pre><code>Package: foo
 Title: Functions for doing great things
 Version: 0.0.1
 Authors@R: person(&quot;Jane&quot;,&quot;Doe&quot;,email=&quot;jdoe@uni.edu&quot;,role=c(&quot;aut&quot;,&quot;cre&quot;))
 Description: Contains amazing functions for doing amazing things.
-Depends: R (&gt;= 3.6.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true</code></pre>
@@ -446,59 +454,57 @@ help(topic=&quot;add&quot;, package=&quot;foo&quot;)</code></pre>
 <pre><code>## [1] &#39;0.0.1&#39;</code></pre>
 <p>And we can include the following at the end of scripts to include all package versions (and other important details):</p>
 <pre class="r"><code>session_info()</code></pre>
-<pre><code>## Session info -------------------------------------------------------------</code></pre>
-<pre><code>##  setting  value                                             
+<pre><code>## ─ Session info ──────────────────────────────────────────────────────────
+##  setting  value                                             
 ##  version  R Under development (unstable) (2018-05-14 r74725)
+##  os       macOS  10.14.2                                    
 ##  system   x86_64, darwin15.6.0                              
 ##  ui       X11                                               
 ##  language (EN)                                              
 ##  collate  en_US.UTF-8                                       
+##  ctype    en_US.UTF-8                                       
 ##  tz       America/New_York                                  
-##  date     2018-10-29</code></pre>
-<pre><code>## Packages -----------------------------------------------------------------</code></pre>
-<pre><code>##  package        * version date       source         
-##  backports        1.1.2   2017-12-13 CRAN (R 3.6.0) 
-##  base           * 3.6.0   2018-05-15 local          
-##  codetools        0.2-15  2016-10-05 CRAN (R 3.6.0) 
-##  compiler         3.6.0   2018-05-15 local          
-##  datasets       * 3.6.0   2018-05-15 local          
-##  devtools       * 1.13.6  2018-06-27 CRAN (R 3.6.0) 
-##  digest           0.6.15  2018-01-28 CRAN (R 3.6.0) 
-##  evaluate         0.10.1  2017-06-24 CRAN (R 3.6.0) 
-##  foo            * 0.0.1   2018-10-25 local          
-##  graphics       * 3.6.0   2018-05-15 local          
-##  grDevices      * 3.6.0   2018-05-15 local          
-##  grid             3.6.0   2018-05-15 local          
-##  htmltools        0.3.6   2017-04-28 CRAN (R 3.6.0) 
-##  knitr            1.20    2018-02-20 CRAN (R 3.6.0) 
-##  lattice          0.20-35 2017-03-25 CRAN (R 3.6.0) 
-##  magrittr         1.5     2014-11-22 CRAN (R 3.6.0) 
-##  MASS             7.3-50  2018-04-30 CRAN (R 3.6.0) 
-##  Matrix           1.2-14  2018-04-13 CRAN (R 3.6.0) 
-##  memoise        * 1.1.0   2017-04-21 CRAN (R 3.6.0) 
-##  methods        * 3.6.0   2018-05-15 local          
-##  microbenchmark * 1.4-6   2018-10-18 CRAN (R 3.6.0) 
-##  multcomp         1.4-8   2017-11-08 CRAN (R 3.6.0) 
-##  mvtnorm          1.0-8   2018-05-31 CRAN (R 3.6.0) 
-##  R6               2.2.2   2017-06-17 CRAN (R 3.6.0) 
-##  Rcpp           * 0.12.19 2018-10-01 cran (@0.12.19)
-##  rlang            0.2.0   2018-02-20 CRAN (R 3.6.0) 
-##  rmarkdown      * 1.10    2018-06-11 CRAN (R 3.6.0) 
-##  rprojroot        1.3-2   2018-01-03 CRAN (R 3.6.0) 
-##  rstudioapi       0.7     2017-09-07 CRAN (R 3.6.0) 
-##  sandwich         2.5-0   2018-08-17 CRAN (R 3.6.0) 
-##  splines          3.6.0   2018-05-15 local          
-##  stats          * 3.6.0   2018-05-15 local          
-##  stringi          1.2.2   2018-05-02 CRAN (R 3.6.0) 
-##  stringr          1.3.1   2018-05-10 CRAN (R 3.6.0) 
-##  survival         2.42-4  2018-06-30 CRAN (R 3.6.0) 
-##  testthat       * 2.0.0   2017-12-13 CRAN (R 3.6.0) 
-##  TH.data          1.0-9   2018-07-10 CRAN (R 3.6.0) 
-##  tools            3.6.0   2018-05-15 local          
-##  utils          * 3.6.0   2018-05-15 local          
-##  withr            2.1.2   2018-03-15 CRAN (R 3.6.0) 
-##  yaml             2.1.19  2018-05-01 CRAN (R 3.6.0) 
-##  zoo              1.8-4   2018-09-19 CRAN (R 3.6.0)</code></pre>
+##  date     2019-01-23                                        
+## 
+## ─ Packages ──────────────────────────────────────────────────────────────
+##  package     * version date       lib source        
+##  assertthat    0.2.0   2017-04-11 [1] CRAN (R 3.6.0)
+##  backports     1.1.2   2017-12-13 [1] CRAN (R 3.6.0)
+##  base64enc     0.1-3   2015-07-28 [1] CRAN (R 3.6.0)
+##  callr         3.0.0   2018-08-24 [1] CRAN (R 3.6.0)
+##  cli           1.0.0   2017-11-05 [1] CRAN (R 3.6.0)
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.0)
+##  desc          1.2.0   2018-05-01 [1] CRAN (R 3.6.0)
+##  devtools    * 2.0.1   2018-10-26 [1] CRAN (R 3.6.0)
+##  digest        0.6.15  2018-01-28 [1] CRAN (R 3.6.0)
+##  evaluate      0.10.1  2017-06-24 [1] CRAN (R 3.6.0)
+##  foo         * 0.0.1   2018-10-25 [1] local         
+##  fs            1.2.6   2018-08-23 [1] CRAN (R 3.6.0)
+##  glue          1.2.0   2017-10-29 [1] CRAN (R 3.6.0)
+##  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.6.0)
+##  knitr         1.20    2018-02-20 [1] CRAN (R 3.6.0)
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.0)
+##  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.6.0)
+##  pkgbuild      1.0.2   2018-10-16 [1] CRAN (R 3.6.0)
+##  pkgload       1.0.1   2018-10-11 [1] CRAN (R 3.6.0)
+##  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.6.0)
+##  processx      3.2.0   2018-08-16 [1] CRAN (R 3.6.0)
+##  ps            1.1.0   2018-08-10 [1] CRAN (R 3.6.0)
+##  R6            2.2.2   2017-06-17 [1] CRAN (R 3.6.0)
+##  Rcpp          0.12.19 2018-10-01 [1] CRAN (R 3.6.0)
+##  remotes       2.0.2   2018-10-30 [1] CRAN (R 3.6.0)
+##  rlang         0.2.0   2018-02-20 [1] CRAN (R 3.6.0)
+##  rmarkdown   * 1.10    2018-06-11 [1] CRAN (R 3.6.0)
+##  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.6.0)
+##  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.0)
+##  stringi       1.2.2   2018-05-02 [1] CRAN (R 3.6.0)
+##  stringr       1.3.1   2018-05-10 [1] CRAN (R 3.6.0)
+##  testthat      2.0.0   2017-12-13 [1] CRAN (R 3.6.0)
+##  usethis     * 1.4.0   2018-08-14 [1] CRAN (R 3.6.0)
+##  withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.0)
+##  yaml          2.1.19  2018-05-01 [1] CRAN (R 3.6.0)
+## 
+## [1] /Users/love/bin/R/library</code></pre>
 </div>
 <div id="types-of-package-dependencies" class="section level1">
 <h1>Types of package dependencies</h1>
@@ -518,6 +524,61 @@ help(topic=&quot;add&quot;, package=&quot;foo&quot;)</code></pre>
 <div id="package-checking" class="section level1">
 <h1>Package checking</h1>
 <p>R has a very useful, but also very picky checking software associated with it. It can be run with the <code>check</code> function from the <em>devtools</em> package, or by running <code>R CMD check foo_0.0.1.tar.gz</code> from the command line. Passing all of the R package checks is a good idea if you plan to share your code with others. In addition, there may be <a href="https://bioconductor.org/packages/devel/bioc/vignettes/BiocCheck/inst/doc/BiocCheck.html">other checks</a> that you will need to pass if you want to submit to Bioconductor. We won’t cover R package checking, as we only have limited time, but the reference on <a href="http://r-pkgs.had.co.nz/check.html">R Packages</a> from Hadley Wickham discusses this.</p>
+</div>
+<div id="session-info" class="section level1">
+<h1>Session info</h1>
+<pre class="r"><code>session_info()</code></pre>
+<pre><code>## ─ Session info ──────────────────────────────────────────────────────────
+##  setting  value                                             
+##  version  R Under development (unstable) (2018-05-14 r74725)
+##  os       macOS  10.14.2                                    
+##  system   x86_64, darwin15.6.0                              
+##  ui       X11                                               
+##  language (EN)                                              
+##  collate  en_US.UTF-8                                       
+##  ctype    en_US.UTF-8                                       
+##  tz       America/New_York                                  
+##  date     2019-01-23                                        
+## 
+## ─ Packages ──────────────────────────────────────────────────────────────
+##  package     * version date       lib source        
+##  assertthat    0.2.0   2017-04-11 [1] CRAN (R 3.6.0)
+##  backports     1.1.2   2017-12-13 [1] CRAN (R 3.6.0)
+##  base64enc     0.1-3   2015-07-28 [1] CRAN (R 3.6.0)
+##  callr         3.0.0   2018-08-24 [1] CRAN (R 3.6.0)
+##  cli           1.0.0   2017-11-05 [1] CRAN (R 3.6.0)
+##  crayon        1.3.4   2017-09-16 [1] CRAN (R 3.6.0)
+##  desc          1.2.0   2018-05-01 [1] CRAN (R 3.6.0)
+##  devtools    * 2.0.1   2018-10-26 [1] CRAN (R 3.6.0)
+##  digest        0.6.15  2018-01-28 [1] CRAN (R 3.6.0)
+##  evaluate      0.10.1  2017-06-24 [1] CRAN (R 3.6.0)
+##  foo         * 0.0.1   2018-10-25 [1] local         
+##  fs            1.2.6   2018-08-23 [1] CRAN (R 3.6.0)
+##  glue          1.2.0   2017-10-29 [1] CRAN (R 3.6.0)
+##  htmltools     0.3.6   2017-04-28 [1] CRAN (R 3.6.0)
+##  knitr         1.20    2018-02-20 [1] CRAN (R 3.6.0)
+##  magrittr      1.5     2014-11-22 [1] CRAN (R 3.6.0)
+##  memoise       1.1.0   2017-04-21 [1] CRAN (R 3.6.0)
+##  pkgbuild      1.0.2   2018-10-16 [1] CRAN (R 3.6.0)
+##  pkgload       1.0.1   2018-10-11 [1] CRAN (R 3.6.0)
+##  prettyunits   1.0.2   2015-07-13 [1] CRAN (R 3.6.0)
+##  processx      3.2.0   2018-08-16 [1] CRAN (R 3.6.0)
+##  ps            1.1.0   2018-08-10 [1] CRAN (R 3.6.0)
+##  R6            2.2.2   2017-06-17 [1] CRAN (R 3.6.0)
+##  Rcpp          0.12.19 2018-10-01 [1] CRAN (R 3.6.0)
+##  remotes       2.0.2   2018-10-30 [1] CRAN (R 3.6.0)
+##  rlang         0.2.0   2018-02-20 [1] CRAN (R 3.6.0)
+##  rmarkdown   * 1.10    2018-06-11 [1] CRAN (R 3.6.0)
+##  rprojroot     1.3-2   2018-01-03 [1] CRAN (R 3.6.0)
+##  sessioninfo   1.1.1   2018-11-05 [1] CRAN (R 3.6.0)
+##  stringi       1.2.2   2018-05-02 [1] CRAN (R 3.6.0)
+##  stringr       1.3.1   2018-05-10 [1] CRAN (R 3.6.0)
+##  testthat      2.0.0   2017-12-13 [1] CRAN (R 3.6.0)
+##  usethis     * 1.4.0   2018-08-14 [1] CRAN (R 3.6.0)
+##  withr         2.1.2   2018-03-15 [1] CRAN (R 3.6.0)
+##  yaml          2.1.19  2018-05-01 [1] CRAN (R 3.6.0)
+## 
+## [1] /Users/love/bin/R/library</code></pre>
 </div>
 
 
