@@ -11,6 +11,7 @@ output:
 1:25-3:10 MW - Rosenau 235
 
 Dr. Love office hours: Wed 3:10-4pm @ McGavran 4115E (meet me after class) <br>
+Dr. Rashid's office hours: Wed 3:10-4pm @ McGavran 3104E (meet me after class) <br>
 Grader office hours: Fri 1-2pm @ MC1302 (except March 29 and April 5 in MC2302)
 
 [Syllabus](syllabus.html)
