@@ -307,7 +307,7 @@ div.tocify {
 <p>Examples of these broader applications include random effect, finite mixture, hidden markov, and latent class models. The relative ease of its implementation in such complex models is also an attractive feature of the EM.</p>
 <div id="example-finite-mixture-models" class="section level2">
 <h2><span class="header-section-number">1.1</span> Example: Finite Mixture Models</h2>
-<p>In the previous homework we looked at an example of a finite mixture model. There we assumed that the number of fish caught <span class="math inline">\(y_1\ldots y_{4075}\)</span> in the park population came from a mixture of two subpopulations, for example, the non-fishing population (with probability <span class="math inline">\(\pi\)</span> when <span class="math inline">\(y_i=0\)</span>) and the fishing population (with probability <span class="math inline">\((1-\pi)\)</span>). The PMF was given by <span class="math display">\[p(y_i|\pi,\lambda) = (\pi + (1-\pi)e^{-\lambda})^{I[y_i=0]}\left((1-\pi)\frac{e^{-\lambda}\lambda^{y_i}}{y_i!}\right)^{I[y_i&gt;0]}\]</span></p>
+<p>In the previous homework we looked at an example of a finite mixture model. There we assumed that the number of fish caught <span class="math inline">\(y_1\ldots y_{4075}\)</span> in the park population came from a mixture of two subpopulations, for example, the non-fishing population (with probability <span class="math inline">\(\pi\)</span> when <span class="math inline">\(y_i=0\)</span>) and the fishing population (with probability <span class="math inline">\((1-\pi)\)</span>). The PMF was given by <span class="math display">\[p(Y = y_i|\pi,\lambda) = (\pi + (1-\pi)e^{-\lambda})^{I[y_i=0]}\left((1-\pi)\frac{e^{-\lambda}\lambda^{y_i}}{y_i!}\right)^{I[y_i&gt;0]}\]</span></p>
 <p>This model, called a zero-inflated Poisson model, accounts for the excess zeros that are due to the non-fishing population, and, assuming the model correctly represents the observed data, should provide a less biased estimate of <span class="math inline">\(\lambda\)</span> relative to the regular Poisson model. Here, the probability of observing a zero is simply the sum of probabilities of that individual coming from either the non-fishing population (with probability <span class="math inline">\(\pi\)</span>) or from the non-fishing population and catch zero fish (with probability <span class="math inline">\((1-\pi)e^{-\lambda}\)</span>).</p>
 <p>Lets take this problem a step further. Let us assume that at a bass fishing tournament, a statistician took a survey of participants at the end of the week, asking them how many fish they had caught total. The statistician also noted the age of each individual, the length of their boat in feet, and as well as the approximate volume of the cooler they had brought in liters (<span class="math inline">\(l \times w \times h\)</span>). One of the things that the statistician wanted to determine was how factors such as age, boat size, and size of the cooler were related to the number of fish an individual caught during the week.</p>
 <p>For the purposes of illustration, we simulate this data and list the simulation code in the RMD file pertaining to this lecture in case you want to follow along. We will come back to this simulation setup later.</p>
@@ -352,9 +352,9 @@ summary(fit)</code></pre>
 <p><span class="math display">\[
 f(y_i|\boldsymbol{\theta}) = \sum_{k =1}^K \pi_kf_k(y_i|\boldsymbol{X}_{ik}, \boldsymbol{\beta}_k)
 \]</span></p>
-<p>where <span class="math inline">\(\boldsymbol{\theta} = (\boldsymbol{\pi}^T, \boldsymbol{\beta}^T)\)</span>, <span class="math inline">\(\boldsymbol{\pi} = (\pi_1,\ldots,\pi_K)^T\)</span>, <span class="math inline">\(\sum_{k=1}^K \pi_k = 1\)</span>, <span class="math inline">\(\boldsymbol{\beta} = (\boldsymbol{\beta}_1,\ldots,\boldsymbol{\beta}_K)^T\)</span>, and <span class="math inline">\(\boldsymbol{\beta}_k = (\beta_1,\ldots,\beta_{pk})\)</span>. Here, <span class="math inline">\(f_k(y_i|\boldsymbol{X}_{ik}, \boldsymbol{\beta}_k) = \frac{e^{-\lambda_{ik}}\lambda_{ik}^{y_i}}{y_i!}\)</span> and <span class="math inline">\(\lambda_{ik} = \exp(\boldsymbol{X}_{ik}\boldsymbol{\beta}_k)\)</span>. That is, we assume that the data has been generated from a mixture of poisson regression models each with <span class="math inline">\(p_k\)</span> dimensional predictor vector <span class="math inline">\(\boldsymbol{X}_{ik}\)</span> and regression coefficients <span class="math inline">\(\boldsymbol{\beta}_k\)</span>. When <span class="math inline">\(\beta_k = \beta_{0k}\)</span> and <span class="math inline">\(\boldsymbol{X}_{ik} = 1\)</span>, then this problem reduces to a simple Poisson finite mixture model, where the mean of each mixture component <span class="math inline">\(\lambda_{ik} = \exp(\beta_{0k})\)</span>.</p>
+<p>where <span class="math inline">\(\boldsymbol{\theta} = (\boldsymbol{\pi}^T, \boldsymbol{\beta}^T)^T\)</span>, <span class="math inline">\(\boldsymbol{\pi} = (\pi_1,\ldots,\pi_K)^T\)</span>, <span class="math inline">\(\sum_{k=1}^K \pi_k = 1\)</span>, <span class="math inline">\(\boldsymbol{\beta} = (\boldsymbol{\beta}_1^T,\ldots,\boldsymbol{\beta}_K^T)^T\)</span>, and <span class="math inline">\(\boldsymbol{\beta}_k = (\beta_1,\ldots,\beta_{pk})^T\)</span>. Here, <span class="math inline">\(f_k(y_i|\boldsymbol{X}_{ik}, \boldsymbol{\beta}_k) = \frac{e^{-\lambda_{ik}}\lambda_{ik}^{y_i}}{y_i!}\)</span> and <span class="math inline">\(\lambda_{ik} = \exp(\boldsymbol{X}_{ik}\boldsymbol{\beta}_k)\)</span>. That is, we assume that the data has been generated from a mixture of poisson regression models each with <span class="math inline">\(p_k\)</span> dimensional predictor vector <span class="math inline">\(\boldsymbol{X}_{ik}\)</span> and regression coefficients <span class="math inline">\(\boldsymbol{\beta}_k\)</span>. When <span class="math inline">\(\beta_k = \beta_{0k}\)</span> and <span class="math inline">\(\boldsymbol{X}_{ik} = 1\)</span>, then this problem reduces to a simple Poisson finite mixture model, where the mean of each mixture component <span class="math inline">\(\lambda_{ik} = \exp(\beta_{0k})\)</span>.</p>
 <p>The log likelihood can be written as <span class="math display">\[l(\boldsymbol{\theta}) = \sum_{i=1}^n \log\left( \sum_{k =1}^K \pi_kf_k(y_i|\boldsymbol{X}_{ik}, \boldsymbol{\beta}_k)\right)\]</span></p>
-<p>For the previous homework it was obvious that fitting these type of mixture models using NR was very tedious, as that the first and second derivatives become very complicated. The sum within the log complicates such derivatives especially.</p>
+<p>For the previous homework it was obvious that fitting these types of mixture models using NR was very tedious, as that the first and second derivatives become very complicated. The sum within the log complicates such derivatives especially.</p>
 <p>We can show however that with the application of the EM algorithm that we can simplify the maximization procedure. We will show how we can adapt this model to our particular example, and how to fit it with the EM algorithm.</p>
 </div>
 <div id="the-basic-idea" class="section level2">
@@ -436,13 +436,17 @@ f(y_i|\boldsymbol{\theta}) = \sum_{k =1}^K \pi_kf_k(y_i|\boldsymbol{X}_{ik}, \bo
 <div id="log-likelihood" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Log Likelihood</h3>
 <p>From the general form of the FMR model given earlier, the log likelihood can be written as <span class="math display">\[l(\boldsymbol{\theta}) = \sum_{i=1}^n \log\left( \sum_{k =1}^2 \pi_kf_k(y_i|\boldsymbol{X}_{ik}, \boldsymbol{\beta}_k)\right),\]</span> where <span class="math inline">\(f_k(y_i|\boldsymbol{X}_{ik}, \boldsymbol{\beta}_k) = \frac{e^{-\lambda_{ik}}\lambda_{ik}^{y_i}}{y_i!}\)</span>, <span class="math inline">\(\lambda_{ik} = \exp(\boldsymbol{X}_{ik}\boldsymbol{\beta}_k)\)</span>, and <span class="math inline">\(\sum_{k = 1}^K \pi_k = 1\)</span>.</p>
-<p>In this example <span class="math inline">\(\boldsymbol{X}_{ik} = \boldsymbol{X}_i\)</span>, where <span class="math inline">\(\boldsymbol{X}_i\)</span> is a <span class="math inline">\(1 \times 4\)</span> vector pertaining to the intercept, age, log boat length in feet, and log cooler size in liters, and <span class="math inline">\(\beta_k = (\beta_0, \beta_1, \beta_2, \beta_3)^T\)</span> are the regression coefficients component <span class="math inline">\(k\)</span> pertaining to <span class="math inline">\(\boldsymbol{X}_i\)</span>. Therefore, we assume that the mean of each mixture component is modeled with different sets of regression coefficients but share the same set of predictors. This allows for the same predictor to potentially have different effects in each component. We also assume here that an observation may come from either the amateur or professional fishing populations, however the component membership of each observation is not known or observed.</p>
+<p>In this example <span class="math inline">\(\boldsymbol{X}_{ik} = \boldsymbol{X}_i\)</span>, where <span class="math inline">\(\boldsymbol{X}_i\)</span> is a <span class="math inline">\(1 \times 4\)</span> vector pertaining to the intercept, age, log boat length in feet, and log cooler size in liters, and <span class="math inline">\(\boldsymbol{\beta}_k = (\beta_0, \beta_1, \beta_2, \beta_3)^T\)</span> are the regression coefficients component <span class="math inline">\(k\)</span> pertaining to <span class="math inline">\(\boldsymbol{X}_i\)</span>. Therefore, we assume that the mean of each mixture component is modeled with different sets of regression coefficients but share the same set of predictors. This allows for the same predictor to potentially have different effects in each component. We also assume here that an observation may come from either the amateur or professional fishing populations, however the component membership of each observation is not known or observed.</p>
 </div>
 <div id="complete-data-log-likelihood" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Complete Data Log Likelihood</h3>
 <p>Given that the derivatives based on this log likelihood are complicated, the application of NR or even gradient-based methods may be tedious.</p>
 <p>Let us instead construct the CDLL in the following manner, assuming the original component membership of each observation was known:</p>
-<p><span class="math display">\[L_c(\theta_b) = \sum_{i=1}^n \log( \prod_{k =1}^2 \left[\pi_kf_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k)\right]^{I[z_i = k]}) = \sum_{i=1}^n \sum_{k =1}^2 I[z_i = k]\left[\log(\pi_k)+\log(f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k))\right]\]</span> where <span class="math inline">\(\boldsymbol{z} = (z_1,\ldots,z_n)\)</span> and <span class="math inline">\(z_i\)</span>, where <span class="math inline">\(z_i=1,2\)</span>, represents the component membership pertaining to observation <span class="math inline">\(i\)</span>, <span class="math inline">\(i = 1,\ldots,n\)</span>. By assuming the component membership is known, we can simplify the expression in the CDLL to the above, which no longer contains the log of a sum.</p>
+<span class="math display">\[\begin{align}
+L_c(\theta_b) &amp;= \sum_{i=1}^n \log( \prod_{k =1}^2 \left[\pi_kf_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k)\right]^{I[z_i = k]}) \\
+&amp;= \sum_{i=1}^n \sum_{k =1}^2 I[z_i = k]\left[\log(\pi_k)+\log(f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k))\right]\\
+\end{align}\]</span>
+<p>where <span class="math inline">\(\boldsymbol{z} = (z_1,\ldots,z_n)\)</span> and <span class="math inline">\(z_i\)</span>, where <span class="math inline">\(z_i=1,2\)</span>, represents the component membership pertaining to observation <span class="math inline">\(i\)</span>, <span class="math inline">\(i = 1,\ldots,n\)</span>. By assuming the component membership is known, we can simplify the expression in the CDLL to the above, which no longer contains the log of a sum.</p>
 <p>In reality, we do not know which component an individual came from. Thus, we still have the problem that we do not actually observe <span class="math inline">\(\boldsymbol{z}\)</span>, and we need to maximize the above expression. Lets now move on to the E and M-steps.</p>
 </div>
 <div id="e-step-1" class="section level3">
@@ -458,7 +462,7 @@ p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)}) &amp;= \frac{p(z_i = k,
 &amp;= \frac{p(z_i = k,\boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})}{\sum_{k =1}^2p(z_i = k,\boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})}\\
 &amp;= \frac{\pi_kf_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}^{(t)}_k)}{ \sum_{k =1}^2\pi_kf_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}^{(t)}_k))}
 \end{aligned}\]</span>
-<p>using the definition of conditional probability. So, evaluating the Q-function is facilitated by simply computing the expectation above. It is easy to see here that we are “filling in” the latent data <span class="math inline">\(z_i\)</span> with <span class="math inline">\(p([z_i = k] | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span>, making it possible to maximize this function. This quantity is sometimes referred to as the “posterior probability” of subject <span class="math inline">\(i\)</span> belonging to component <span class="math inline">\(k\)</span> at iteration <span class="math inline">\(t\)</span>.</p>
+<p>using the definition of conditional probability. So, evaluating the Q-function is facilitated by simply computing the expectation above. It is easy to see here that we are “filling in” the latent data <span class="math inline">\(z_i\)</span> with <span class="math inline">\(p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span>, making it possible to maximize this function. This quantity is sometimes referred to as the “posterior probability” of subject <span class="math inline">\(i\)</span> belonging to component <span class="math inline">\(k\)</span> at iteration <span class="math inline">\(t\)</span>.</p>
 <p>Upon convergence, we will see that we can actually use these values to classify subjects into components.</p>
 </div>
 <div id="m-step-1" class="section level3">
@@ -545,7 +549,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 9 logL: -1732.91 pi1: 0.533  eps:0.000004</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 0.07997298 secs</code></pre>
+<pre><code>## Time difference of 0.07743096 secs</code></pre>
 <p>Now lets looks at the results</p>
 <pre class="r"><code># print the mixture proportion estimates
 print(pi)</code></pre>
@@ -885,7 +889,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 240 logL: -37526.16 pi1: 0.536 theta1: 9.002 glm.nb1, eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 41.79611 secs</code></pre>
+<pre><code>## Time difference of 41.77912 secs</code></pre>
 <p>In the M-step, the following process is being utilized</p>
 <ul>
 <li>Initialization: Obtain <span class="math inline">\(\boldsymbol{\beta}^{(0)}\)</span> using poisson regression</li>
@@ -1034,7 +1038,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 260 logL: -37526.16 pi1: 0.536 theta1: 9.004 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 12.76066 secs</code></pre>
+<pre><code>## Time difference of 12.50805 secs</code></pre>
 <p>So, the ECM implementation here where we first maximize each parameter sequentially was much faster. This is because the original maximization routine was quite complex. The cycling within glm.nb to convergence is necessary to get accurate estimates of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> in standard applications, but when embedded within the EM is not entirely necessary. If we think about it, the estimates for <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> change so much between the earlier EM iterations that it’s a lot of computational time trying to get accurate estimates for them at those points.</p>
 </div>
 <div id="multicycle-ecm-1" class="section level3">
@@ -1146,7 +1150,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 180 logL: -37526.16 pi1: 0.536 theta1: 9.003 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 11.3258 secs</code></pre>
+<pre><code>## Time difference of 11.30696 secs</code></pre>
 </div>
 <div id="passing-prior-m-steps-estimates-as-starting-values" class="section level3">
 <h3><span class="header-section-number">5.3.4</span> Passing prior M-steps estimates as starting values</h3>
@@ -1262,7 +1266,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 180 logL: -37526.16 pi1: 0.536 theta1: 9.003 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 7.990904 secs</code></pre>
+<pre><code>## Time difference of 7.918037 secs</code></pre>
 </div>
 </div>
 <div id="monte-carlo-em-mcem" class="section level2">
