@@ -545,7 +545,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 9 logL: -1732.91 pi1: 0.533  eps:0.000004</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 0.07453203 secs</code></pre>
+<pre><code>## Time difference of 0.07997298 secs</code></pre>
 <p>Now lets looks at the results</p>
 <pre class="r"><code># print the mixture proportion estimates
 print(pi)</code></pre>
@@ -603,7 +603,7 @@ points(cooler, log(fit[[2]]$fitted+1), col = &quot;red&quot;)</code></pre>
 <div id="direct-evaluation" class="section level3">
 <h3><span class="header-section-number">4.0.1</span> Direct evaluation</h3>
 <p>Methods for <strong>direct evaluation</strong> of the covariance matrix have been developed, but in some cases may be tedious to derive and implement (Louis’ method, etc). Such approaches require one to derive the second derivatives of the CDLL, which in some cases may be tedious to calculate but much easier than working with the actually log likelihood. Here, after convergence of the EM algorithm, the MLE is utilized to calculate the observed Fisher Information matrix from these forms, which is then inverted to obtain the standard errors.</p>
-<p>We will not go into too much detail on this topic, but further information on this approach in given in McCullough Section 4.2.2, and an approximation for the i.i.d. case is given in Section 4.3, and for non-i.i.d data in 4.5. Several specific algorithms for implementing these direct calculation approaches are given in McCullough Section 4.7</p>
+<p>We will not go into too much detail on this topic, but further information on this approach in given in McLachlan and Krishnan (MK) Section 4.2.2, and an approximation for the i.i.d. case is given in Section 4.3, and for non-i.i.d data in 4.5. Several specific algorithms for implementing these direct calculation approaches are given in MK Section 4.7</p>
 </div>
 <div id="parametric-bootstrap" class="section level3">
 <h3><span class="header-section-number">4.0.2</span> Parametric Bootstrap</h3>
@@ -885,7 +885,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 240 logL: -37526.16 pi1: 0.536 theta1: 9.002 glm.nb1, eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 41.9179 secs</code></pre>
+<pre><code>## Time difference of 41.79611 secs</code></pre>
 <p>In the M-step, the following process is being utilized</p>
 <ul>
 <li>Initialization: Obtain <span class="math inline">\(\boldsymbol{\beta}^{(0)}\)</span> using poisson regression</li>
@@ -1034,7 +1034,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 260 logL: -37526.16 pi1: 0.536 theta1: 9.004 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 12.8072 secs</code></pre>
+<pre><code>## Time difference of 12.76066 secs</code></pre>
 <p>So, the ECM implementation here where we first maximize each parameter sequentially was much faster. This is because the original maximization routine was quite complex. The cycling within glm.nb to convergence is necessary to get accurate estimates of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> in standard applications, but when embedded within the EM is not entirely necessary. If we think about it, the estimates for <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> change so much between the earlier EM iterations that it’s a lot of computational time trying to get accurate estimates for them at those points.</p>
 </div>
 <div id="multicycle-ecm-1" class="section level3">
@@ -1146,7 +1146,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 180 logL: -37526.16 pi1: 0.536 theta1: 9.003 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 11.24534 secs</code></pre>
+<pre><code>## Time difference of 11.3258 secs</code></pre>
 </div>
 <div id="passing-prior-m-steps-estimates-as-starting-values" class="section level3">
 <h3><span class="header-section-number">5.3.4</span> Passing prior M-steps estimates as starting values</h3>
@@ -1262,7 +1262,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 180 logL: -37526.16 pi1: 0.536 theta1: 9.003 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 7.97379 secs</code></pre>
+<pre><code>## Time difference of 7.990904 secs</code></pre>
 </div>
 </div>
 <div id="monte-carlo-em-mcem" class="section level2">
@@ -1295,7 +1295,7 @@ We can rewrite the expectation of the Q-function as an integral, where the integ
 </div>
 <div id="for-more-detail" class="section level1">
 <h1><span class="header-section-number">6</span> For more detail:</h1>
-<p>GH Chapter 4, McCullough Chapter 1</p>
+<p>GH Chapter 4 McLachlan and Krishnan (The EM algorithm and Extensions), Chapter 1</p>
 </div>
 
 
