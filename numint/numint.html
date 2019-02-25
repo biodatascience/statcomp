@@ -996,17 +996,17 @@ print(val)</code></pre>
 <pre class="r"><code>p = 1-pnorm(4)
 print(p)</code></pre>
 <pre><code>## [1] 3.167124e-05</code></pre>
-<p>We can see that this probability is small as expected. We can also use MCI to obtain this estimate as well. Here, we are trying to compute <span class="math inline">\(E[I[Y &gt; 2]] = \int I[Y &gt; 4]f(Y)dY = p(Y &gt; 4)\)</span>, where <span class="math inline">\(f(Y) \sim N(0,1)\)</span>. Here we can approximate the integral such that <span class="math inline">\(\int I[Y &gt; 4]f(Y)dY = \sum_{k = 1}^{M}I[Y_k &gt; 4]/M\)</span> Let’s try to compute this value using <span class="math inline">\(k = 1,000\)</span> samples:</p>
+<p>We can see that this probability is small as expected. We can also use MCI to obtain this estimate as well. Here, we are trying to compute <span class="math inline">\(E[I[Y &gt; 4]] = \int I[Y &gt; 4]f(Y)dY = p(Y &gt; 4)\)</span>, where <span class="math inline">\(f(Y) \sim N(0,1)\)</span>. Here we can approximate the integral such that <span class="math inline">\(\int I[Y &gt; 4]f(Y)dY = \sum_{k = 1}^{M}I[Y_k &gt; 4]/M\)</span> Let’s try to compute this value using <span class="math inline">\(k = 1,000\)</span> samples:</p>
 <pre class="r"><code># Num of MC samples
 M = 10^4
 
 # draw from standard normal
 y = rnorm(M)
 
-# compute MC estimate of p(Y &gt; 2)
+# compute MC estimate of p(Y &gt; 4)
 print(mean(y &gt; 4))</code></pre>
 <pre><code>## [1] 0</code></pre>
-<pre class="r"><code># compute MC variance for p(Y &gt; 2)
+<pre class="r"><code># compute MC variance for p(Y &gt; 4)
 print(var(y &gt; 4)/M)</code></pre>
 <pre><code>## [1] 0</code></pre>
 <p>So, the variance is still quite large, despite using 1,000 samples. To illustrate this variability, just rerurn the code above a couple of times and see how the estimate varies around its true value.</p>
@@ -1017,10 +1017,10 @@ M = 10^6
 # draw from standard normal
 y = rnorm(M)
 
-# compute MC estimate of p(Y &gt; 2)
+# compute MC estimate of p(Y &gt; 4)
 print(mean(y &gt; 4))</code></pre>
 <pre><code>## [1] 3.2e-05</code></pre>
-<pre class="r"><code># compute MC variance for p(Y &gt; 2)
+<pre class="r"><code># compute MC variance for p(Y &gt; 4)
 print(var(y &gt; 4)/M)</code></pre>
 <pre><code>## [1] 3.199901e-11</code></pre>
 <p>It does, at the cost of many more samples. So, how do we improve the efficiency of this approach? A similar question is how do we reduce the variance of the MC estimator?</p>
@@ -1043,10 +1043,10 @@ y_imp = rnorm(M, 4, 1)
 # compute importance weights
 wstar = dnorm(y_imp, 0, 1)/dnorm(y_imp, 4, 1)
 
-# compute MC estimate of p(Y &gt; 2)
+# compute MC estimate of p(Y &gt; 4)
 print(mean((y_imp &gt; 4)*wstar))</code></pre>
 <pre><code>## [1] 3.159761e-05</code></pre>
-<pre class="r"><code># compute MC variance for p(Y &gt; 2)
+<pre class="r"><code># compute MC variance for p(Y &gt; 4)
 print(var((y_imp &gt; 4)*wstar)/M)</code></pre>
 <pre><code>## [1] 4.507152e-15</code></pre>
 <p>So, we are able to achieve relatively good accuracy relative to the original approach with the same number of samples.</p>
