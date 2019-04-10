@@ -44,9 +44,9 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Mar 25, 27 | ENAR/projects | | | | |
 | **Module 3** | Mach. learning | | | | |
 | Apr 1, 3   | ML essentials | `ml` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd) | [essentials](ml/essentials.html) | Machine learning essentials |
-| Apr 8, 10  | SVM, RF | `ml` | [-](#) | [svm](ml/svm.html) | Support vector machines |
+| Apr 8, 10  | SVM, RF | `ml` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/svm_HW12.Rmd) | [svm](ml/svm.html) | Support vector machines |
 | | | | | [rf](ml/rf.html) | Random forests |
-| Apr 15, 17 | NN, projects | `ml` | [-](#) | [nn](ml/nn.html) | Neural networks |
+| Apr 15, 17 | NN, projects | `ml` | | [nn](ml/nn.html) | Neural networks |
 | Apr 22, 24 | Wrap-up | | | | |
 
 ---
