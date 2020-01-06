@@ -8,10 +8,10 @@ output:
 
 ### Course information
 
-1:25-3:10 MW - Rosenau 235
+1:25-3:10 MW - MC 1305
 
-Dr. Rashid's office hours: Wed 3:10-4pm @ McGavran 3104E (meet me after class) <br>
-Grader office hours: Fri 1-2pm @ MC1302 (except March 29 and April 5 in MC2302)
+Dr. Rashid's office hours: Wed 3:10-4pm @ MC 3104E (meet me after class) <br>
+Grader office hours: TBA
 
 [Syllabus](syllabus.html)
 
@@ -24,29 +24,29 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Week | Topic | Dir. | HW | HTML | Title |
 |------|-------|------|----|------|-------|
 | **Module 1**   | Sci. research | | | | |
-| Jan 9      | R code | `rpkg` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd)--> | [efficient](rpkg/efficient.html) | Readable and efficient R code |
-| Jan 14, 16 | R package | `rpkg` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW2.Rmd)--> | [build](rpkg/build.html) | Building an R package |
+| Jan 8      | R code | `rpkg` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd)--> | [efficient](rpkg/efficient.html) | Readable and efficient R code |
+| Jan 13, 15 | R package | `rpkg` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW2.Rmd)--> | [build](rpkg/build.html) | Building an R package |
 | | | | | [document](rpkg/document.html) | Documenting an R package |
 | | | | | [test](rpkg/test.html) | Writing package tests |
 | | | | | [debug](rpkg/debug.html) | Debugging in R |
-| Jan 23     | C++ from R | `rpkg` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW3.Rmd)--> | [rcpp](rpkg/rcpp.html) | Calling C++ with `Rcpp` |
-| Jan 28, 29 | Large data | `large` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/large/large_HW4.Rmd)--> | [datatable](large/datatable.html) | Working with `data.table` |
+| Jan 22     | C++ from R | `rpkg` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW3.Rmd)--> | [rcpp](rpkg/rcpp.html) | Calling C++ with `Rcpp` |
+| Jan 27, 29 | Large data | `large` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/large/large_HW4.Rmd)--> | [datatable](large/datatable.html) | Working with `data.table` |
 | | | | | [sqlite](large/sqlite.html) | Working with `RSQLite` |
 | | | | | [hdf5](large/hdf5.html) | Working with `rhdf5` |
 | | | | | [sparse](large/sparse.html) | Sparse data manipulation |
 | **Module 2**   | Optim. & Num. int. | | | | |
-| Feb 4, 6, 11   | General optim. | `optim` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/optim/optim_HW5.Rmd)--> | [optim](optim/optim.html) | General optimization |
-| Feb 13, 18 | EM algorithm | `em` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/em/em_HW6.Rmd)--> | [em](em/em.html) | EM algorithm |
-| Feb 20, 25     | Numer. integration | `numint` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/numint/numint_HW7.Rmd)--> | [numint](numint/numint.html) | Numerical integration |
-| Feb 27, Mar 4, 6 | General MCMC | `mcmc` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd)--> <!--[hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd)--> | [mcmc](mcmc/mcmc.html) | General MCMC |
-| Mar 18, 20   | Advanced MCMC | `advmcmc` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/advmcmc/advmcmc_HW10.Rmd)--> | [advmcmc](advmcmc/advmcmc.html) | Advanced MCMC |
-| Mar 25, 27 | ENAR/projects | | | | |
+| Feb 3, 5, 10   | General optim. | `optim` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/optim/optim_HW5.Rmd)--> | [optim](optim/optim.html) | General optimization |
+| Feb 12, 17 | EM algorithm | `em` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/em/em_HW6.Rmd)--> | [em](em/em.html) | EM algorithm |
+| Feb 19, 24     | Numer. integration | `numint` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/numint/numint_HW7.Rmd)--> | [numint](numint/numint.html) | Numerical integration |
+| Feb 26, Mar 2, 4 | General MCMC | `mcmc` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd)--> <!--[hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd)--> | [mcmc](mcmc/mcmc.html) | General MCMC |
+| Mar 16, 18   | Advanced MCMC | `advmcmc` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/advmcmc/advmcmc_HW10.Rmd)--> | [advmcmc](advmcmc/advmcmc.html) | Advanced MCMC |
+| Mar 23, 25 | ENAR/projects | | | | |
 | **Module 3** | Mach. learning | | | | |
-| Apr 1, 3   | ML essentials | `ml` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd)--> | [essentials](ml/essentials.html) | Machine learning essentials |
-| Apr 8, 10  | SVM, RF | `ml` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/svm_HW12.Rmd)--> | [svm](ml/svm.html) | Support vector machines |
+| Mar 30, Apr 1, 6   | ML essentials | `ml` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd)--> | [essentials](ml/essentials.html) | Machine learning essentials |
+| Apr 8, 13  | SVM, RF | `ml` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/svm_HW12.Rmd)--> | [svm](ml/svm.html) | Support vector machines |
 | | | | | [rf](ml/rf.html) | Random forests |
-| Apr 15, 17 | NN, projects | `ml` | | [nn](ml/nn.html) | Neural networks |
-| Apr 22, 24 | Wrap-up | | | | |
+| Apr 15, 20 | NN, projects | `ml` | | [nn](ml/nn.html) | Neural networks |
+| Apr 22 | Wrap-up | | | | |
 
 ---
 
