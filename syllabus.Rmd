@@ -1,10 +1,23 @@
 ---
 title: "BIOS 735 - Introduction to Statistical Computing"
-author: "Naim Rashid and Michael Love"
+author: "Naim Rashid"
 output: html_document
 ---
 
 # Syllabus
+
+### Instructor
+
+Dr. Naim Rashid <br>
+BIOS Office:  3104E McGavran-Greenberg Hall <br>
+LCCC Office:  20-020 Lineberger<br>
+email:  naim[at]unc.edu<br>
+phone:  919-966-8150<br>
+web:  https://naimurashid.github.io/ <br>
+
+### Texts
+
+There are no required texts for this course.  Any texts referenced in class lecture are either published online as open-access material or are available as free E-books through UNC libraries.  
 
 ### Objective and description
 
@@ -36,11 +49,6 @@ In this class, students will learn:
 * [BIOS 611 - Introduction to Data Science](https://biodatascience.github.io/datasci611/)
 * [BIOS 651 - Principles of Machine Learning](https://sph.unc.edu/bios/courses/)
 
-### Instructors
-
-* Dr. Naim Rashid
-* Dr. Michael Love
-
 ### Graded work
  
 The class will be taught through three modules. One final project
@@ -66,9 +74,7 @@ The School of Public Health grading system is designed so that the
 mode of the grading distribution is P. The last graded assignment will
 be due on the last week of regular classes. 
 
-*Homework policy* - students are allowed and encouraged to talk about
-ideas and approaches to homework problems in groups, though students
-should write up the code for the assignments **independently**.
+*Homework policy* - students are allowed and encouraged to talk about ideas and approaches to homework problems in groups, though students should write up the code for the assignments **independently**. Copying someone else’s work is always an honor code violation.  Expulsion from the university is possible if the honor code is violated, and receiving 0% on the assignment in question is a certainty.
 
 # Schedule
 
@@ -96,8 +102,8 @@ should write up the code for the assignments **independently**.
     - Gibbs sampling
     - Metropolis Hastings
 * Advanced MCMC (1 week)
-    - Slice sampling
     - Metropolis within Gibbs
+    - Adaptive Metropolis within Gibbs
     - Reversible jump MCMC
 * Constrained optimization (1 week)
     - Linear and Quadratic Programming

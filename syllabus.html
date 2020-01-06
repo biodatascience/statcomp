@@ -7,9 +7,10 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Naim Rashid and Michael Love" />
+<meta name="author" content="Naim Rashid" />
 
 
 <title>BIOS 735 - Introduction to Statistical Computing</title>
@@ -255,9 +256,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -271,7 +270,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -282,22 +280,80 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -307,13 +363,21 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">BIOS 735 - Introduction to Statistical Computing</h1>
-<h4 class="author"><em>Naim Rashid and Michael Love</em></h4>
+<h4 class="author">Naim Rashid</h4>
 
 </div>
 
 
 <div id="syllabus" class="section level1">
 <h1>Syllabus</h1>
+<div id="instructor" class="section level3">
+<h3>Instructor</h3>
+<p>Dr. Naim Rashid <br> BIOS Office: 3104E McGavran-Greenberg Hall <br> LCCC Office: 20-020 Lineberger<br> email: naim[at]unc.edu<br> phone: 919-966-8150<br> web: <a href="https://naimurashid.github.io/" class="uri">https://naimurashid.github.io/</a> <br></p>
+</div>
+<div id="texts" class="section level3">
+<h3>Texts</h3>
+<p>There are no required texts for this course. Any texts referenced in class lecture are either published online as open-access material or are available as free E-books through UNC libraries.</p>
+</div>
 <div id="objective-and-description" class="section level3">
 <h3>Objective and description</h3>
 <p>This class teaches important concepts and skills for statistical computing, numerical optimization, and machine learning using case studies. After this course, students will have a good understanding of the process of producing high-quality and sharable statistical programs, algorithms for optimization and numerical integration, and will be able to implement and apply some common and powerful machine learning methods.</p>
@@ -343,13 +407,6 @@ $(document).ready(function () {
 <li><a href="https://sph.unc.edu/bios/courses/">BIOS 651 - Principles of Machine Learning</a></li>
 </ul>
 </div>
-<div id="instructors" class="section level3">
-<h3>Instructors</h3>
-<ul>
-<li>Dr. Naim Rashid</li>
-<li>Dr. Michael Love</li>
-</ul>
-</div>
 <div id="graded-work" class="section level3">
 <h3>Graded work</h3>
 <p>The class will be taught through three modules. One final project (40%) a final presentation (20%), and weekly homework assignments (40% total) will make up the final grade for the course.</p>
@@ -362,7 +419,7 @@ $(document).ready(function () {
 <li>F: Fail</li>
 </ul>
 <p>The School of Public Health grading system is designed so that the mode of the grading distribution is P. The last graded assignment will be due on the last week of regular classes.</p>
-<p><em>Homework policy</em> - students are allowed and encouraged to talk about ideas and approaches to homework problems in groups, though students should write up the code for the assignments <strong>independently</strong>.</p>
+<p><em>Homework policy</em> - students are allowed and encouraged to talk about ideas and approaches to homework problems in groups, though students should write up the code for the assignments <strong>independently</strong>. Copying someone else’s work is always an honor code violation. Expulsion from the university is possible if the honor code is violated, and receiving 0% on the assignment in question is a certainty.</p>
 </div>
 </div>
 <div id="schedule" class="section level1">
@@ -403,8 +460,8 @@ $(document).ready(function () {
 </ul></li>
 <li>Advanced MCMC (1 week)
 <ul>
-<li>Slice sampling</li>
 <li>Metropolis within Gibbs</li>
+<li>Adaptive Metropolis within Gibbs</li>
 <li>Reversible jump MCMC</li>
 </ul></li>
 <li>Constrained optimization (1 week)
@@ -432,7 +489,7 @@ $(document).ready(function () {
 </ul></li>
 </ul>
 <hr />
-<p>This page was last updated on 01/10/2019.</p>
+<p>This page was last updated on 01/06/2020.</p>
 <ul>
 <li><a href="https://github.com/biodatascience/statcomp_src">GitHub repo</a></li>
 <li><a href="https://github.com/biodatascience/statcomp_src/blob/master/LICENSE">License</a></li>
@@ -457,6 +514,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
