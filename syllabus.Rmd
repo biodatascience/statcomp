@@ -1,7 +1,8 @@
 ---
 title: "BIOS 735 - Introduction to Statistical Computing"
 author: "Naim Rashid"
-output: html_document
+output:
+  html_document: default
 ---
 
 # Syllabus
