@@ -25,9 +25,9 @@ This class teaches important concepts and skills for statistical
 computing, numerical optimization, and machine learning using case
 studies. After this course, students will have a good understanding of
 the process of producing high-quality and sharable statistical
-programs, algorithms for optimization and numerical integration, and
+programs (module 1, 3 weeks), algorithms for optimization and numerical integration (module 2, 6 weeks), and
 will be able to implement and apply some common and powerful machine
-learning methods.
+learning methods (module 3, 3 weeks).  Modules 1 and 3 were originally developed by [Dr. Michael Love](https://mikelove.github.io). 
 
 ### Content
 
@@ -78,14 +78,14 @@ be due on the last week of regular classes.
 
 # Schedule
 
-### Module 1 – Statistical Computing for Scientific Research (3 weeks, Dr. Michael Love)
+### Module 1 – Statistical Computing for Scientific Research (3 weeks)
 
 * Writing readable and efficient R code
 * Building, documenting, testing, and submitting an R package
 * `Rcpp` for writing C++ code called from R
 * Techniques for handling large datasets
 
-### Module 2 – Optimization and Numerical Integration (6 weeks, Dr. Naim Rashid)
+### Module 2 – Optimization and Numerical Integration (6 weeks)
 
 * General Optimization (1.5 weeks)
     - Newton Raphson, fisher scoring, IRLS
@@ -93,23 +93,24 @@ be due on the last week of regular classes.
 * EM Algorithm (1 week)
     - EM, ECM 
     - Other variants: SEM, MCEM, Rejection Controlled EM
-* General Numerical integration (1/2 week)
+* General Numerical integration (1 week)
     - Gaussian Quadrature
     - Monte Carlo Integration
     - Importance Sampling 
-* General Markov Chain Monte Carlo methods (1 week)
+* General Markov Chain Monte Carlo methods (1.5 week)
     - Direct and rejection sampling
     - Gibbs sampling
     - Metropolis Hastings
 * Advanced MCMC (1 week)
-    - Metropolis within Gibbs
-    - Adaptive Metropolis within Gibbs
-    - Reversible jump MCMC
-* Constrained optimization (1 week)
-    - Linear and Quadratic Programming
-    - Penalized likelihood methods 
+    - Metropolis within Gibbs + adaptive variants
+    - Hamiltonian MCMC
+    - Scaling up: Variational Inference 
+<!-- *Reversible jump MCMC -->
+<!--* Constrained optimization (1 week) -->
+<!--    - Linear and Quadratic Programming -->
+<!--    - Penalized likelihood methods -->
 
-### Module 3 - Machine Learning Topics (3 weeks, Dr. Michael Love)
+### Module 3 - Machine Learning Topics (3 weeks)
 
 * Machine learning essentials
     - training and test sets
