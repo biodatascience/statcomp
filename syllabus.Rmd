@@ -40,7 +40,7 @@ In this class, students will learn:
 
 ### Prerequisites - strictly enforced
 
-* [BIOS 663 & 760 (or 762 if Bios DrPH)](https://sph.unc.edu/bios/courses/) --- **Note this has changed.**
+* [BIOS 663 & 760 (or 762 if Bios DrPH)](https://sph.unc.edu/bios/courses/) 
 * One programming class at the undergraduate level or [BIOS 611](https://biodatascience.github.io/datasci611/)
 * Prior R experience is required, familiarity with [basic R functions](https://github.com/biodatascience/compbio_src/blob/master/eda/functions.md)
 * Basic knowledge of the Linux environment
@@ -53,8 +53,7 @@ In this class, students will learn:
 ### Graded work
  
 The class will be taught through three modules. One final project
-(40%) a final presentation (20%), and weekly homework assignments
-(40% total) will make up the final grade for the course.
+(30%), an initial proposal for the final project (10%), a final presentation (20%), and weekly homework assignments (40%) will make up the final grade for the course.  The initial proposal (due March 4th) can be resubmitted for a regrade as many times as desired up until March 30th.  
 
 At the beginning of the course, students will learn to create an R
 package which they will update as the class progresses, implementing
