@@ -16,6 +16,10 @@ email:  naim[at]unc.edu<br>
 phone:  919-966-8150<br>
 web:  https://naimurashid.github.io/ <br>
 
+### Course Website
+
+https://biodatascience.github.io/statcomp/
+
 ### Texts
 
 There are no required texts for this course.  Any texts referenced in class lecture are either published online as open-access material or are available as free E-books through UNC libraries.  
