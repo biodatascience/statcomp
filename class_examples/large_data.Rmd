@@ -1,0 +1,96 @@
+---
+title: "Large Data Regression and Rcpp"
+author: "Naim Rashid"
+date: "1/29/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here we will utilize the college scorecard dataset to fit a linear regression model using base R's lm() function.  We will then  compare its performance to several alternative approaches that we have discussed in class. Please fill in the following code chunks to answer each question below. 
+
+# Data import
+
+Using functions from the data.table package, 
+
+1.  Read in the college scorecard file, saving it to an object called "scores".  
+
+```{r}
+# data import
+
+```
+
+
+2.  Report the dimensions of the scores object and make a figure illustrating the distribution of the number of branches (NUMBRANCH) across institutions. 
+
+```{r}
+
+```
+
+3.  Subset scores only to those observations where NUMBRANCH is less than 20, and then save this this to a new object "scores_filtered".  Report the dimensions again, and determine how many entries were removed. 
+
+```{r}
+
+```
+
+# Regression using lm()
+
+Now fit a linear regression model in R using lm(), utilizing TUITFTE as the outcome variable and ADM_RATE, SAT_AVG, CONTROL, and AVGFACSAL as predictors.  Similar to lecture, make sure to convert TUITFTW to a numberic variable.  Summarize the remaining predictors, and determine whether you need to make a similar type conversions above. To simplfy things later, save just these variables in a new object called scores_filtered_reduced, and then drop rows that have any NA values in the outcome or predictor variables
+
+```{r}
+
+```
+
+Now fit the model described above using lm(), summarizing the results and timing the operation.  Show how one can do this in one line using scores_filtered.  Interpret the results.
+
+```{r}
+
+```
+
+# Getting Fixed Effects Estimates Using Matrices in R
+
+Now, using what you learned in your prior coursework, using matrix based operations to manually calculate the regression coefficient estimates from the model above.  
+
+Define X as the predictor matrix pertaining to the model, and y as the vector pertaining to the outcome.  Write the expression for the solution for the regression coefficients in terms of X and y in mathematical notation
+
+> Write expression here
+
+Now, create the the predictor matrix in R and save it an object X.  Similarly, save the outcome variable to a numeric vector y.  Implement your expression in R code below using matrix operations to return your result. Check if this solution matches the one from lm().
+
+```{r}
+
+```
+
+Now lets compare the run time of lm() and your approach above:
+
+```{r}
+
+```
+
+# Rcpp Armadillo implementation
+
+Now lets implement the same procedure using Rcpp Armadillo.  Using the Armadillo reference sheet given in lecture, fill in the inline cpp function below
+
+```{r}
+library(Rcpp)
+library(RcppArmadillo)
+
+# write the function below
+cppFunction('arma::colvec fastlm(const arma::vec & y, const arma::mat & X){
+   
+   // insert one line of code here ;
+
+   // return vector here;
+   
+}'
+,depends = "RcppArmadillo")
+
+# now execute the function below, showing that you get the same result.  
+
+
+# Compare the run time using microbenchmark
+
+
+```
