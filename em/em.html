@@ -1671,9 +1671,16 @@ L_c(\theta_b) &amp;= \sum_{i=1}^n \log( \prod_{k =1}^2 \left[\pi_kf_k(y_i|\bolds
 <div id="e-step-1" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> E-step</h3>
 <p>Now we must evaluate the expectation of the CDLL, <span class="math inline">\(Q(\boldsymbol{\theta}|\boldsymbol{\theta}^{(t)}) = E\left[ \log L_c(\boldsymbol{\theta}) | \boldsymbol{y}_o,\boldsymbol{\theta}^{(t)}\right]\)</span>. Here, this simply reduces to</p>
-<p>\begin{aligned} Q(|^{(t)}) &amp;=<em>{i=1}^n </em>{k =1}^2 E[I[z_i = k] | _o, ^{(t)}]\ &amp;= <em>{i=1}^n </em>{k =1}^2 p(z_i = k | _o, ^{(t)})\end{aligned}</p>
+<p><span class="math display">\[\begin{align}
+Q(\boldsymbol{\theta}|\boldsymbol{\theta}^{(t)}) &amp;=\sum_{i=1}^n \sum_{k =1}^2 E[I[z_i = k] | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)}]\left[\log(\pi_k)+\log(f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k))\right]\\
+&amp;= \sum_{i=1}^n \sum_{k =1}^2 p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\left[\log(\pi_k)+\log(f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k))\right]
+\end{align}\]</span></p>
 <p>We can show that</p>
-<p>\begin{aligned} p(z_i = k | _o, ^{(t)}) &amp;=  \ &amp;= \ &amp;=  \end{aligned}</p>
+<p><span class="math display">\[\begin{align}
+p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)}) &amp;= \frac{p(z_i = k,\boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})}{p(\boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})} \\
+&amp;= \frac{p(z_i = k,\boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})}{\sum_{k =1}^2p(z_i = k,\boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})}\\
+&amp;= \frac{\pi_k^{(t)}f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}^{(t)}_k)}{ \sum_{k =1}^2\pi_k^{(t)}f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}^{(t)}_k))}
+\end{align}\]</span></p>
 <p>using the definition of conditional probability. So, evaluating the Q-function is facilitated by simply computing the expectation above. It is easy to see here that we are “filling in” the latent data <span class="math inline">\(z_i\)</span> with <span class="math inline">\(p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span>, making it possible to maximize this function. This quantity is sometimes referred to as the “posterior probability” of subject <span class="math inline">\(i\)</span> belonging to component <span class="math inline">\(k\)</span> at iteration <span class="math inline">\(t\)</span>.</p>
 <p>Upon convergence, we will see that we can actually use these values to classify subjects into components.</p>
 </div>
@@ -1761,7 +1768,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 9 logL: -1732.91 pi1: 0.533  eps:0.000004</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 0.09233594 secs</code></pre>
+<pre><code>## Time difference of 0.08862305 secs</code></pre>
 <p>Now lets looks at the results</p>
 <pre class="r"><code># print the mixture proportion estimates
 print(pi)</code></pre>
@@ -2099,7 +2106,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 240 logL: -37526.16 pi1: 0.536 theta1: 9.002 glm.nb1, eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 53.68387 secs</code></pre>
+<pre><code>## Time difference of 52.20039 secs</code></pre>
 <p>In the M-step, the following process is being utilized</p>
 <ul>
 <li>Initialization: Obtain <span class="math inline">\(\boldsymbol{\beta}^{(0)}\)</span> using poisson regression</li>
@@ -2249,7 +2256,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 220 logL: -37526.16 pi1: 0.536 theta1: 9.001 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 14.6249 secs</code></pre>
+<pre><code>## Time difference of 14.37588 secs</code></pre>
 <p>So, the ECM implementation here where we first maximize each parameter sequentially was much faster. This is because the original maximization routine was quite complex. The cycling within glm.nb to convergence is necessary to get accurate estimates of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> in standard applications, but when embedded within the EM is not entirely necessary. If we think about it, the estimates for <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> change so much between the earlier EM iterations that it’s a lot of computational time trying to get accurate estimates for them at those points.</p>
 </div>
 <div id="multicycle-ecm-1" class="section level3">
@@ -2362,7 +2369,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 180 logL: -37526.16 pi1: 0.536 theta1: 9.003 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 13.95645 secs</code></pre>
+<pre><code>## Time difference of 13.93378 secs</code></pre>
 </div>
 <div id="passing-prior-m-steps-estimates-as-starting-values" class="section level3">
 <h3><span class="header-section-number">5.3.4</span> Passing prior M-steps estimates as starting values</h3>
@@ -2478,7 +2485,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 160 logL: -37526.16 pi1: 0.536 theta1: 9.001 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 8.359635 secs</code></pre>
+<pre><code>## Time difference of 8.455367 secs</code></pre>
 </div>
 </div>
 <div id="monte-carlo-em-mcem" class="section level2">
