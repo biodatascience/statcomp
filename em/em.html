@@ -1696,9 +1696,9 @@ p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)}) &amp;= \frac{p(z_i = k,
 <div id="m-step-1" class="section level3">
 <h3><span class="header-section-number">2.2.4</span> M-step</h3>
 <p>Here we now maximize <span class="math inline">\(Q(\boldsymbol{\theta}|\boldsymbol{\theta}^{(t)}) = \sum_{i=1}^n \sum_{k =1}^2 p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\left[\log(\pi_k)+\log(f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k))\right]\)</span>. We can simplify this to maximizing <span class="math display">\[\sum_{i=1}^n p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\log(f_k(y_i|\boldsymbol{X}_i, \boldsymbol{\beta}_k))\]</span> with respect to <span class="math inline">\(\boldsymbol{\beta}_k\)</span>, <span class="math inline">\(k = 1,2\)</span>, and <span class="math display">\[\sum_{i=1}^np(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\log(\pi_k)\]</span> with respect to <span class="math inline">\(\pi_k\)</span>, <span class="math inline">\(k = 1,2\)</span>. This is because the Q-function nicely separates with respect to each set of parameters.</p>
-<p>For each <span class="math inline">\(\boldsymbol{\beta}_k\)</span>, we can regard <span class="math inline">\(p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span> as “prior weights” in the GLM framework. This is to distinguish from the weights that are defined in each IRLS iteration. Therefore, we can obtain <span class="math inline">\(\boldsymbol{\beta}_k^{(t+1)}\)</span> by maximizing a weighted Poisson GLM with prior weights <span class="math inline">\(p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span> for each observation, responses <span class="math inline">\(y_1\ldots y_n\)</span>, and predictor matrix <span class="math inline">\(\boldsymbol{X}\)</span>. From prior coursework, you may remember that these prior weights are incorporated into the IRLS algorithm by multiplying them with the IRLS weights. For example, we can defined new IRLS weights <span class="math inline">\(w_i^{*(t)} =p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})w_i^{(t)}\)</span>. This can be easily done with off the shelf methods, or simply with the code given in the prior lecture.</p>
+<p>For each <span class="math inline">\(\boldsymbol{\beta}_k\)</span>, we can utilize <span class="math inline">\(p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span> as “prior weights” in the GLM framework. This is to distinguish from the weights that are defined in each IRLS iteration. Therefore, we can obtain <span class="math inline">\(\boldsymbol{\beta}_k^{(t+1)}\)</span> by maximizing a weighted Poisson GLM with prior weights <span class="math inline">\(p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span> for each observation, responses <span class="math inline">\(y_1\ldots y_n\)</span>, and predictor matrix <span class="math inline">\(\boldsymbol{X}\)</span>. From prior coursework, you may remember that these prior weights are incorporated into the IRLS algorithm by multiplying them with the IRLS weights. For example, we can defined new IRLS weights <span class="math inline">\(w_i^{*(t)} =p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})w_i^{(t)}\)</span>. This can be easily done with off the shelf methods, or simply with the code given in the prior lecture.</p>
 <p>For <span class="math inline">\(\pi_k\)</span>, we can show that <span class="math inline">\(\pi_k^{(t+1)} = \sum_{i=1}^n p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})/n\)</span>, that is, the mean of the posterior probabilities of each individual belonging to component <span class="math inline">\(k\)</span>. How do we get this? We have the constraint that <span class="math inline">\(\sum_{i=1}^{K} \pi_k = 1\)</span>, therefore we can compute the Langrangian for this problem and set its partial derivative to zero (don’t need to worry about this). Another way to think about this is that if we actually did observe the states, we could simply calculate <span class="math inline">\(\hat{\pi}_k = \sum_{i = 1}^nI[z_i = k]/n\)</span>. Since they are not observed, we can take the conditional expectation of each <span class="math inline">\(z_i\)</span> to give <span class="math inline">\(\pi_k^{(t+1)} = \sum_{i=1}^n p(z_i = k | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})/n\)</span>.</p>
-<p>Therefore, the M-step <span class="math inline">\(\boldsymbol{\beta}_k\)</span> reduces to the problem of computing a weighted GLM for each component, and for <span class="math inline">\(\pi_k\)</span> is simply the mean of the component posterior probabilities. This is drastically simpler than the alternative approaches that try to maximize the log likelihood directly. Also, as we will see, this also simplifies the coding implementation.</p>
+<p>Therefore, in the M-step maximizing the Q-function with respect to <span class="math inline">\(\boldsymbol{\beta}_k\)</span> reduces to the problem of computing a weighted GLM in each component. For <span class="math inline">\(\pi_k\)</span> the computation reduces to simply computing the mean of the component posterior probabilities of membership in each component. This is drastically simpler than the alternative approaches that try to maximize the log likelihood directly. Also, as we will see, this also simplifies the coding implementation by using existing maximization routines from the last lecture.</p>
 </div>
 <div id="initialization-and-convergence" class="section level3">
 <h3><span class="header-section-number">2.2.5</span> Initialization and Convergence</h3>
@@ -1714,19 +1714,20 @@ maxit = 50
 iter = 0
 eps = Inf
 ll = -10000
-fit = list()
+fit = list() # list object  for M-step
   
 ## create posterior probability matrix
 pp = matrix(0, n, 2)
+
+# name the columns 
 colnames(pp) = c(&quot;amateur&quot;,&quot;prof&quot;)
 
-## use informative initialization, 
-## assuming lower counts --&gt; amatuer
-## choose prop of samples that are amatuer first
-## should vary this and re-evaluate
+## use informative initialization,  assuming lower counts --&gt; amateur
+#  choose prop of samples that are amateur first
+#  should vary this and re-run to evaluate multiple starting points/partitions
 prop_ama = 0.6
 
-## set everything greater than th
+## set everything greater than 60th percentile to be professional
 pp[y &gt; quantile(y, prop_ama),2] = 1
 pp[,1] = 1 - pp[,2]
 
@@ -1741,7 +1742,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
     # pi, mean of component pp&#39;s
     pi = colMeans(pp)
     
-    # betak, weighted glm&#39;s based on pp
+    # beta_k, weighted glm&#39;s based on pp
     for(i in 1:2) fit[[i]] = glm(y ~ X -1, family = poisson(), weights = pp[,i])
   
   ## start E-step
@@ -1777,7 +1778,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 9 logL: -1732.91 pi1: 0.533  eps:0.000004</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 0.07837296 secs</code></pre>
+<pre><code>## Time difference of 0.1074741 secs</code></pre>
 <p>Now lets looks at the results</p>
 <pre class="r"><code># print the mixture proportion estimates
 print(pi)</code></pre>
@@ -1865,8 +1866,8 @@ points(cooler, log(fit[[2]]$fitted+1), col = &quot;red&quot;)</code></pre>
   colnames(pp) = c(&quot;amateur&quot;,&quot;prof&quot;)
   
   ## use informative initialization, 
-  ## assuming lower counts --&gt; amatuer
-  ## choose prop of samples that are amatuer first
+  ## assuming lower counts --&gt; amateur
+  ## choose prop of samples that are amateur first
   ## should vary this and re-evaluate
   
   ## set everything greater than th
@@ -1884,7 +1885,7 @@ points(cooler, log(fit[[2]]$fitted+1), col = &quot;red&quot;)</code></pre>
       # pi, mean of component pp&#39;s
       pi = colMeans(pp)
       
-      # betak, weighted glm&#39;s based on pp
+      # beta_k, weighted glm&#39;s based on pp
       for(i in 1:2) fit[[i]] = glm(y ~ X -1, family = poisson(), weights = pp[,i])
     
     ## start E-step
@@ -2076,7 +2077,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
     # pi, mean of component pp&#39;s
     pi = colMeans(pp)
     
-    # betak, weighted glm&#39;s based on pp
+    # beta_k, weighted glm&#39;s based on pp
     for(i in 1:2) fit[[i]] = glm.nb(y ~ X -1,  weights = pp[,i],control = list(maxit = 25, epsilon = 10^-8, trace = 0))
   
   ## start E-step
@@ -2115,7 +2116,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 240 logL: -37526.16 pi1: 0.536 theta1: 9.002 glm.nb1, eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 43.55052 secs</code></pre>
+<pre><code>## Time difference of 44.39664 secs</code></pre>
 <p>In the M-step, the following process is being utilized</p>
 <ul>
 <li>Initialization: Obtain <span class="math inline">\(\boldsymbol{\beta}^{(0)}\)</span> using poisson regression</li>
@@ -2191,8 +2192,8 @@ pp = matrix(0, n, 2)
 colnames(pp) = c(&quot;amateur&quot;,&quot;prof&quot;)
 
 ## use informative initialization, 
-## assuming lower counts --&gt; amatuer
-## choose prop of samples that are amatuer first
+## assuming lower counts --&gt; amateur
+## choose prop of samples that are amateur first
 ## should vary this and re-evaluate
 prop_ama = 0.6
 
@@ -2265,7 +2266,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 220 logL: -37526.16 pi1: 0.536 theta1: 9.001 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 11.80711 secs</code></pre>
+<pre><code>## Time difference of 11.7124 secs</code></pre>
 <p>So, the ECM implementation here where we first maximize each parameter sequentially was much faster. This is because the original maximization routine was quite complex. The cycling within glm.nb to convergence is necessary to get accurate estimates of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> in standard applications, but when embedded within the EM is not entirely necessary. If we think about it, the estimates for <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\phi\)</span> change so much between the earlier EM iterations that it’s a lot of computational time trying to get accurate estimates for them at those points.</p>
 </div>
 <div id="multicycle-ecm-1" class="section level3">
@@ -2378,7 +2379,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 180 logL: -37526.16 pi1: 0.536 theta1: 9.003 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 11.67199 secs</code></pre>
+<pre><code>## Time difference of 11.4271 secs</code></pre>
 </div>
 <div id="passing-prior-m-steps-estimates-as-starting-values" class="section level3">
 <h3><span class="header-section-number">5.3.4</span> Passing prior M-steps estimates as starting values</h3>
@@ -2494,7 +2495,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 160 logL: -37526.16 pi1: 0.536 theta1: 9.001 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 7.145633 secs</code></pre>
+<pre><code>## Time difference of 7.03477 secs</code></pre>
 </div>
 </div>
 <div id="monte-carlo-em-mcem" class="section level2">
