@@ -1756,7 +1756,6 @@ inner = function(gammai, yi, beta, s2gamma, log = F) {
     s2gamma = s2gamma,
     trace = 1
   )
-  
 }</code></pre>
 <pre><code>## t=1  n=2 value=5.1793058591e-07
 ## t=2  n=4 value=2.7894492974e-07
@@ -1975,7 +1974,12 @@ f_gammai = function(gammai, yi, beta, s2gamma) {
 \]</span></p>
 <p>Here, we want to use <span class="math inline">\(x = \frac{\gamma_1}{\sigma_{\gamma}\sqrt{2}}\)</span>, where then <span class="math inline">\(\gamma_1 = h(x) = \sigma_{\gamma}\sqrt{2}x\)</span>. More generally, if say <span class="math inline">\(\gamma_1 \sim N(\mu,\sigma^2)\)</span> then we perform the transformation <span class="math inline">\(x = \frac{\gamma_1 -\mu}{\sigma\sqrt{2}}\)</span> where <span class="math inline">\(\gamma_1 = \sigma\sqrt{2}x + \mu\)</span>.</p>
 <p>With this, we have that</p>
-<p>\begin{aligned} (<em>{j = 1}^{5}f(y</em>{1j} | <em>{1j})) e^{-} d<em>i &amp;= (</em>{j = 1}^{5}f(y</em>{1j} | <em>{1j})) e<sup>{-x</sup>2}h’(x)dx\ &amp;=(</em>{j = 1}^{5}f(y_{1j} | <em>{1j})) e<sup>{-x</sup>2}</em>{}dx\ &amp;=(<em>{j = 1}^{5}f(y</em>{1j} | <em>{1j})) e<sup>{-x</sup>2}dx\ &amp;</em>{k = 1}^M <em>{j = 1}^{5}f(y</em>{1j} | _{1j}) \end{aligned}</p>
+<p><span class="math display">\[\begin{align}
+\int \left(\prod_{j = 1}^{5}f(y_{1j} | \lambda_{1j})\right) \times \frac{1}{\sqrt{2\pi\sigma_{\gamma}^2}}e^{-\frac{\gamma_1^2}{2\sigma_{\gamma}^2}} d\gamma_i &amp;= \int \left(\prod_{j = 1}^{5}f(y_{1j} | \lambda_{1j})\right) \frac{1}{\sqrt{2\pi\sigma_{\gamma}^2}}e^{-x^2}h&#39;(x)dx\\
+&amp;=\int \left(\prod_{j = 1}^{5}f(y_{1j} | \lambda_{1j})\right)\frac{1}{\sqrt{2\pi\sigma_{\gamma}^2}} e^{-x^2}\sigma_{\gamma}\sqrt{2}dx\\
+&amp;=\int \left(\prod_{j = 1}^{5}f(y_{1j} | \lambda_{1j})\right)\frac{1}{\sqrt{\pi}} e^{-x^2}dx\\
+&amp;\approx \sum_{k = 1}^M \frac{1}{\sqrt{\pi}}\prod_{j = 1}^{5}f(y_{1j} | \lambda_{1j})
+\end{align}\]</span></p>
 <p>where now <span class="math inline">\(\log(\lambda_{1j}) = \boldsymbol{x}_{1j}^T\boldsymbol{\beta} + \sigma_{\gamma}\sqrt{2}x_k\)</span>. Let’s try it out:</p>
 <pre class="r"><code>f_x = function(x, y,beta,s2gamma){
   
@@ -2222,7 +2226,11 @@ abline(v = sqrt(2*s2gamma)*gh$nodes, lty = 2, col = &quot;grey&quot;)</code></pr
 <p><span class="math display">\[\int f(t)\phi(t; \mu, \sigma^2)dt\approx \sum_{k = 1}^M A^*_kf(t_k)\]</span></p>
 <p>where <span class="math inline">\(\phi(\mu, \sigma^2) \sim N(\mu, \sigma^2)\)</span>, <span class="math inline">\(t=\mu + \sqrt{2\sigma^2}x_k\)</span>, and <span class="math inline">\(A^*_k = A_k/\sqrt{\pi}\)</span>. You might notice that we performed a change of variable here similar in nature to what was done earlier. Now, we choose <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> so that the new quadrature nodes <span class="math inline">\(t_1,\ldots,t_M\)</span> are essentially a recentered and rescaled version of the original ones <span class="math inline">\(x_1,\ldots,x_M\)</span>, and will be placed in regions of highest mass of the original integrand, called say <span class="math inline">\(g(t)\)</span>. Here, we can choose <span class="math inline">\(\hat{\mu}\)</span> to correspond to the mode of the integrand <span class="math inline">\(g(t)\)</span>, which we can do through standard optimization routines from our first lecture. For <span class="math inline">\(\hat{\sigma}^2\)</span>, we can calculate <span class="math display">\[\hat{\sigma}^2 = \left(-\frac{\partial^2}{\partial t^2}\log(g(t))\rvert_{t=\hat{\mu}}\right)^{-1}\]</span>, that is, the inverse second derivative of the integrand evaluated at the posterior mode.</p>
 <p>Then, we can write the integral of <span class="math inline">\(g(t)\)</span> in the following form:</p>
-<p>\begin{aligned} g(t)dt &amp;= h(t)(t; , ^2)dt \ &amp;_{k = 1}^M A^<em><em>kh(t_k)\ &amp;=</em>{k = 1}^M A^</em>_kh( + x_k) \end{aligned}</p>
+<p><span class="math display">\[\begin{align}
+\int g(t)dt &amp;= h(t)\phi(t; \hat{\mu}, \hat{\sigma}^2)dt \\
+&amp;\approx \sum_{k = 1}^M A^*_kh(t_k)\\
+&amp;=\sum_{k = 1}^M A^*_kh\left(\hat{\mu} + \sqrt{2\hat{\sigma^2}}x_k\right)
+\end{align}\]</span></p>
 <p>where <span class="math inline">\(h(t) = \frac{g(t)}{\phi(t; \hat{\mu}, \hat{\sigma}^2)}\)</span>. We demonstrate this approach below for the first sample in the Alzheimer’s dataset. Here, <span class="math inline">\(h(t) = \frac{\prod_{j = 1}^{5}f(y_{1j} | \lambda_{1j})\phi(t| 0, \sigma^2_{\gamma})}{\phi(t; \hat{\mu}, \hat{\sigma}^2)}\)</span>, <span class="math inline">\(\log(\lambda_{1j}) = \boldsymbol{x}_{1j}^T\boldsymbol{\beta} + t\)</span>,and <span class="math inline">\(\hat{\mu}\)</span> and <span class="math inline">\(\hat{\sigma}^2\)</span> are chosen in the manner described above.</p>
 <pre class="r"><code># find posterior mode of the integrand wrt to t = gamma_1
 # starting value for gamma_1 set to 0
