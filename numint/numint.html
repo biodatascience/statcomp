@@ -2459,67 +2459,68 @@ abline(v = t, lty = 2, col = &quot;grey&quot;)</code></pre>
 <p>So far, we have introduced the MC estimator for the integral <span class="math inline">\(\hat{\mu}_{MC} = \frac{1}{M}\sum_{k = 1}^M f(\boldsymbol{X}_k)\)</span>. However, alternative strategies may be employed to reduce the variance of the MC estimator. The side benefit of these approaches is that one may be able to achieve sufficient accuracy with a fewer number of samples. We will connect this approach with the AGQ approach discussed above.</p>
 <div id="the-general-idea-2" class="section level2">
 <h2><span class="header-section-number">6.1</span> The general idea</h2>
-<p>The main idea behind importance sampling is that we oversample regions of <span class="math inline">\(\boldsymbol{x}\)</span> where most of the mass under <span class="math inline">\(h(\boldsymbol{x})f(\boldsymbol{x})\)</span> is located, and then adjust for the fact that you are oversampling in these regions relative to the original target density.</p>
-<p>This is helpful in situations where the majority of the mass is concentrated in small region, or in a region that is far away from the mean of the target distribution. In such situations, the majority of the samples drawn will not meaningfully contribute to the overall integral. Also, the one or two samples that hit the regions of high mass will not allow you to accurately estimate the integral and would also subject the MC estimator to have high variance in this case.</p>
-<p>For example, let’s say that we want to estimate the probability that some random variable <span class="math inline">\(Y &gt; 4\)</span>, where <span class="math inline">\(Y \sim N(0,1)\)</span>. We can estimate this directly in R:</p>
+<p>The main idea behind importance sampling is that we oversample the regions of <span class="math inline">\(\boldsymbol{x}\)</span> where most of the mass under <span class="math inline">\(h(\boldsymbol{x})f(\boldsymbol{x})\)</span> is contained, and then adjust for the fact that you are oversampling in these regions relative to the original target density.</p>
+<p>This is helpful in situations where the majority of the mass is concentrated in small region, or in a region that is far away from the mean of the target distribution. In such situations, the majority of the samples drawn will not meaningfully contribute to the overall integral. Also, the one or two samples that hit the regions of high mass will not allow you to accurately estimate the integral, and would also subject the MC estimator to have high variance as well</p>
+<p>For example, let’s say that we want to estimate the probability that some random variable <span class="math inline">\(Y\)</span> is greater than 4, where <span class="math inline">\(Y \sim N(0,1)\)</span>. We can estimate this directly in R:</p>
 <pre class="r"><code>p = 1-pnorm(4)
 print(p)</code></pre>
 <pre><code>## [1] 3.167124e-05</code></pre>
-<p>We can see that this probability is small as expected. We can also use MCI to obtain this estimate as well. Here, we are trying to compute <span class="math inline">\(E[I[Y &gt; 4]] = \int I[Y &gt; 4]f(Y)dY = p(Y &gt; 4)\)</span>, where <span class="math inline">\(f(Y) \sim N(0,1)\)</span>. Here we can approximate the integral such that <span class="math inline">\(\int I[Y &gt; 4]f(Y)dY = \sum_{k = 1}^{M}I[Y_k &gt; 4]/M\)</span> Let’s try to compute this value using <span class="math inline">\(M = 10,000\)</span> samples:</p>
-<pre class="r"><code># Num of MC samples
-M = 10^4
+<p>We can see that this probability is small, as expected. We can also use MCI to obtain this estimate as well. Here, we are essentially trying to compute <span class="math inline">\(E[I[Y &gt; 4]] = \int I[Y &gt; 4]f(Y)dY = p(Y &gt; 4)\)</span>, where <span class="math inline">\(f(Y) \sim N(0,1)\)</span>. We can approximate this integral such that <span class="math inline">\(\int I[Y &gt; 4]f(Y)dY = \sum_{k = 1}^{M}I[Y_k &gt; 4]/M\)</span> , where <span class="math inline">\(Y_k \sim N(0,1)\)</span> for <span class="math inline">\(k = 1,\ldots,M\)</span>. Let’s try to compute this value using <span class="math inline">\(M = 10,000\)</span> samples:</p>
+<pre class="r"><code>## Num of MC samples
+  M = 10 ^ 4
 
-# draw from standard normal
-y = rnorm(M)
+## draw from standard normal
+  y = rnorm(M)
 
-# compute MC estimate of p(Y &gt; 4)
-print(mean(y &gt; 4))</code></pre>
+## compute MC estimate of p(Y &gt; 4)
+  print(mean(y &gt; 4))</code></pre>
 <pre><code>## [1] 1e-04</code></pre>
-<pre class="r"><code># compute MC variance for p(Y &gt; 4)
-print(var(y &gt; 4)/M)</code></pre>
+<pre class="r"><code>## compute MC variance for p(Y &gt; 4)
+  print(var(y &gt; 4) / M)</code></pre>
 <pre><code>## [1] 1e-08</code></pre>
-<p>So, the variance is still quite large, despite using 1,000 samples. To illustrate this variability, just rerurn the code above a couple of times and see how the estimate varies around its true value.</p>
+<p>So, the variance is still quite large, despite using 10,000 samples. To illustrate this variability, just rerurn the code above a couple of times and see how the estimate varies around its true value.</p>
 <p>We can also increase <span class="math inline">\(M\)</span> to 1,000,000 and see if that helps</p>
-<pre class="r"><code># Num of MC samples
-M = 10^6
+<pre class="r"><code>## Num of MC samples
+  M = 10 ^ 6
 
-# draw from standard normal
-y = rnorm(M)
+## draw from standard normal
+  y = rnorm(M)
 
-# compute MC estimate of p(Y &gt; 4)
-print(mean(y &gt; 4))</code></pre>
+## compute MC estimate of p(Y &gt; 4)
+  print(mean(y &gt; 4))</code></pre>
 <pre><code>## [1] 3.1e-05</code></pre>
-<pre class="r"><code># compute MC variance for p(Y &gt; 4)
-print(var(y &gt; 4)/M)</code></pre>
+<pre class="r"><code>## compute MC variance for p(Y &gt; 4)
+  print(var(y &gt; 4) / M)</code></pre>
 <pre><code>## [1] 3.099907e-11</code></pre>
-<p>It does, at the cost of many more samples. So, how do we improve the efficiency of this approach? A similar question is how do we reduce the variance of the MC estimator?</p>
+<p>It does imrpove, however at the cost of many more samples. So, how do we improve the efficiency of this approach? Similarly, how do we reduce the variance of the MC estimator?</p>
 </div>
 <div id="importance-sampling-basics" class="section level2">
 <h2><span class="header-section-number">6.2</span> Importance sampling basics</h2>
-<p>To reduce the variance of the estimator, we can instead sample from a different distribution <span class="math inline">\(g(\boldsymbol{x})\)</span> that will oversample in the portion of <span class="math inline">\(\boldsymbol{x}\)</span> where most of the mass under <span class="math inline">\(h(\boldsymbol{x})f(\boldsymbol{x})\)</span> is located. This location in <span class="math inline">\(x\)</span> tends to have low probability of receiving samples from <span class="math inline">\(f(\boldsymbol{x})\)</span>. By making the hitting of this region shift from a rare event scenario to a common one, we are essentially reducing our MC variance and also improving our efficiency of estimating <span class="math inline">\(\int h(\boldsymbol{x})f(\boldsymbol{x})d\boldsymbol{x}\)</span>. However, since we are no longer sampling from <span class="math inline">\(f(\boldsymbol{x})\)</span>, we must adjust for this, otherwise we are not estimating the same integral.</p>
+<p>To reduce the variance of the estimator, we can instead sample from a different distribution <span class="math inline">\(g(\boldsymbol{x})\)</span> that will oversample in the portion of <span class="math inline">\(\boldsymbol{x}\)</span> where most of the mass under <span class="math inline">\(h(\boldsymbol{x})f(\boldsymbol{x})\)</span> is located. This location in <span class="math inline">\(x\)</span> tends to have low probability of receiving samples from <span class="math inline">\(f(\boldsymbol{x})\)</span>.</p>
+<p>By making the hitting of this region shift from a rare event scenario to a common one, we are essentially reducing our MC variance and also improving our efficiency of estimating <span class="math inline">\(\int h(\boldsymbol{x})f(\boldsymbol{x})d\boldsymbol{x}\)</span>. However, since we are no longer sampling from <span class="math inline">\(f(\boldsymbol{x})\)</span>, we must adjust for this, otherwise we are not estimating the same integral.</p>
 <p>Here, we are rewriting the original integral as the following:</p>
 <p><span class="math display">\[ \mu = \int h(\boldsymbol{x})f(\boldsymbol{x})d\boldsymbol{x} =\int h(\boldsymbol{x}) \frac{f(\boldsymbol{x})}{g(\boldsymbol{x})}g(\boldsymbol{x})d\boldsymbol{x}\]</span></p>
 <p>where <span class="math inline">\(g(\boldsymbol{x})\)</span> is the alternative distribution that we are sampling from, sometimes called the “importance sampling function” or “envelope”. Using similar arguments as before, we can estimate <span class="math inline">\(\mu\)</span> in this case via <span class="math display">\[\hat{\mu}_{IS}^* = \sum_{k =  1}^M h(\boldsymbol{X}_k)w^*(\boldsymbol{X}_k),\]</span> where <span class="math inline">\(w^*(\boldsymbol{X}_k) = \frac{f(\boldsymbol{X}_k)}{g(\boldsymbol{X}_k)}\)</span> can be thought of as weights, and <span class="math inline">\(\boldsymbol{X}_1,\ldots,\boldsymbol{X}_M\)</span> are an iid sample from <span class="math inline">\(g\)</span>. For this approach to work well, it must be easy to sample from <span class="math inline">\(g\)</span>, and <span class="math inline">\(f\)</span> must be easy to evaluate, otherwise you are just adding more computational work to evaluate this integral.</p>
 <p>We may also use the estimator <span class="math display">\[\hat{\mu}_{IS} = \sum_{k =  1}^M h(\boldsymbol{X}_k)w(\boldsymbol{X}_k)\]</span> where <span class="math inline">\(w(\boldsymbol{X}_k) = \frac{ w^*(\boldsymbol{X}_k)}{\sum_{k = 1}^M w^*(\boldsymbol{X}_k)}\)</span> are standardized weights. We may choose to use standardized weights when <span class="math inline">\(f\)</span> is only known up to a proportionality constant, as is typical in Bayesian applications (only the kernel of a posterior is known). Using a similar rationale as the standard MC estimator, the IS MC estimator will similar converge to the true value of the integral as the number of drawn samples tends to infinity.</p>
 <p>Some notes regarding the choice of <span class="math inline">\(g(\boldsymbol{x})\)</span>: we want to ensure that the support for <span class="math inline">\(g(\boldsymbol{x})\)</span> is the same as the support of <span class="math inline">\(f(\boldsymbol{x})\)</span>, and that <span class="math inline">\(f(\boldsymbol{x})/g(\boldsymbol{x})\)</span> is bounded to avoid excess variability in <span class="math inline">\(\hat{\mu}_{IS}\)</span>. This can be remedied by ensuring that <span class="math inline">\(g(\boldsymbol{x})\)</span> has fatter tails than <span class="math inline">\(f(\boldsymbol{x})\)</span> (we will give an example of this later). Otherwise, the importance ratios may become quite large and inflate the variance, which is the opposite of what is intended by this approach. One simple way of avoiding this issue is simply choosing a <span class="math inline">\(g(\boldsymbol{x})\)</span> that samples in a region where <span class="math inline">\(h(\boldsymbol{x})\)</span> is large, so that in other regions the impact of the importance ratio being large will not matter as much.</p>
 <p>An example of this is the one given earlier, where we are trying to estimate the probability that <span class="math inline">\(Y &gt; 4\)</span>, where <span class="math inline">\(Y\)</span> is standard normal. Here, if we choose <span class="math inline">\(g(Y) \sim N(4,1)\)</span>, we then oversample this tail region, and undersample in regions that are not of interest, for example where <span class="math inline">\(I[Y &gt; 4] = 0\)</span>. We show this below:</p>
-<pre class="r"><code># Num of MC samples
-M = 10^6
+<pre class="r"><code>## Num of MC samples
+  M = 10 ^ 6
 
-# draw from importance sampling function N(2,1), instead of N(0,1)
-y_imp = rnorm(M, 4, 1)
+## draw from importance sampling function N(2,1), instead of N(0,1)
+  y_imp = rnorm(M, 4, 1)
 
-# compute importance weights
-wstar = dnorm(y_imp, 0, 1)/dnorm(y_imp, 4, 1)
+## compute importance weights
+  wstar = dnorm(y_imp, 0, 1) / dnorm(y_imp, 4, 1)
 
-# compute MC estimate of p(Y &gt; 4)
-print(mean((y_imp &gt; 4)*wstar))</code></pre>
+## compute MC estimate of p(Y &gt; 4)
+  print(mean((y_imp &gt; 4) * wstar))</code></pre>
 <pre><code>## [1] 3.158884e-05</code></pre>
-<pre class="r"><code># compute MC variance for p(Y &gt; 4)
-print(var((y_imp &gt; 4)*wstar)/M)</code></pre>
+<pre class="r"><code>## compute MC variance for p(Y &gt; 4)
+  print(var((y_imp &gt; 4) * wstar) / M)</code></pre>
 <pre><code>## [1] 4.505807e-15</code></pre>
 <p>So, we are able to achieve relatively good accuracy relative to the original approach with the same number of samples.</p>
-<p>One way to measure the quality of a choice of <span class="math inline">\(g(\boldsymbol{x})\)</span> is by computing what is called the “effective sample size”, defined as <span class="math display">\[\hat{M}(g, f) = \frac{M}{1+\hat{var}(w^*(X))}\]</span>, where <span class="math inline">\(w^*(X)\)</span> is the vector of unstandardized important weights. One way to interpret this is that <span class="math inline">\(M\)</span> samples drawn from <span class="math inline">\(g(\boldsymbol{x})\)</span> via importance sampling is equivalent to sampling <span class="math inline">\(\hat{M}(g, f)\)</span> samples from <span class="math inline">\(f(\boldsymbol{x})\)</span> under the original scheme. This is one way to measure the loss in precision in approximating <span class="math inline">\(f\)</span> with <span class="math inline">\(g\)</span>, and is a useful measure for comparing different importance functions. Here we have</p>
+<p>One way to measure the quality of a choice of <span class="math inline">\(g(\boldsymbol{x})\)</span> is by computing what is called the “effective sample size”, defined as <span class="math display">\[\hat{M}(g, f) = \frac{M}{1+\hat{var}(w^*(X))},\]</span> where <span class="math inline">\(w^*(X)\)</span> is the vector of unstandardized important weights. One way to interpret this is that <span class="math inline">\(M\)</span> samples drawn from <span class="math inline">\(g(\boldsymbol{x})\)</span> via importance sampling is equivalent to sampling <span class="math inline">\(\hat{M}(g, f)\)</span> samples from <span class="math inline">\(f(\boldsymbol{x})\)</span> under the original scheme. This is one way to measure the loss in precision in approximating <span class="math inline">\(f\)</span> with <span class="math inline">\(g\)</span>, and is a useful measure for comparing different importance functions. Here we have</p>
 <pre class="r"><code># if we drew M samples from g, this would be the equivalent number of samples under directly sampling f
 print(M/(1+var(wstar)))</code></pre>
 <pre><code>## [1] 118.0328</code></pre>
@@ -2527,17 +2528,17 @@ print(M/(1+var(wstar)))</code></pre>
 <div id="example-application-to-poisson-glmm-example" class="section level2">
 <h2><span class="header-section-number">6.3</span> Example: Application to poisson GLMM example</h2>
 <p>Using the same posterior mode and variance as in the AQG example, we can improve the approximation further by simply sampling from the importance sampling function <span class="math inline">\(\phi(\hat{\mu}, \hat{\sigma}^2)\)</span>:</p>
-<pre class="r"><code># Num of MC samples
-M = 10^3
+<pre class="r"><code>## Num of MC samples
+  M = 10 ^ 3
 
-# draw from importance sampling function
-y_imp = rnorm(M, pm$p1, sqrt(-1/hess_pm))
+## draw from importance sampling function
+  y_imp = rnorm(M, pm$p1, sqrt(-1 / hess_pm))
 
-# compute importance weights
-wstar = dnorm(y_imp, 0, sqrt(s2gamma))/dnorm(y_imp, pm$p1, sqrt(-1/hess_pm))
+## compute importance weights
+  wstar = dnorm(y_imp, 0, sqrt(s2gamma)) / dnorm(y_imp, pm$p1, sqrt(-1 / hess_pm))
 
-# compute MC estimate of integral
-print(mean(sapply(y_imp, h, y = y1, beta = beta)*wstar))</code></pre>
+## compute MC estimate of integral
+  print(mean(sapply(y_imp, h, y = y1, beta = beta) * wstar))</code></pre>
 <pre><code>## [1] 2.545051e-07</code></pre>
 <p>We can see that we improved on the original accuracy from the regular MCI approach with only <span class="math inline">\(M = 10^3\)</span> compared to <span class="math inline">\(M = 10^7\)</span> earlier! We can also visualize this below:</p>
 <pre class="r"><code>plot(xv,inner(gammai = xv, y = y1, beta = beta, s2gamma = s2gamma), 
@@ -2570,7 +2571,7 @@ abline(v = pm$p1, col = &quot;blue&quot;)</code></pre>
 </div>
 <div id="extensions-to-multidimensional-integrals" class="section level1">
 <h1><span class="header-section-number">7</span> Extensions to Multidimensional integrals</h1>
-<p>Keep in mind that so far, we are dealing with one dimensional integrals. If we were dealing with a two-dimensional integral, for Newton-Cotes type methods we would need to define a two-dimensional grid to approximate the integral with respect to each variable. This results in a dramatic increase in the computational time relative to the number of intervals chosen.</p>
+<p>Keep in mind that so far we have primarily dealt with evaluating one-dimensional integrals. If we were dealing with a two-dimensional integral, for Newton-Cotes type methods we would need to define a two-dimensional grid to approximate the integral with respect to each variable. This results in a dramatic increase in the computational time relative to the number of intervals chosen.</p>
 <p>For Gaussian Quadrature (assuming <span class="math inline">\(M&gt;1\)</span>), we would have to determine the nodes and weights with respect to each variable, and the integral is then approximated with a double summation. That is, in one dimensional integration, if <span class="math inline">\(M\)</span> was chosen to be 5, then we would have 5 evaluations of the function <span class="math inline">\(f\)</span>. For a two dimensional integral, this would jump to 25 evaluations of <span class="math inline">\(f\)</span>. We again have this explosion in computational time for <span class="math inline">\(M &gt; 1\)</span>.</p>
 <p>Adaptive Quadrature is another approach to get around some of these issues, where the intervals are adjusted such that they are places in portions of the integrand where more of the mass is located. This allows for fewer nodes to be needed to achieve similar accuracy. Such approaches should be considered in general, but especially when using multidimensional integrals. However, this does not avoid the significant increase in computation time for <span class="math inline">\(M &gt; 1\)</span> in general.</p>
 <p>Clearly, as the dimension increases, the above approaches become more and more computationally difficult. Software implementations for estimating GLMM’s typically use the Laplace approximation (equivalent to using <span class="math inline">\(M=1\)</span> in GQ) to ease some of the computational burden. The lme4 package in R contains the function glmer to do this for GLMM’s and uses some additional tricks to improve accuracy. The parameter nAGQ controls how many quadrature points to use (default <span class="math inline">\(k = 1\)</span>, Laplace), but is not available for models where the dimension of the random effects vector is greater than 1.</p>
