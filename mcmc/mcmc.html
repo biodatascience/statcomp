@@ -1755,7 +1755,7 @@ Q_i(\boldsymbol{\theta}|\boldsymbol{\theta}^{(t)}) &amp;= \int \left[\log (f(\bo
 &amp;=\frac{1}{M}\sum_{k = 1}^M\left[\sum_{j = 1}^{5}\log\left(f(y_{ij} | \lambda_{ijk})\right) + \log\left(\phi(X_k| 0, \sigma^2_{\gamma})\right)\right]
 \end{align}\]</span></p>
 <p>since we are now able to draw iid samples from the posterior using Rejection Sampling. Here, <span class="math inline">\(\log(\lambda_{ijk}) = \boldsymbol{x}_{ij}^T\boldsymbol{\beta} + X_k\)</span>, and <span class="math inline">\(X_1,\ldots,\X_M\)</span> are iid draws from the target density <span class="math inline">\(f(\gamma_i | \boldsymbol{y}_o, \boldsymbol{\theta}^{(t)})\)</span>. Then, we can carry out the M step using standard optimization routines, for example, using NR or BFGS from our optimization lecture.</p>
-<p>However, for <span class="math inline">\(\boldsymbol{\beta}\)</span>, an easier approach is simply using Poisson regression to maximize the Q-function in the M-step, and therefore avoiding the need to derive any analytical derivatives of the likelihood. To do this, we repeat each observation <span class="math inline">\(\boldsymbol{y_{i}}\)</span> and corresponding predictor in the design matrix <span class="math inline">\(M\)</span> times, filling in <span class="math inline">\(\boldsymbol{X}_k\)</span> for each repeated row for <span class="math inline">\(\gamma_i\)</span> in the linear predictor above. Each repeated row is weighted with <span class="math inline">\(1/M\)</span>. We can also show that the solution for <span class="math inline">\(\sigma^2_{\gamma}\)</span> is simply the sum of the squared <span class="math inline">\(X_k\)</span>’s divided by <span class="math inline">\(nM\)</span>.</p>
+<p>However, for <span class="math inline">\(\boldsymbol{\beta}\)</span>, an easier approach is simply using Poisson regression to maximize the Q-function in the M-step, and therefore avoiding the need to derive any analytical derivatives of the Q-function To do this, we repeat each observation <span class="math inline">\(\boldsymbol{y_{i}}\)</span> and corresponding predictor in the design matrix <span class="math inline">\(M\)</span> times, filling in <span class="math inline">\(\boldsymbol{X}_k\)</span> for each repeated row for <span class="math inline">\(\gamma_i\)</span> in the linear predictor above. Each repeated row is weighted with <span class="math inline">\(1/M\)</span>. We can also show that the solution for <span class="math inline">\(\sigma^2_{\gamma}\)</span> is simply the sum of the squared <span class="math inline">\(X_k\)</span>’s divided by <span class="math inline">\(nM\)</span>.</p>
 <div id="implementing-the-e-step-rejection-sampler" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Implementing the E-step Rejection sampler</h3>
 <p>First, let’s set up the rejection sampler:</p>
@@ -2125,7 +2125,7 @@ hist(test_sample$gammai)</code></pre>
 ## Iter: 45 Qf: -268.600 s2gamma: 0.219032 beta0: 1.819 beta0:0.166 eps:0.000000</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 12.97126 mins</code></pre>
+<pre><code>## Time difference of 22.69838 mins</code></pre>
 <p>This is pretty close to what we get from glmer:</p>
 <pre class="r"><code>library(lme4)</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
