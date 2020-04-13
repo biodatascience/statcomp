@@ -41,7 +41,7 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Feb 26, Mar 2, 4 | General MCMC | `mcmc` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd) [hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd) | [mcmc](mcmc/mcmc.html) | General MCMC |
 | Mar 25   | Advanced MCMC | `advmcmc` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/advmcmc/advmcmc_HW10.Rmd) | [advmcmc](advmcmc/advmcmc.html) | Advanced MCMC |
 | **Module 3** | Mach. learning | | | | |
-| Mar 30, Apr 1, 6   | ML essentials | `ml` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd)--> | [essentials](ml/essentials.html) | Machine learning essentials |
+| Mar 30, Apr 1, 6   | ML essentials | `ml` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd) | [essentials](ml/essentials.html) | Machine learning essentials |
 | Apr 8, 13  | SVM, RF | `ml` | <!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/svm_HW12.Rmd)--> | [svm](ml/svm.html) | Support vector machines |
 | | | | | [rf](ml/rf.html) | Random forests |
 | Apr 15, 20 | NN, projects | `ml` | | [nn](ml/nn.html) | Neural networks |
