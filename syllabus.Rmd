@@ -57,7 +57,7 @@ In this class, students will learn:
 ### Graded work
  
 The class will be taught through three modules. One final project
-(30%), an initial proposal for the final project (10%), a final presentation (20%), and weekly homework assignments (40%) will make up the final grade for the course.  The initial proposal (due March 4th) can be resubmitted for a regrade as many times as desired up until March 30th.  
+(30%), an initial proposal for the final project (10%), a final presentation (20%), and weekly homework assignments (40%) will make up the final grade for the course.  The initial proposal (due March 10th) can be resubmitted for a regrade as many times as desired up until March 31st.  
 
 At the beginning of the course, students will learn to create an R
 package which they will update as the class progresses, implementing
