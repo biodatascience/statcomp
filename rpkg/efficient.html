@@ -307,7 +307,7 @@ div.tocify {
 <ul>
 <li><a href="https://csgillespie.github.io/efficientR/">Efficient R Programming</a></li>
 </ul>
-<p>For example, they have a section on <a href="https://csgillespie.github.io/efficientR/code-profiling.html">code profiling</a>, which is a really useful way to figure out what lines of code are causing the greatest bottlenecks in your package. We don't have time to sufficiently cover this in this note, but it's worth reading on your own, and using code profiling if you end up making a package where speed and memory usage are a critical factors.Some of the topics in this book, for example usage of <em>Rcpp</em> and <em>data.table</em> will be covered in later lecture notes.</p>
+<p>For example, they have a section on <a href="https://csgillespie.github.io/efficientR/performance.html#performance-profvis">code profiling</a>, which is a really useful way to figure out what lines of code are causing the greatest bottlenecks in your package. We don't have time to sufficiently cover this in this note, but it's worth reading on your own, and using code profiling if you end up making a package where speed and memory usage are a critical factors.Some of the topics in this book, for example usage of <em>Rcpp</em> and <em>data.table</em> will be covered in later lecture notes.</p>
 </div>
 <div id="benchmarking-r-code" class="section level1">
 <h1>Benchmarking R code</h1>
@@ -326,9 +326,9 @@ div.tocify {
 }
 microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr      min       lq       mean   median       uq     max neval
-##       sqrt(1:1000)   10.602   13.852   45.28499   17.851   24.901   591.2   100
-##  slow.sqrt(1:1000) 1876.701 2317.251 3745.13297 2897.801 3940.551 13397.2   100</code></pre>
+##               expr    min      lq     mean  median     uq     max neval
+##       sqrt(1:1000)    5.1    9.30   15.981   12.40   15.1   299.9   100
+##  slow.sqrt(1:1000) 1027.0 1739.65 2677.718 1974.25 2828.5 11594.2   100</code></pre>
 <p>This benchmark indicates that the vectorized version of the square root is many orders of magnitude faster than a naive implementation. Let's compare <code>slow.sqrt</code> with a version where we preallocate the vector that stores the eventual output of the function:</p>
 <pre class="r"><code>pre.sqrt &lt;- function(x) {
   ans &lt;- numeric(length(x))
@@ -339,9 +339,9 @@ microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 }
 microbenchmark(pre.sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr      min       lq     mean    median       uq     max neval
-##   pre.sqrt(1:1000)  151.401  183.701  397.762  224.5515  291.301 11070.1   100
-##  slow.sqrt(1:1000) 1986.400 2341.201 3418.916 2911.1510 3674.552 12639.7   100</code></pre>
+##               expr   min      lq     mean  median      uq     max neval
+##   pre.sqrt(1:1000)  65.4  130.70  253.430  168.60  220.45  4200.2   100
+##  slow.sqrt(1:1000) 949.9 1501.85 2244.287 1826.75 2415.25 10980.0   100</code></pre>
 <p>So simply pre-allocating saves us about an order of magnitude in speed.</p>
 </div>
 <div id="initial-attempts-at-c" class="section level2">
@@ -365,10 +365,10 @@ microbenchmark(sqrt(1:1000),
                rcpp_sqrt1(1:1000),
                rcpp_sqrt2(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##                expr    min      lq     mean median      uq      max neval
-##        sqrt(1:1000) 10.001 10.7005 15.36496 11.851 16.4010   66.501   100
-##  rcpp_sqrt1(1:1000)  9.401 10.2010 30.66798 11.051 12.4500 1591.101   100
-##  rcpp_sqrt2(1:1000)  9.401 10.2510 42.45698 11.251 13.0005 2725.601   100</code></pre>
+##                expr min  lq   mean median    uq    max neval
+##        sqrt(1:1000) 5.0 8.9 14.293   10.3 13.90  147.1   100
+##  rcpp_sqrt1(1:1000) 6.8 8.7 60.770    9.5 10.50 4808.8   100
+##  rcpp_sqrt2(1:1000) 6.9 8.7 37.767    9.5 10.75 2542.2   100</code></pre>
 <p>Our two C++ implementations are comparable, and now only about 3 times slower than R's <code>sqrt</code>.</p>
 </div>
 <div id="memoization" class="section level2">
@@ -383,10 +383,10 @@ slow.fn &lt;- function(x) {
 mem.fn &lt;- memoise(slow.fn)
 system.time(sapply(x, slow.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.00    0.00    2.42</code></pre>
+##    0.00    0.00    2.27</code></pre>
 <pre class="r"><code>system.time(sapply(x, mem.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.50    0.02    0.75</code></pre>
+##    0.20    0.05    0.39</code></pre>
 <pre class="r"><code>forget(mem.fn)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>We defined an arbitrary function <code>slow.fn</code> which waits a millisecond before returning the input plus <code>pi</code>. We then run <code>slow.fn</code> on a vector of length 1000, although the values of the vector are limited to then numbers 1 to 10. When we instead call the memoized version of the function, we only incur the millisecond cost of <code>slow.fn</code> 10 times (for each time we need to calculate the value of <code>slow.fn</code> on the numbers 1 to 10). Any repeated calls to <code>slow.fn</code> on a number that <code>mem.fn</code> has already seen instead incur the cost of looking up the value of <code>slow.fn</code> in an in-memory cache.</p>
@@ -416,12 +416,9 @@ all.equal(x1, x2)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>microbenchmark(solve(a,b), slow.solve(a,b))</code></pre>
 <pre><code>## Unit: milliseconds
-##              expr        min         lq       mean   median         uq      max
-##       solve(a, b)   3.971301   4.759651   5.614845   5.3768   5.949402  10.4761
-##  slow.solve(a, b) 165.879101 187.586651 208.867484 199.5063 220.766401 291.7157
-##  neval
-##    100
-##    100</code></pre>
+##              expr     min       lq       mean   median       uq      max neval
+##       solve(a, b)  2.0440  2.15405   3.232621   2.6646   3.9559   8.3886   100
+##  slow.solve(a, b) 67.4801 78.31050 103.045540 100.5658 120.8342 191.4314   100</code></pre>
 </div>
 <div id="parallelization" class="section level2">
 <h2>Parallelization</h2>
@@ -446,14 +443,14 @@ microbenchmark(
   parApply(cl = cl, X = b,  FUN = slow.solve.i, MARGIN = 2, a = a)
 )</code></pre>
 <pre><code>## Unit: milliseconds
-##                                                             expr      min
-##                                                 slow.solve(a, b) 180.4894
-##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 179.6061
-##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a)  74.6356
-##        lq     mean    median       uq      max neval
-##  200.6688 223.6869 215.28785 234.9409 326.0865   100
-##  205.3539 225.8479 218.90405 241.6190 370.8339   100
-##   89.1314 108.6942  96.36025 104.3836 479.9692   100</code></pre>
+##                                                             expr     min
+##                                                 slow.solve(a, b) 68.4301
+##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 69.0845
+##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a) 42.4031
+##        lq      mean   median        uq      max neval
+##  79.66445 100.42442 95.46145 118.55600 192.1819   100
+##  80.44310 101.34129 97.22565 119.68070 166.3847   100
+##  57.24195  68.44443 66.20560  72.74535 361.5195   100</code></pre>
 <pre class="r"><code># Close the cores after use of parApply to prevent memory leaks
 stopCluster(cl)</code></pre>
 <p>We see that the parallelized version is twice as fast than slow.solve and the apply function. Still, it is not as fast as using a vectorized function. For a smaller number of iterations paralellization may not be as helpful given the overhead required to coordinate tasks across cores. If using within a function, sometimes an error in the function may cause it to terminate earlier. Adding &quot;on.exit(stopCluster(cl))&quot; after makeCluster() above helps to simplify this issue, where whatever function is within on.exit() will be executed regardless of how the function ends.</p>
