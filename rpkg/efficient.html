@@ -326,9 +326,9 @@ div.tocify {
 }
 microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr    min      lq     mean  median     uq    max neval
-##       sqrt(1:1000)    9.0   13.90   31.430   17.25   21.4  508.3   100
-##  slow.sqrt(1:1000) 1350.2 2329.75 3112.073 2578.40 3462.1 9740.8   100</code></pre>
+##               expr      min        lq     mean   median        uq     max neval
+##       sqrt(1:1000)    5.901    9.2015   13.780   11.501   14.8515    73.3   100
+##  slow.sqrt(1:1000) 1101.001 1359.3510 2311.871 1920.651 2778.9010 11497.1   100</code></pre>
 <p>This benchmark indicates that the vectorized version of the square root is many orders of magnitude faster than a naive implementation. Let's compare <code>slow.sqrt</code> with a version where we preallocate the vector that stores the eventual output of the function:</p>
 <pre class="r"><code>pre.sqrt &lt;- function(x) {
   ans &lt;- numeric(length(x))
@@ -339,9 +339,12 @@ microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 }
 microbenchmark(pre.sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr    min      lq     mean median      uq    max neval
-##   pre.sqrt(1:1000)   87.9  110.35  304.006  209.2  276.30 8874.0   100
-##  slow.sqrt(1:1000) 1255.7 1441.55 2403.480 2202.3 2605.35 9460.2   100</code></pre>
+##               expr      min        lq     mean   median       uq       max
+##   pre.sqrt(1:1000)   82.101  175.3505  322.147  185.951  235.801  9311.301
+##  slow.sqrt(1:1000) 1191.500 2024.0510 2732.070 2183.801 2551.401 10627.602
+##  neval
+##    100
+##    100</code></pre>
 <p>So simply pre-allocating saves us about an order of magnitude in speed.</p>
 </div>
 <div id="initial-attempts-at-c" class="section level2">
@@ -365,10 +368,10 @@ microbenchmark(sqrt(1:1000),
                rcpp_sqrt1(1:1000),
                rcpp_sqrt2(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##                expr  min    lq   mean median    uq    max neval
-##        sqrt(1:1000) 11.8 12.80 15.546  13.15 15.15   89.5   100
-##  rcpp_sqrt1(1:1000) 10.7 11.40 33.044  12.00 13.60 1874.2   100
-##  rcpp_sqrt2(1:1000) 10.9 11.55 41.557  12.50 14.85 2586.3   100</code></pre>
+##                expr    min      lq      mean  median      uq       max neval
+##        sqrt(1:1000) 11.201 12.7010  14.69505 13.3010 16.3005    30.601   100
+##  rcpp_sqrt1(1:1000) 10.301 11.1010  39.91902 11.8010 14.6515  1588.802   100
+##  rcpp_sqrt2(1:1000) 10.101 11.3515 223.77894 12.3005 13.9010 18946.301   100</code></pre>
 <p>Our two C++ implementations are comparable, and now only about 3 times slower than R's <code>sqrt</code>.</p>
 </div>
 <div id="memoization" class="section level2">
@@ -383,10 +386,10 @@ slow.fn &lt;- function(x) {
 mem.fn &lt;- memoise(slow.fn)
 system.time(sapply(x, slow.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.00    0.00    2.23</code></pre>
+##    0.01    0.00    2.35</code></pre>
 <pre class="r"><code>system.time(sapply(x, mem.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.47    0.08    1.81</code></pre>
+##    0.50    0.03    0.62</code></pre>
 <pre class="r"><code>forget(mem.fn)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>We defined an arbitrary function <code>slow.fn</code> which waits a millisecond before returning the input plus <code>pi</code>. We then run <code>slow.fn</code> on a vector of length 1000, although the values of the vector are limited to then numbers 1 to 10. When we instead call the memoized version of the function, we only incur the millisecond cost of <code>slow.fn</code> 10 times (for each time we need to calculate the value of <code>slow.fn</code> on the numbers 1 to 10). Any repeated calls to <code>slow.fn</code> on a number that <code>mem.fn</code> has already seen instead incur the cost of looking up the value of <code>slow.fn</code> in an in-memory cache.</p>
@@ -416,12 +419,12 @@ all.equal(x1, x2)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>microbenchmark(solve(a,b), slow.solve(a,b))</code></pre>
 <pre><code>## Unit: milliseconds
-##              expr      min        lq       mean   median        uq      max
-##       solve(a, b)   3.9564   5.98275   8.289467   7.6208  10.03255  18.0591
-##  slow.solve(a, b) 203.6172 286.71345 312.752776 316.6323 336.66880 487.1569
-##  neval
-##    100
-##    100</code></pre>
+##              expr        min         lq       mean     median         uq
+##       solve(a, b)   4.314001   5.432001   7.154024   6.365851   8.245202
+##  slow.solve(a, b) 168.525300 219.030150 251.989689 240.861751 281.501001
+##       max neval
+##   17.7095   100
+##  434.2264   100</code></pre>
 </div>
 <div id="parallelization" class="section level2">
 <h2>Parallelization</h2>
@@ -447,19 +450,19 @@ microbenchmark(
 )</code></pre>
 <pre><code>## Unit: milliseconds
 ##                                                             expr      min
-##                                                 slow.solve(a, b) 186.9617
-##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 183.3244
-##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a)  92.0616
+##                                                 slow.solve(a, b) 178.0810
+##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 181.8145
+##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a)  90.3158
 ##        lq     mean   median       uq      max neval
-##  229.5455 283.3906 244.9692 334.0521 734.7866   100
-##  234.1933 283.6997 259.0254 334.6403 421.0256   100
-##  116.5513 152.3538 128.4339 164.9588 561.0313   100</code></pre>
+##  206.2634 232.7000 224.5248 245.8063 336.9743   100
+##  213.5420 239.7689 228.4946 256.7514 395.5322   100
+##   99.6021 116.7655 110.1552 120.1356 545.3512   100</code></pre>
 <pre class="r"><code># Close the cores after use of parApply to prevent memory leaks
 stopCluster(cl)</code></pre>
 <p>We see that the parallelized version is twice as fast than slow.solve and the apply function. Still, it is not as fast as using a vectorized function. For a smaller number of iterations paralellization may not be as helpful given the overhead required to coordinate tasks across cores. If using within a function, sometimes an error in the function may cause it to terminate earlier. Adding &quot;on.exit(stopCluster(cl))&quot; after makeCluster() above helps to simplify this issue, where whatever function is within on.exit() will be executed regardless of how the function ends.</p>
 <p>On linux and mac, one can alternatively ue the mcapply() and mclapply() functions, where the main difference is that one does not need to explictly start and stop the cluster objects as in the above example. This simplifies its use, especially when nested within other functions.</p>
 <p>One important note when using parallelization on high performance computing clusters. Such clusters consist of multiple compute nodes connected to a login node. Typically jobs that are submitted to the cluster are handled from the login nodes and distributed to the compute nodes. A single job may also request multiple cpu's to run operations within the job in parallel. However for the parallel package and most other parallelized routines in R, parallelization cannot go beyond a single node, and is therefore limited to the number of CPUs on that node. For parallelization across a large number of CPUs, one needs to utilize Message Passing Interface (MPI) enabled versions of R, with accompanying MPI-enabled R packages (<em>Rmpi</em>) and cluster software (<em>openMPI</em>).</p>
-<p>Additional detail can be found in Section 7.5 of the Efficient R Programming book.</p>
+<p>Additional detail can be found in Section 7.5 of the Efficient R Programming book. An up to date listing of other R packages that enable parallel computing can be <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">found here</a>. Examples include <em>Rmpi</em>, which is an R-wrapper for MPI, as well as <em>foreach</em>, which is an R package that allows for the execution of parallelized loops in R.</p>
 </div>
 </div>
 <div id="monte-carlo-integration" class="section level1">
