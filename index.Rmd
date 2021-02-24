@@ -35,7 +35,7 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | | | | | [hdf5](large/hdf5.html) | Working with `rhdf5` |
 | | | | | [sparse](large/sparse.html) | Sparse data manipulation |
 | **Module 2**   | Optim. & Num. int. | | | | |
-| Feb 10, 17, 22   | General optim. | `optim` | [<!--hw-->](https://github.com/biodatascience/statcomp_src/blob/master/optim/optim_HW5.Rmd) | [optim](optim/optim.html) | General optimization |
+| Feb 10, 17, 22   | General optim. | `optim` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/optim/optim_HW5.Rmd) | [optim](optim/optim.html) | General optimization |
 | Feb 24, Mar 1 | EM algorithm | `em` | [<!--hw-->](https://github.com/biodatascience/statcomp_src/blob/master/em/em_HW6.Rmd) | [em](em/em.html) | EM algorithm |
 | Mar 3, 8     | Numer. integration | `numint` | [<!--hw-->](https://github.com/biodatascience/statcomp_src/blob/master/numint/numint_HW7.Rmd) | [numint](numint/numint.html) | Numerical integration |
 | Mar 10, 17, 22 | General MCMC | `mcmc` | [<!--hw-->](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd) [<!--hw2-->](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd) | [mcmc](mcmc/mcmc.html) | General MCMC |
