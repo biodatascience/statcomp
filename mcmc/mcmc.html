@@ -586,11 +586,10 @@ rejection.sample.gamma.posterior.i = function(yi, xi = cbind(rep(1,5), 1:5), M, 
   
   ## return accepted samples and accepted rate in a list
   return(list(gammai = posterior_gammai, ar = M / index))
-}
-
-
-## wrapper function for Rejection Sampling over all observations
-# data: is the main data.table object
+}</code></pre>
+<p>As you can imagine, this can be quite slow, especially for large M. Since the rejection sampler is not a recursive method, we could also vectorize the above (can you guess how?).</p>
+<p>Below is the wrapper function that loops over all subjects.</p>
+<pre class="r"><code># data: is the main data.table object
 # other arguments same as above
 
 ## Returns rejection samples matrix (n x M)
@@ -638,6 +637,7 @@ rejection.sample.gamma.posterior.all = function(data,
 <div id="other-helper-functions" class="section level3" number="3.5.2">
 <h3 number="3.5.2"><span class="header-section-number">3.5.2</span> Other Helper Functions</h3>
 <p>We implement a function that calculated the Q-function for the <span class="math inline">\(i\)</span>th subject, then make a second one that loops over all subjects. This is used to return the value of the Q-function in the E-step, given the estimates from the M-step and the observed data. We also use this function in the M-step as input to the Nelder-Mead algorithm as the objective function to be maximized.</p>
+<p>I’ve left my first implementation using a for loop in the function below to better illustrate the method. Below that I’ve written a vectorized version that scales better with <span class="math inline">\(M\)</span> and is much faster.</p>
 <pre class="r"><code># datai:  observed data (alz) pertaining to the i&#39;th subject
 # gammai: M draws pertaining to gamma i
 Qi = function(datai,
@@ -667,11 +667,11 @@ Qi = function(datai,
   ##qi  = qi / M
   
   # Let use a vectorized version instead. 
-    # create 5 x M matrix x_beta_mat
+    # create 5 x M matrix, x_beta_mat
     # each column is xi %*% betat, just repeated
     x_beta_mat = xi %*% matrix(betat, nrow = length(betat), ncol = M)
     
-    # create 5 x M matrix x_beta_plus_gamma_mat
+    # create 5 x M matrix, x_beta_plus_gamma_mat
     # m&#39;th column is xi %*% betat + gammai[m]
     x_beta_plus_gamma_mat = sweep(x_beta_mat, 2 , gammai, &quot;+&quot;)
   
@@ -688,10 +688,10 @@ Qi = function(datai,
   
   ## return values
   return(qi)
-}
-
-# now here is the higher level function
-#logs2gammat:  Indicates whether s2gammat is initially passed on the log scale.  If true, then indicates that s2gammat has to be back transformed to original scale in function.  This helps to avoid boundary issues during maximization when s2gamma estimates are close to zero and this transformation also maps to the real number line.
+}</code></pre>
+<p>Now here is the higher level function that sums over each subject.</p>
+<pre class="r"><code># Same parameters above except for the following one
+# logs2gammat:  Indicates whether s2gammat is initially passed on the log scale.  If true, then indicates that s2gammat has to be back transformed to original scale in function.  This helps to avoid boundary issues during maximization when s2gamma estimates are close to zero and this transformation also maps to the real number line.
 
 Q = function(data,
              betat,
@@ -924,7 +924,7 @@ while(eps &gt; tol &amp; iter &lt; maxit){
 ## Iter: 33 Qf: -268.603 s2gamma: 0.219214 beta0: 1.816 beta0:0.166 eps:0.000004</code></pre>
 <pre class="r"><code>end = Sys.time()
 print(end - start)</code></pre>
-<pre><code>## Time difference of 17.38213 mins</code></pre>
+<pre><code>## Time difference of 17.0714 mins</code></pre>
 <p>This is pretty close to what we get from glmer:</p>
 <pre class="r"><code>library(lme4)</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
@@ -1582,7 +1582,7 @@ plot(acf(x.indep.chain.good[-burn.in]), main = &quot;good chain&quot;)$acf</code
 </div>
 <div id="comparing-chains-effective-sample-size" class="section level4" number="4.4.1.4">
 <h4 number="4.4.1.4"><span class="header-section-number">4.4.1.4</span> Comparing Chains: Effective Sample Size</h4>
-<p>If MCMC realizations are highly correlated, then the information gained from each iteration of the MCMC algorithm will be much less than suggested by the run length. The reduced information is equivalent to that contained in a smaller iid sample whose size is called the effective sample size. The difference between the total number of samples and the effective sample size indicates the efficiency lost when correlated samples from the Markov chain have been used to estimate a quantity of interest instead of an independent and identically distributed sample with the same variance as the observed sample. To estimate the effective sample size, the first step is to compute the estimated autocorrelation time, a summary measure of the autocorrelation between realizations and their rate of decay. The autocorrelation time is given by <span class="math inline">\(\tau = 1+ 2\sum_{k =1}^{\infty}\rho(k)\)</span> where <span class="math inline">\(\rho(k)\)</span> is the autocorrelation at lag <span class="math inline">\(k\)</span> in the chain. A common approach is to truncate the summation when the observed autocorrelation at lag <span class="math inline">\(k\)</span> <span class="math inline">\(\hat{\rho}(k) &lt; 0.1\)</span> rather than summing to <span class="math inline">\(\infty\)</span> . The effective sample size for an MCMC run with <span class="math inline">\(L\)</span> iterations after burn-in can be estimated using <span class="math inline">\(L/\hat{\rho}(k)\)</span> .</p>
+<p>If MCMC realizations are highly correlated, then the information gained from each iteration of the MCMC algorithm will be much less than suggested by the run length. The reduced information is equivalent to that contained in a smaller iid sample whose size is called the effective sample size. The difference between the total number of samples and the effective sample size indicates the efficiency lost when correlated samples from the Markov chain have been used to estimate a quantity of interest instead of an independent and identically distributed sample with the same variance as the observed sample. To estimate the effective sample size, the first step is to compute the estimated autocorrelation time, a summary measure of the autocorrelation between realizations and their rate of decay. The autocorrelation time is given by <span class="math inline">\(\tau = 1+ 2\sum_{k =1}^{\infty}\rho(k)\)</span> where <span class="math inline">\(\rho(k)\)</span> is the autocorrelation at lag <span class="math inline">\(k\)</span> in the chain. A common approach is to truncate the summation when the observed autocorrelation at lag <span class="math inline">\(k\)</span> <span class="math inline">\(\hat{\rho}(k) &lt; 0.1\)</span> rather than summing to <span class="math inline">\(\infty\)</span> . The effective sample size for an MCMC run with <span class="math inline">\(L\)</span> iterations after burn-in can be estimated using <span class="math inline">\(L/\hat{\tau}\)</span>.</p>
 <p>Effective sample size can be used to compare the efficiency of competing MCMC samplers for a given problem. For a fixed number of iterations, an MCMC algorithm with a larger effective sample size is likely to converge more quickly.</p>
 </div>
 <div id="number-of-chains" class="section level4" number="4.4.1.5">
@@ -1604,7 +1604,7 @@ plot(acf(x.indep.chain.good[-burn.in]), main = &quot;good chain&quot;)$acf</code
 <p>First, create multiple trial runs of the chain from diverse starting values.</p>
 <p>Next, carry out a suite of diagnostic procedures like those discussed above to ensure that the chain appears to be well mixing and has approximately converged to the stationary distribution.</p>
 <p>Lastly, restart the chain for a final long run using a new seed to initiate the sampling. A popular, though conservative, choice for burn-in is to throw out the first half of the MCMC iterations as the burn-in. When each MCMC iteration is computationally expensive, users typically select much shorter burn-in lengths that conserve more iterations for inference.</p>
-<p>For easier implementation, various software packages have been developed to automate the development of MCMC algorithms and the related diagnostics. The most comprehensive software to date is the BUGS (Bayesian inference Using Gibbs Sampling) software family with developments for several platforms [610]. A popular application mode is to use BUGS within the R statistical package. Packages in R like CODA and BOA allow users to easily construct the relevant convergence diagnostics.</p>
+<p>For easier implementation, various software packages have been developed to automate the development of MCMC algorithms and the related diagnostics. The most comprehensive software to date is the BUGS (Bayesian inference Using Gibbs Sampling) software family with developments for several platforms. A popular application mode is to use BUGS within the R statistical package. Packages in R like CODA and BOA allow users to easily construct the relevant convergence diagnostics.</p>
 </div>
 </div>
 </div>
