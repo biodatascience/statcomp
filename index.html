@@ -14,18 +14,25 @@
 
 <title>BIOS 735 - Introduction to Statistical Computing</title>
 
-<script src="index_files/header-attrs-2.5/header-attrs.js"></script>
-<script src="index_files/jquery-1.11.3/jquery.min.js"></script>
+<script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="index_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="index_files/navigation-1.1/tabsets.js"></script>
 <link href="index_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="index_files/highlightjs-9.12.0/highlight.js"></script>
-<link href="index_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="index_files/anchor-sections-1.0/anchor-sections.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -37,11 +44,6 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -54,32 +56,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -89,10 +66,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -109,6 +82,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
@@ -121,7 +97,6 @@ summary {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -185,7 +160,7 @@ summary {
 
 
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -198,7 +173,7 @@ summary {
 <div id="course-information" class="section level3">
 <h3>Course information</h3>
 <p>1:25-3:10 MW <!-- - MC 1305 --></p>
-<p>Dr. Rashid’s office hours: Wed 3:10-4pm <!-- @ MC 3104E --> (after class, via zoom) <br> Grader office hours: Mon 5:00-6:00 PM</p>
+<p>Dr. Rashid’s office hours: Wed <!-- @ MC 3104E --> (after class) <br> Grader office hours: TBD</p>
 <p><a href="syllabus.html">Syllabus</a></p>
 </div>
 <div id="schedule-and-course-notes" class="section level3">
@@ -225,18 +200,18 @@ summary {
 <td></td>
 </tr>
 <tr class="even">
-<td>Jan 20</td>
+<td>Jan 10</td>
 <td>R code</td>
 <td><code>rpkg</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd) --></td>
 <td><a href="rpkg/efficient.html">efficient</a></td>
 <td>Readable and efficient R code</td>
 </tr>
 <tr class="odd">
-<td>Jan 25, 27</td>
+<td>Jan 12, 19</td>
 <td>R package</td>
 <td><code>rpkg</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW2.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW2.Rmd) --></td>
 <td><a href="rpkg/build.html">build</a></td>
 <td>Building an R package</td>
 </tr>
@@ -265,18 +240,18 @@ summary {
 <td>Debugging in R</td>
 </tr>
 <tr class="odd">
-<td>Feb 1</td>
+<td>Jan 24</td>
 <td>C++ from R</td>
 <td><code>rpkg</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW3.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW3.Rmd) --></td>
 <td><a href="rpkg/rcpp.html">rcpp</a></td>
 <td>Calling C++ with <code>Rcpp</code></td>
 </tr>
 <tr class="even">
-<td>Feb 3, Feb 8</td>
+<td>Jan 26, 31</td>
 <td>Large data</td>
 <td><code>large</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/large/large_HW4.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/large/large_HW4.Rmd) --></td>
 <td><a href="large/datatable.html">datatable</a></td>
 <td>Working with <code>data.table</code></td>
 </tr>
@@ -313,42 +288,42 @@ summary {
 <td></td>
 </tr>
 <tr class="odd">
-<td>Feb 10, 17, 22</td>
+<td>Feb 2, 7, 9</td>
 <td>General optim.</td>
 <td><code>optim</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/optim/optim_HW5.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/optim/optim_HW5.Rmd) --></td>
 <td><a href="optim/optim.html">optim</a></td>
 <td>General optimization</td>
 </tr>
 <tr class="even">
-<td>Feb 24, Mar 1</td>
+<td>Feb 14, 16</td>
 <td>EM algorithm</td>
 <td><code>em</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/em/em_HW6.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/em/em_HW6.Rmd) --></td>
 <td><a href="em/em.html">em</a></td>
 <td>EM algorithm</td>
 </tr>
 <tr class="odd">
-<td>Mar 3, 8</td>
+<td>Feb 21, 23</td>
 <td>Numer. integration</td>
 <td><code>numint</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/numint/numint_HW7.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/numint/numint_HW7.Rmd) --></td>
 <td><a href="numint/numint.html">numint</a></td>
 <td>Numerical integration</td>
 </tr>
 <tr class="even">
-<td>Mar 10, 17, 22</td>
+<td>Feb 28, Mar 2, 7</td>
 <td>General MCMC</td>
 <td><code>mcmc</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd">hw</a> <a href="https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd">hw2</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd) --> <!-- [hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd)--></td>
 <td><a href="mcmc/mcmc.html">mcmc</a></td>
 <td>General MCMC</td>
 </tr>
 <tr class="odd">
-<td>Mar 24</td>
+<td>Mar 9, 14</td>
 <td>Advanced MCMC</td>
 <td><code>advmcmc</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/advmcmc/advmcmc_HW10.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/advmcmc/advmcmc_HW10.Rmd) --></td>
 <td><a href="advmcmc/advmcmc.html">advmcmc</a></td>
 <td>Advanced MCMC</td>
 </tr>
@@ -361,18 +336,18 @@ summary {
 <td></td>
 </tr>
 <tr class="odd">
-<td>Mar 29, 31, Apr 7</td>
+<td>Mar 16, 21, 23</td>
 <td>ML essentials</td>
 <td><code>ml</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd) --></td>
 <td><a href="ml/essentials.html">essentials</a></td>
 <td>Machine learning essentials</td>
 </tr>
 <tr class="even">
-<td>Apr 12, 14</td>
+<td>Mar 28, 30</td>
 <td>SVM, RF</td>
 <td><code>ml</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/ml/svm_HW12.Rmd">hw</a></td>
+<td><!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/svm_HW12.Rmd) --></td>
 <td><a href="ml/svm.html">svm</a></td>
 <td>Support vector machines</td>
 </tr>
@@ -385,23 +360,31 @@ summary {
 <td>Random forests</td>
 </tr>
 <tr class="even">
-<td>Apr 19, 21</td>
-<td>NN, Projects</td>
+<td>Apr 4, 6</td>
+<td>NN, Guest Lecture</td>
 <td><code>ml</code></td>
 <td></td>
 <td><a href="ml/nn.html">nn</a></td>
 <td>Neural networks</td>
 </tr>
 <tr class="odd">
-<td>Apr 26, 28</td>
-<td>Projects,Wrap-up</td>
+<td>Apr 11, 13</td>
+<td>Projects</td>
 <td></td>
 <td></td>
 <td></td>
 <td></td>
 </tr>
 <tr class="even">
-<td>May 3, 5</td>
+<td>Apr 18, 20</td>
+<td>Projects, Wrap-up</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Apr 25, 27</td>
 <td>Wrap-up</td>
 <td></td>
 <td></td>
@@ -411,7 +394,7 @@ summary {
 </tbody>
 </table>
 <hr />
-<p>This page was last updated on 04/21/2021.</p>
+<p>This page was last updated on 01/06/2022.</p>
 <ul>
 <li><a href="https://github.com/biodatascience/statcomp_src">GitHub repo</a></li>
 <li><a href="https://github.com/biodatascience/statcomp_src/blob/master/LICENSE">License</a></li>
@@ -445,7 +428,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
