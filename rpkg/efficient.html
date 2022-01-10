@@ -278,6 +278,14 @@ div.tocify {
 <li><em>Memoization:</em> If you happen to be writing a function that will take input which has repeated elements, and it is very important for this function to be very fast, memoization can be a useful technique. Memoization entails storing the values of expensive function calls so that they don’t have to be repeated. There is a small overhead in saving and looking up the precomputed values, but if the degree of repeated input is high, the savings of memoization can be large. The <em>memoise</em> package helps with this in R.</li>
 <li><em>Parallelization:</em> One can think of the standard for loop as a serial operation: the <span class="math inline">\((i+1)\)</span>th iteration is always ran after the <span class="math inline">\((i)\)</span>th iteration has completed. On machines with more than one CPU available, say with <span class="math inline">\(P\)</span> CPUs, parallelization of iterations may allow for the execution of up to <span class="math inline">\(P\)</span> iterations of the for loop at the same time. This is particularly helpful when there are a large number of loop iterations that are non-recursive, meaning the next iteration of the loop does not depend on the prior one (simulations for example). One thing to note is that each parallel instance invoked in R requires additional memory, and therefore in memory-intensive operations this may quickly exhaust the available memory on your machine if you are not careful.</li>
 </ul>
+<p>Two short notes on avoiding making copies, from Section 2.5 in <a href="https://adv-r.hadley.nz/names-values.html">Advanced R</a>:</p>
+<blockquote>
+<p>For loops have a reputation for being slow in R, but often that slowness is caused by every iteration of the loop creating a copy. Consider the following code. It subtracts the median from each column of a large data frame:</p>
+</blockquote>
+<p>and</p>
+<blockquote>
+<p>While it’s not hard to determine when a copy is made, it is hard to prevent it. If you find yourself resorting to exotic tricks to avoid copies, it may be time to rewrite your function in C++</p>
+</blockquote>
 </div>
 <div id="learning-more-about-efficient-code" class="section level1">
 <h1>Learning more about efficient code</h1>
@@ -303,9 +311,9 @@ slow.sqrt &lt;- function(x) {
 }
 microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr     min       lq       mean   median       uq       max
-##       sqrt(1:1000)   2.112    3.083    5.11175    5.884    6.624     9.817
-##  slow.sqrt(1:1000) 908.000 1058.046 2081.31602 1539.520 2003.213 13444.334
+##               expr     min       lq       mean   median        uq       max
+##       sqrt(1:1000)   4.668   5.0010    6.69947   5.5005    8.1055    17.501
+##  slow.sqrt(1:1000) 867.750 911.3755 1642.04351 958.9380 1707.3340 23590.376
 ##  neval
 ##    100
 ##    100</code></pre>
@@ -319,12 +327,9 @@ microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 }
 microbenchmark(pre.sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr     min       lq       mean   median        uq      max
-##   pre.sqrt(1:1000)  47.037   47.440   77.61206   48.387   49.2875 2919.902
-##  slow.sqrt(1:1000) 908.304 1042.187 1615.26691 1055.972 1326.2890 9334.453
-##  neval
-##    100
-##    100</code></pre>
+##               expr     min       lq      mean  median        uq      max neval
+##   pre.sqrt(1:1000)  88.709  89.6465  126.4602  91.501   95.1465 3420.667   100
+##  slow.sqrt(1:1000) 866.042 892.9590 1293.0561 937.209 1310.3550 5331.375   100</code></pre>
 <p>So simply pre-allocating saves us about an order of magnitude in speed.</p>
 </div>
 <div id="initial-attempts-at-c" class="section level2">
@@ -349,9 +354,9 @@ microbenchmark(sqrt(1:1000),
                rcpp_sqrt2(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
 ##                expr   min     lq     mean median     uq     max neval
-##        sqrt(1:1000) 1.989 2.1030  2.22313 2.1475 2.2430   3.275   100
-##  rcpp_sqrt1(1:1000) 2.791 2.9240  8.12851 3.0005 3.1245 502.129   100
-##  rcpp_sqrt2(1:1000) 2.866 3.0145 10.13622 3.1180 3.2725 679.953   100</code></pre>
+##        sqrt(1:1000) 4.750 7.7920  8.23613  8.000 8.2500  22.043   100
+##  rcpp_sqrt1(1:1000) 2.167 3.7505  9.16228  4.272 4.8135 477.918   100
+##  rcpp_sqrt2(1:1000) 2.501 5.5210 15.58947  6.084 6.3340 888.792   100</code></pre>
 <p>Our two C++ implementations are comparable, and now only about 3 times slower than R’s <code>sqrt</code>.</p>
 </div>
 <div id="memoization" class="section level2">
@@ -366,10 +371,10 @@ slow.fn &lt;- function(x) {
 mem.fn &lt;- memoise(slow.fn)
 system.time(sapply(x, slow.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.018   0.009   1.268</code></pre>
+##   0.013   0.006   1.273</code></pre>
 <pre class="r"><code>system.time(sapply(x, mem.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.052   0.001   0.066</code></pre>
+##   0.052   0.000   0.065</code></pre>
 <pre class="r"><code>forget(mem.fn)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>We defined an arbitrary function <code>slow.fn</code> which waits a millisecond before returning the input plus <code>pi</code>. We then run <code>slow.fn</code> on a vector of length 1000, although the values of the vector are limited to then numbers 1 to 10. When we instead call the memoized version of the function, we only incur the millisecond cost of <code>slow.fn</code> 10 times (for each time we need to calculate the value of <code>slow.fn</code> on the numbers 1 to 10). Any repeated calls to <code>slow.fn</code> on a number that <code>mem.fn</code> has already seen instead incur the cost of looking up the value of <code>slow.fn</code> in an in-memory cache.</p>
@@ -399,9 +404,9 @@ all.equal(x1, x2)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>microbenchmark(solve(a,b), slow.solve(a,b))</code></pre>
 <pre><code>## Unit: milliseconds
-##              expr       min        lq      mean    median       uq       max
-##       solve(a, b)  1.436677  1.464948  1.546893  1.486449  1.50137  6.083867
-##  slow.solve(a, b) 51.541469 52.730089 55.775380 54.763421 58.52132 64.774733
+##              expr       min        lq      mean   median        uq       max
+##       solve(a, b)  1.433584  1.467563  1.546729  1.51175  1.542709  4.788459
+##  slow.solve(a, b) 44.022584 45.347397 46.912794 46.96300 48.414563 50.043668
 ##  neval
 ##    100
 ##    100</code></pre>
@@ -430,13 +435,13 @@ microbenchmark(
 )</code></pre>
 <pre><code>## Unit: milliseconds
 ##                                                             expr      min
-##                                                 slow.solve(a, b) 51.91937
-##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 52.88666
-##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a) 28.99728
+##                                                 slow.solve(a, b) 44.41642
+##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 44.48496
+##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a) 26.50329
 ##        lq     mean   median       uq      max neval
-##  53.39128 56.81727 56.41655 58.99207 84.62643   100
-##  54.29341 56.43779 56.11908 58.60797 62.21391   100
-##  29.72176 31.79176 30.63868 33.62039 46.01718   100</code></pre>
+##  45.14806 46.91302 47.31706 48.15088 50.66942   100
+##  45.43840 47.43529 47.75242 48.72217 72.68858   100
+##  26.82717 28.19486 27.27971 29.14408 39.59596   100</code></pre>
 <pre class="r"><code># Close the cores after use of parApply to prevent memory leaks
 stopCluster(cl)</code></pre>
 <p>We see that the parallelized version is twice as fast than slow.solve and the apply function. Still, it is not as fast as using a vectorized function. For a smaller number of iterations paralellization may not be as helpful given the overhead required to coordinate tasks across cores. If using within a function, sometimes an error in the function may cause it to terminate earlier. Adding “on.exit(stopCluster(cl))” after makeCluster() above helps to simplify this issue, where whatever function is within on.exit() will be executed regardless of how the function ends.</p>
