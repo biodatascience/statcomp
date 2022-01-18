@@ -11,7 +11,11 @@ output:
 1:25-3:10 MW, on zoom <!-- - MC 1305 -->
 
 Dr. Rashid's office hours: M <!-- @ MC 3104E --> (after class) <br>
+<<<<<<< HEAD
 Grader office hours: M 4-5 PM
+=======
+Grader office hours: M 4-5, zoom
+>>>>>>> a8994846a94bd9e081599a309d3112536ddb6ec8
 
 [Syllabus](syllabus.html)
 
