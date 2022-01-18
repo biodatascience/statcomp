@@ -38,11 +38,7 @@ Yangjianchen Xu (yangjc at live.unc.edu)
 ### Office Hours
 
 Dr. Rashid's office hours: M 3:10-4pm <!-- @ MC 3104E --> (after class, via zoom) <br>
-<<<<<<< HEAD
-Grader office hours:  M 4-5 PM  <!--Mon 4:30-5:30 PM @ RO 101 -->
-=======
 Grader office hours:  M 4-5, zoom  
->>>>>>> a8994846a94bd9e081599a309d3112536ddb6ec8
 
 ### Course Website and Schedule
 
