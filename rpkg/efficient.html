@@ -271,7 +271,7 @@ div.tocify {
 <h1>Efficient code</h1>
 <p><strong>Efficient code</strong> is a bit more language specific, and here we will focus on efficiency in the R language. The most important factor below however is true also for the other high-level programming languages.</p>
 <ul>
-<li><em>Use vectorized functions:</em> The most important thing to recognize about high-level programming languages is that they are built on top of fast routines written in Fortran, C, or C++ mostly. Iteration in the high-level language will always be slower than the <em>vectorized</em> function which iterates in the lower-level language. Use of row- or column-based operations over matrices, or matrix multiplication, that avoids iterating over rows or columns is one of the keys to efficient programming in R.</li>
+<li><em>Use vectorized functions:</em> The most important thing to recognize about high-level programming languages is that they are built on top of fast routines written in Fortran, C, or C++ mostly. Iteration in the high-level language <a href="https://www.noamross.net/archives/2014-04-16-vectorization-in-r-why/">will always be slower</a> than the <em>vectorized</em> function which iterates in the lower-level language. Use of row- or column-based operations over matrices, or matrix multiplication, that avoids iterating over rows or columns is one of the keys to efficient programming in R.</li>
 <li><em>Allocate first:</em> Another pitfall for writing R code is any operation which grows the memory space required for an object at each iteration. You should almost never have a loop where the inside of the loop has <code>out &lt;- c(out, new.thing)</code>. Concatenation is ok, but remember that it has a time cost, so you don’t want to be doing it often. Loops in R are not as bad as you may have heard, as long as the space has been pre-allocated. Loops in R will likely be slower than using a vectorized function, or a loop in C or C++, but they don’t need to be avoided at all cost.</li>
 <li><em>Avoid copying large objects:</em> This goes along with the above point, but copying large objects takes up a lot of time in R. To the extent that you can avoid <a href="https://adv-r.hadley.nz/names-values.html">making copies</a> of a data object, you will avoid unnecessary slowdowns. We will discuss this in more detail later.</li>
 <li><em>Go to C or C++:</em> You can typically gain a lot of speed by moving a repetitive operation from R to C or C++. We will see how to do this easily and in a way that the code is still readable in later lecture notes.</li>
@@ -311,9 +311,12 @@ slow.sqrt &lt;- function(x) {
 }
 microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr    min      lq     mean  median     uq     max neval
-##       sqrt(1:1000)    8.6    9.55   12.973   11.55   13.7    33.9   100
-##  slow.sqrt(1:1000) 2354.4 2563.90 4061.468 2722.50 3206.2 31866.5   100</code></pre>
+##               expr     min       lq       mean   median       uq       max
+##       sqrt(1:1000)   2.543   3.0840    5.27438    5.459    6.438    22.959
+##  slow.sqrt(1:1000) 876.959 993.1465 1937.32857 1576.022 1781.292 23079.417
+##  neval
+##    100
+##    100</code></pre>
 <p>This benchmark indicates that the vectorized version of the square root is many orders of magnitude faster than a naive implementation. Let’s compare <code>slow.sqrt</code> with a version where we preallocate the vector that stores the eventual output of the function:</p>
 <pre class="r"><code>pre.sqrt &lt;- function(x) {
   ans &lt;- numeric(length(x))
@@ -324,9 +327,9 @@ microbenchmark(sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 }
 microbenchmark(pre.sqrt(1:1000), slow.sqrt(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##               expr  min      lq     mean  median      uq     max neval
-##   pre.sqrt(1:1000)  192  212.95  349.696  230.50  245.00  9468.6   100
-##  slow.sqrt(1:1000) 2417 2589.25 3238.294 2740.95 3032.25 12771.1   100</code></pre>
+##               expr     min       lq      mean   median       uq      max neval
+##   pre.sqrt(1:1000)  87.917  88.6255  125.3423  90.0215   92.688 3413.375   100
+##  slow.sqrt(1:1000) 859.876 892.3545 1327.2702 928.1670 1369.896 5840.042   100</code></pre>
 <p>So simply pre-allocating saves us about an order of magnitude in speed.</p>
 </div>
 <div id="initial-attempts-at-c" class="section level2">
@@ -350,10 +353,10 @@ microbenchmark(sqrt(1:1000),
                rcpp_sqrt1(1:1000),
                rcpp_sqrt2(1:1000))</code></pre>
 <pre><code>## Unit: microseconds
-##                expr  min   lq   mean median    uq    max neval
-##        sqrt(1:1000)  8.6 11.0 15.744  14.25 17.50   55.2   100
-##  rcpp_sqrt1(1:1000) 10.6 11.8 27.219  12.75 16.30 1182.6   100
-##  rcpp_sqrt2(1:1000) 11.0 13.4 36.381  16.75 20.05 1701.5   100</code></pre>
+##                expr   min    lq     mean median     uq     max neval
+##        sqrt(1:1000) 2.292 2.417  2.61271 2.5420 2.7715   4.042   100
+##  rcpp_sqrt1(1:1000) 2.000 2.125 10.51489 2.2295 2.3755 783.418   100
+##  rcpp_sqrt2(1:1000) 2.042 2.168  7.29061 2.3340 2.5010 472.876   100</code></pre>
 <p>Our two C++ implementations are comparable, and now only about 3 times slower than R’s <code>sqrt</code>.</p>
 </div>
 <div id="memoization" class="section level2">
@@ -368,10 +371,10 @@ slow.fn &lt;- function(x) {
 mem.fn &lt;- memoise(slow.fn)
 system.time(sapply(x, slow.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.00    0.00   15.93</code></pre>
+##   0.013   0.006   1.271</code></pre>
 <pre class="r"><code>system.time(sapply(x, mem.fn))</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.12    0.01    0.31</code></pre>
+##   0.054   0.002   0.069</code></pre>
 <pre class="r"><code>forget(mem.fn)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>We defined an arbitrary function <code>slow.fn</code> which waits a millisecond before returning the input plus <code>pi</code>. We then run <code>slow.fn</code> on a vector of length 1000, although the values of the vector are limited to then numbers 1 to 10. When we instead call the memoized version of the function, we only incur the millisecond cost of <code>slow.fn</code> 10 times (for each time we need to calculate the value of <code>slow.fn</code> on the numbers 1 to 10). Any repeated calls to <code>slow.fn</code> on a number that <code>mem.fn</code> has already seen instead incur the cost of looking up the value of <code>slow.fn</code> in an in-memory cache.</p>
@@ -401,9 +404,9 @@ all.equal(x1, x2)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>microbenchmark(solve(a,b), slow.solve(a,b))</code></pre>
 <pre><code>## Unit: milliseconds
-##              expr      min        lq       mean    median       uq      max
-##       solve(a, b)   2.8902   3.07765   3.473319   3.18795   3.4143   9.5446
-##  slow.solve(a, b) 108.0299 116.11735 122.372527 119.28655 126.3840 170.5419
+##              expr       min        lq      mean   median        uq       max
+##       solve(a, b)  1.417626  1.426647  1.486112  1.44223  1.482605  4.214167
+##  slow.solve(a, b) 42.169334 43.243667 45.017987 44.99102 46.636460 50.341792
 ##  neval
 ##    100
 ##    100</code></pre>
@@ -432,13 +435,13 @@ microbenchmark(
 )</code></pre>
 <pre><code>## Unit: milliseconds
 ##                                                             expr      min
-##                                                 slow.solve(a, b) 106.7533
-##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 108.3048
-##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a)  65.8252
+##                                                 slow.solve(a, b) 41.87871
+##              apply(X = b, MARGIN = 2, FUN = slow.solve.i, a = a) 42.30342
+##  parApply(cl = cl, X = b, FUN = slow.solve.i, MARGIN = 2, a = a) 25.02188
 ##        lq     mean   median       uq      max neval
-##  113.5214 116.4210 115.8434 119.7288 134.7324   100
-##  115.4431 123.0672 119.7730 124.6718 203.6881   100
-##   72.4764  82.7555  75.3972  80.2148 374.8053   100</code></pre>
+##  42.63000 44.20858 43.75250 45.58881 49.15471   100
+##  43.16969 44.97288 44.77719 45.83852 69.92696   100
+##  25.60583 27.19743 25.89175 28.31308 47.84733   100</code></pre>
 <pre class="r"><code># Close the cores after use of parApply to prevent memory leaks
 stopCluster(cl)</code></pre>
 <p>We see that the parallelized version is twice as fast than slow.solve and the apply function. Still, it is not as fast as using a vectorized function. For a smaller number of iterations paralellization may not be as helpful given the overhead required to coordinate tasks across cores. If using within a function, sometimes an error in the function may cause it to terminate earlier. Adding “on.exit(stopCluster(cl))” after makeCluster() above helps to simplify this issue, where whatever function is within on.exit() will be executed regardless of how the function ends.</p>
@@ -474,7 +477,7 @@ profvis({
 <h1>Example: Monte-Carlo integration</h1>
 <p>Suppose we wish to estimate the integral <span class="math display">\[
 \int_0^1 x^2 dx
-\]</span> using Monte-Carlo Integration. We will learn more about this in Module 2, but for now, we focus on the programming aspect.</p>
+\]</span> using a Monte-Carlo Integration We will learn more about this in Module 2, but for now, we focus on the programming aspect.</p>
 <p><em>Monte Carlo Integration Psuedocode</em></p>
 <ol style="list-style-type: decimal">
 <li>Initialise: <code>hits = 0</code></li>
@@ -499,7 +502,7 @@ profvis({
 <pre class="r"><code>N = 500000
 system.time(monte_carlo(N))</code></pre>
 <pre><code>##    user  system elapsed 
-##    2.85    0.00    3.11</code></pre>
+##   1.315   0.030   1.351</code></pre>
 <p>Derive a more R-centric, vectorized approach to the above function to make it faster. Can you explain the intuition behind why this algorithm works for estimating the value of an integral?</p>
 </div>
 
