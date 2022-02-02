@@ -30,7 +30,7 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | | | | | [document](rpkg/document.html) | Documenting an R package |
 | | | | | [test](rpkg/test.html) | Writing package tests |
 | | | | | [debug](rpkg/debug.html) | Debugging in R |
-| Jan  24     | C++ from R | `rpkg` |  <!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW3.Rmd) -->| [rcpp](rpkg/rcpp.html) | Calling C++ with `Rcpp` |
+| Jan  24     | C++ from R | `rpkg` |   [hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW3.Rmd) | [rcpp](rpkg/rcpp.html) | Calling C++ with `Rcpp` |
 | Jan 26, 31 | Large data | `large` |  <!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/large/large_HW4.Rmd) -->| [datatable](large/datatable.html) | Working with `data.table` |
 | | | | | [sqlite](large/sqlite.html) | Working with `RSQLite` |
 | | | | | [hdf5](large/hdf5.html) | Working with `rhdf5` |
