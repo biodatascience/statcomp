@@ -310,9 +310,9 @@ h5ls(h5file)</code></pre>
 <pre class="r"><code>xx &lt;- h5read(h5file, &quot;A/x&quot;)
 xx[1:3,1:3]</code></pre>
 <pre><code>##            [,1]       [,2]       [,3]
-## [1,] -0.8826412 -0.7227745  0.7753618
-## [2,] -0.4378069  1.3227555 -0.6587843
-## [3,]  2.2057514 -0.2713292 -0.0886533</code></pre>
+## [1,] -2.9180159 -0.3099286  0.5671834
+## [2,]  1.2320955 -1.5603322 -0.7619277
+## [3,] -0.3517632  0.2978257  0.9193802</code></pre>
 <pre class="r"><code>yy &lt;- h5read(h5file, &quot;A/C/y&quot;)
 head(yy)</code></pre>
 <pre><code>##      [,1] [,2]
@@ -331,14 +331,14 @@ head(df2)</code></pre>
 ## 4 4 0.75 d
 ## 5 5 1.00 e</code></pre>
 </div>
-<div id="intergration-with-rcpp" class="section level1">
-<h1>Intergration with Rcpp</h1>
-<p>During package development, you may find that it would be easier to directly read from or write to and HDF5 file directly from your C++ code. RcppArmadillo allows for this functionality, detailed in their <a href="http://arma.sourceforge.net/docs.html">documentation</a>. If you search for hdf5 at this link will display a few options for loading and saving objects in this format.</p>
+<div id="integration-with-rcpp" class="section level1">
+<h1>Integration with Rcpp</h1>
+<p>During package development, you may find that it would be easier to directly read from or write to an HDF5 file directly from your C++ code. RcppArmadillo allows for this functionality, detailed in their <a href="http://arma.sourceforge.net/docs.html">documentation</a>. If you search for hdf5 at this link you will find a few options for loading and saving objects in this format.</p>
 <p>One caveat listed in their documentation is the following:</p>
 <blockquote>
 <p>Caveat: for saving/loading HDF5 files, support for HDF5 must be enabled within Armadillo’s configuration; the hdf5.h header file must be available on your system and you will need to link with the HDF5 library (eg. -lhdf5)</p>
 </blockquote>
-<p>This can be achieved by adding a Makevars or Makevars.win file to your package’s src/ directory indicating this. General information on Makevars files can be found <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Using-Makevars">here</a>. A specific walkthough on how to do it in this specific instance with using HDF5 is given <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/Rhdf5lib/inst/doc/Rhdf5lib.html">here</a>. Note that either the An example of using the hdf5 library in practice can be found <a href="https://github.com/plbaldoni/epigraHMM/blob/main/src/expStep.cpp">here</a>. This example uses the “H5Cpp.h” header instead of the “hdf5.h”, both of which are referenced in the Rhdf5lib link earlier.</p>
+<p>This can be achieved by adding a Makevars or Makevars.win file to your package’s src/ directory indicating this. General information on Makevars files can be found <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Using-Makevars">here</a>. A specific walkthough on how to do it in this specific instance using HDF5 is given <a href="https://www.bioconductor.org/packages/devel/bioc/vignettes/Rhdf5lib/inst/doc/Rhdf5lib.html">here</a>. An example of using the hdf5 library in practice can be found <a href="https://github.com/plbaldoni/epigraHMM/blob/main/src/expStep.cpp">here</a>. This example uses the “H5Cpp.h” header instead of the “hdf5.h”, both of which are referenced in the Rhdf5lib link earlier.</p>
 </div>
 <div id="delayedarray" class="section level1">
 <h1>DelayedArray</h1>
