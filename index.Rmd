@@ -39,7 +39,7 @@ directories, or best of all to clone the repo and navigate within RStudio.
 | Feb 2, 7, 9   | General optim. | `optim` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/optim/optim_HW5.Rmd)| [optim](optim/optim.html) | General optimization |
 | Feb 14, 16 | EM algorithm | `em` |   [hw](https://github.com/biodatascience/statcomp_src/blob/master/em/em_HW6.Rmd)| [em](em/em.html) | EM algorithm |
 | Feb 21, 23     | Numer. integration | `numint` | [hw](https://github.com/biodatascience/statcomp_src/blob/master/numint/numint_HW7.Rmd) | [numint](numint/numint.html) | Numerical integration |
-| Feb 28, Mar 2, 7 | General MCMC | `mcmc` |   [hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd) <!-- [hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd)--> | [mcmc](mcmc/mcmc.html) | General MCMC |
+| Feb 28, Mar 2, 7 | General MCMC | `mcmc` |   [hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd)  [hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd) | [mcmc](mcmc/mcmc.html) | General MCMC |
 | Mar 9, 14   | Advanced MCMC | `advmcmc` |  <!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/advmcmc/advmcmc_HW10.Rmd) -->| [advmcmc](advmcmc/advmcmc.html) | Advanced MCMC |
 | **Module 3** | Mach. learning | | | | |
 | Mar 16, 21, 23   | ML essentials | `ml` |  <!-- [hw](https://github.com/biodatascience/statcomp_src/blob/master/ml/essentials_HW11.Rmd) -->| [essentials](ml/essentials.html) | Machine learning essentials |
