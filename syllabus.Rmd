@@ -25,7 +25,6 @@ Associate Professor <br>
 Department of Biostatistics <br>
 
 <br>
-BIOS Office:  3104E McGavran-Greenberg Hall <br>
 LCCC Office:  20-020 Lineberger<br>
 email:  naim[at]unc.edu<br>
 phone:  919-966-8150<br>
@@ -36,7 +35,7 @@ Amber Young (ayoung31 at live.unc.edu)
 
 ### Office Hours
 
-Dr. Rashid's office hours: M 3:10-4pm (after class) <br>
+Dr. Rashid's office hours: M 3:10-4pm (just see me after class) <br>
 Grader office hours:  M 4-5, zoom  
 
 ### Course Website and Schedule
@@ -45,7 +44,7 @@ https://biodatascience.github.io/statcomp/
 
 ### Class Days, Times, Location
 
-1:25-3:10 MW, virtual session (zoom link to be provided) 
+1:25-3:10 MW, MCG 1304
 
 ### Course Overview
 
@@ -191,9 +190,9 @@ The Gillings School has in place a [mechanism for students to provide feedback](
 Please note that this form does not take the place of any University process or policy. If you would like to report an incident under the University’s policy on Prohibited Discrimination, Harassment, and Related Misconduct including Sexual and Gender Based Harassment, Sexual Violence, Interpersonal Violence, and Stalking, please visit [Safe At UNC](https://safe.unc.edu/) or the [Equal Opportunity and Compliance Office (EOC)](https://eoc.unc.edu/) for additional information, including resources, contact, and reporting options.
 
 ### Technical support
-The best way to help prevent technical issues from causing problems for assignments and quizzes is to submit them at least 24-36 hours before the due date and time.  Your instructor cannot resolve technical issues, but it’s important to notify them if you are experiencing issues. If you have problems submitting an assignment or taking a quiz in Sakai, immediately do the following:
-1.	Contact the UNC Information Technology Services (ITS) department with the time you attempted to do your course action and what the course action was.
-2.	Email your instructor with the information you sent to ITS and what time you sent the information.
+The best way to help prevent technical issues from causing problems for assignments is to submit them at least 24-36 hours before the due date and time.  Your instructor cannot resolve technical issues, but it’s important to notify them if you are experiencing issues. If you have problems submitting an assignment or taking a quiz in Sakai, immediately do the following:
+1.	Contact the UNC Information Technology Services (ITS) department or Bios IT with the time you attempted to do your course action and what the course action was.
+2.	Email your instructor with the information you sent to ITS/Bios IT and what time you sent the information.
 
 The ITS department provides technical support 24-hours per day, seven days per week.  If you need computer help, please contact the ITS Help Desk by phone at +1-919-962-HELP (4357), or by [online help request](http://help.unc.edu/help/olhr), or by [UNC Live Chat](http://help.unc.edu/chat.).
 
