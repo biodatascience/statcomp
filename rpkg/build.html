@@ -288,7 +288,7 @@ source(&quot;plot_functions.R&quot;)</code></pre>
 <p>We will assume that we are running the following code on the class virtual machine, which uses R version 4.1.2. Let’s say we will create an R package called <em>foo</em>. We can start with the following:</p>
 <pre class="r"><code>library(usethis)
 create_package(&quot;foo&quot;, roxygen=FALSE)</code></pre>
-<p>This will make a directory called <code>foo</code> in you <em>current working directory</em>, and will then will open a new Rstudio instance where the working directory to <code>foo</code>. For now, we set Roxygen equal to FALSE since we have not covered Roxygen yet. This option allows for automatic exporting of functions to the namespace when FALSE. If set to TRUE (default), the function assumes you will be using Roxygen to document functions and will export functions in accordance to your Roxygen documention, leaving the NAMESPACE file blank upon creation.</p>
+<p>This will make a directory called <code>foo</code> in you <em>current working directory</em>, and will then will open a new Rstudio instance where the working directory to <code>foo</code>. For now, we set Roxygen equal to FALSE since we have not covered Roxygen yet. This option allows for automatic exporting of functions to the namespace when FALSE. If set to TRUE (default), the function assumes you will be using Roxygen to document functions and will export functions in accordance to your Roxygen documentation, leaving the NAMESPACE file blank upon creation.</p>
 <p>In your current working directory, we can print the contents of the foo directory</p>
 <pre class="r"><code>list.files(&quot;foo&quot;)</code></pre>
 <p>You should see the following:</p>
