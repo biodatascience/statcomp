@@ -8,10 +8,10 @@ output:
 
 ### Course information
 
-1:25-3:10 MW, MCG 1305
+1:25-3:10 MW, MCG 1304
 
 Dr. Rashid's office hours: M <!-- @ MC 3104E --> (after class) <br>
-Grader office hours: M 4-5, zoom
+Grader office hours: M 4-5, MCG 1304
 
 
 [Syllabus](syllabus.html)

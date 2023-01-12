@@ -290,7 +290,7 @@ source(&quot;plot_functions.R&quot;)</code></pre>
 create_package(&quot;foo&quot;, roxygen=FALSE)</code></pre>
 <p>This will make a directory called <code>foo</code> in you <em>current working directory</em>, and will then will open a new Rstudio instance where the working directory to <code>foo</code>. For now, we set Roxygen equal to FALSE since we have not covered Roxygen yet. This option allows for automatic exporting of functions to the namespace when FALSE. If set to TRUE (default), the function assumes you will be using Roxygen to document functions and will export functions in accordance to your Roxygen documention, leaving the NAMESPACE file blank upon creation.</p>
 <p>In your current working directory, we can print the contents of the foo directory</p>
-<p><code>{r. eval = F} list.files(&quot;foo&quot;)</code></p>
+<pre class="r"><code>list.files(&quot;foo&quot;)</code></pre>
 <p>You should see the following:</p>
 <pre><code>[1] &quot;DESCRIPTION&quot; &quot;foo.Rproj&quot;   &quot;NAMESPACE&quot;   &quot;R&quot;  </code></pre>
 <p>It will start with a DESCRIPTION file that looks like:</p>
@@ -390,11 +390,12 @@ help(topic=&quot;add&quot;, package=&quot;foo&quot;)</code></pre>
 ##  collate  en_US.UTF-8
 ##  ctype    en_US.UTF-8
 ##  tz       America/New_York
-##  date     2022-01-18
+##  date     2023-01-12
 ##  pandoc   2.14.0.3 @ /Applications/RStudio.app/Contents/MacOS/pandoc/ (via rmarkdown)
 ## 
 ## ─ Packages ───────────────────────────────────────────────────────────────────
 ##  package     * version date (UTC) lib source
+##  bslib         0.3.1   2021-10-06 [1] CRAN (R 4.1.0)
 ##  cachem        1.0.6   2021-08-19 [1] CRAN (R 4.1.0)
 ##  callr         3.7.0   2021-04-20 [1] CRAN (R 4.1.0)
 ##  cli           3.1.0   2021-10-27 [1] CRAN (R 4.1.0)
@@ -409,6 +410,7 @@ help(topic=&quot;add&quot;, package=&quot;foo&quot;)</code></pre>
 ##  glue          1.5.1   2021-11-30 [1] CRAN (R 4.1.0)
 ##  htmltools     0.5.2   2021-08-25 [1] CRAN (R 4.1.0)
 ##  jquerylib     0.1.4   2021-04-26 [1] CRAN (R 4.1.0)
+##  jsonlite      1.7.2   2020-12-09 [1] CRAN (R 4.1.0)
 ##  knitr         1.36    2021-09-29 [1] CRAN (R 4.1.0)
 ##  lifecycle     1.0.1   2021-09-24 [1] CRAN (R 4.1.0)
 ##  magrittr      2.0.1   2020-11-17 [1] CRAN (R 4.1.0)
@@ -421,10 +423,11 @@ help(topic=&quot;add&quot;, package=&quot;foo&quot;)</code></pre>
 ##  purrr         0.3.4   2020-04-17 [1] CRAN (R 4.1.0)
 ##  R6            2.5.1   2021-08-19 [1] CRAN (R 4.1.0)
 ##  remotes       2.4.2   2021-11-30 [1] CRAN (R 4.1.0)
-##  rlang         0.4.12  2021-10-18 [1] CRAN (R 4.1.0)
+##  rlang         1.0.5   2022-08-31 [1] CRAN (R 4.1.2)
 ##  rmarkdown     2.11    2021-09-14 [1] CRAN (R 4.1.0)
 ##  rprojroot     2.0.2   2020-11-15 [1] CRAN (R 4.1.0)
 ##  rstudioapi    0.13    2020-11-12 [1] CRAN (R 4.1.0)
+##  sass          0.4.1   2022-03-23 [1] CRAN (R 4.1.2)
 ##  sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.1.0)
 ##  stringi       1.7.6   2021-11-29 [1] CRAN (R 4.1.0)
 ##  stringr       1.4.0   2019-02-10 [1] CRAN (R 4.1.0)
