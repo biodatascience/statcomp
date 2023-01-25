@@ -14,7 +14,7 @@
 
 <title>BIOS 735 - Introduction to Statistical Computing</title>
 
-<script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="index_files/header-attrs-2.19/header-attrs.js"></script>
 <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="index_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -82,6 +83,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
 pre code {
   padding: 0;
 }
@@ -101,8 +105,8 @@ pre code {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -110,16 +114,9 @@ pre code {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -164,7 +161,8 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">BIOS 735 - Introduction to Statistical Computing</h1>
+<h1 class="title toc-ignore">BIOS 735 - Introduction to Statistical
+Computing</h1>
 <h4 class="author">Naim Rashid</h4>
 
 </div>
@@ -173,13 +171,25 @@ pre code {
 <div id="course-information" class="section level3">
 <h3>Course information</h3>
 <p>1:25-3:10 MW, MCG 1304</p>
-<p>Dr. Rashid’s office hours: M <!-- @ MC 3104E --> (after class) <br> Grader office hours: M 4-5, MCG 1305</p>
+<p>Dr. Rashid’s office hours: M <!-- @ MC 3104E --> (after class) <br>
+Grader office hours: M 4-5, MCG 1305</p>
 <p><a href="syllabus.html">Syllabus</a></p>
 </div>
 <div id="schedule-and-course-notes" class="section level3">
 <h3>Schedule and course notes</h3>
-<p>For <code>Rmd</code> files, go to the <a href="https://github.com/biodatascience/statcomp_src">course repo</a> and navigate the directories, or best of all to clone the repo and navigate within RStudio.</p>
-<table>
+<p>For <code>Rmd</code> files, go to the <a
+href="https://github.com/biodatascience/statcomp_src">course repo</a>
+and navigate the directories, or best of all to clone the repo and
+navigate within RStudio.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="19%" />
+<col width="16%" />
+<col width="11%" />
+<col width="16%" />
+<col width="19%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Week</th>
@@ -203,7 +213,8 @@ pre code {
 <td>Jan 9</td>
 <td>R code</td>
 <td><code>rpkg</code></td>
-<td><a href="https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd">hw</a></td>
+<td><a
+href="https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW1.Rmd">hw</a></td>
 <td><a href="rpkg/efficient.html">efficient</a></td>
 <td>Readable and efficient R code</td>
 </tr>
@@ -211,7 +222,8 @@ pre code {
 <td>Jan 11, 18</td>
 <td>R package</td>
 <td><code>rpkg</code></td>
-<td><!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW2.Rmd) --></td>
+<td><a
+href="https://github.com/biodatascience/statcomp_src/blob/master/rpkg/rpkg_HW2.Rmd">hw</a></td>
 <td><a href="rpkg/build.html">build</a></td>
 <td>Building an R package</td>
 </tr>
@@ -315,7 +327,8 @@ pre code {
 <td>Mar 1, 6, 8</td>
 <td>General MCMC</td>
 <td><code>mcmc</code></td>
-<td><!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd) --> <!--[hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd) --></td>
+<td><!--[hw](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW8.Rmd) -->
+<!--[hw2](https://github.com/biodatascience/statcomp_src/blob/master/mcmc/mcmc_HW9.Rmd) --></td>
 <td><a href="mcmc/mcmc.html">mcmc</a></td>
 <td>General MCMC</td>
 </tr>
@@ -386,10 +399,12 @@ pre code {
 </tbody>
 </table>
 <hr />
-<p>This page was last updated on 01/18/2023.</p>
+<p>This page was last updated on 01/25/2023.</p>
 <ul>
-<li><a href="https://github.com/biodatascience/statcomp_src">GitHub repo</a></li>
-<li><a href="https://github.com/biodatascience/statcomp_src/blob/master/LICENSE">License</a></li>
+<li><a href="https://github.com/biodatascience/statcomp_src">GitHub
+repo</a></li>
+<li><a
+href="https://github.com/biodatascience/statcomp_src/blob/master/LICENSE">License</a></li>
 </ul>
 </div>
 
