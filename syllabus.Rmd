@@ -31,12 +31,13 @@ phone:  919-966-8150<br>
 web:  https://naimurashid.github.io/ <br>
 
 ### Graders
-Amber Young (ayoung31 at live.unc.edu) 
+Yiran Song (yrsong [at] email.unc.edu) <br>
+Xinyu Zhang (xinyuz16 [at] unc.edu)
 
 ### Office Hours
 
-Dr. Rashid's office hours: M 3:10-4pm (just see me after class) <br>
-Grader office hours:  M 4-5, MCG 1304  
+Dr. Rashid's office hours: (just see me after class) <br>
+Grader office hours: TBD
 
 ### Course Website and Schedule
 
@@ -44,7 +45,7 @@ https://biodatascience.github.io/statcomp/
 
 ### Class Days, Times, Location
 
-1:25-3:10 MW, MCG 1304
+1:25-3:10 MW, MCG 1305
 
 ### Course Overview
 
@@ -116,7 +117,7 @@ A general overview of topics is provided below.
     
 ### Course Assignments and Assessments
  
-The class will be taught through three modules. One final project (30%), an initial proposal for the final project (10%), a final presentation (20%), and weekly homework assignments (40%) will make up the final grade for the course.  The initial proposal (due March 10th) can be resubmitted for a regrade as many times as desired up until March 31st.  
+The class will be taught through three modules. One final project (30%), an initial proposal for the final project (10%), a final presentation (20%), class participation (10%), and weekly homework assignments (30%) will make up the final grade for the course.  The initial proposal (due March 10th) can be resubmitted for a regrade as many times as desired up until March 31st.  
 
 At the beginning of the course, students will learn to create an R
 package which they will update as the class progresses, implementing
@@ -161,6 +162,31 @@ UNC-Chapel Hill is committed to the well-being of our community – not just phy
 
 ### Counseling and Psychological Services at UNC Chapel Hill
 CAPS is strongly committed to addressing the mental health needs of a diverse student body through timely access to consultation and connection to clinically appropriate services, whether for short or long-term needs. Go to their website: https://caps.unc.edu, call them at 919-966-3658, or visit their facilities on the third floor of the Campus Health Services building for a walk-in evaluation to learn more.
+
+### Use of Generative AI
+Instructions: A statement regarding the use of AI is required on all syllabi.  Below the required language, you may select from the following examples (provided for your convenience) or create your own.  Use of AI is at the discretion of the instructor and may even vary across assignments.  Instructors have the responsibility to clearly communicate expectations to students.  You can refer to the UNC Generative AI Syllabus Guidelines to help you customize a statement. 
+
+Generative artificial intelligence (AI) tools (e.g., ChatGPT) that generate text, images, and media, could aid brainstorming, research, and content creation, and may be useful in public health practice. However, these tools must be used ethically, transparently, and with the understanding of their limitations including circumstances when AI use hinders rather promotes learning.  
+
+In this course, Gen AI cannot be:  
+
+* Used as a replacement for doing the assigned course readings 
+* Used solely for the output for completing mathematical computations 
+* Used solely for the output for submitting written work 
+* Used for cheating or to gain unfair advantages 
+
+If you have any questions, please contact me. I reserve the right to submit written assignments to AI detection programs (e.g., iThenticate). Suspected violations will be reported to the University Honor Court. 
+
+Unless I provide other guidelines for an assignment or exam, you should follow these guidelines:   Students are expected to follow the policy provided by the UNC Generative AI committee.  Briefly, this policy allows the use of AI for a variety of tasks (including topic selection, brainstorming, research, source valuation, outlining, drafting, media creation, revising, and polishing).  Importantly, when you use Gen AI in your work, you must document it as specified at the website above.  This policy is at your instructor's discretion and may be modified with written notice for specific tests and assignments.  
+
+
+### Course Communication Expectations
+Students must maintain course communications (e.g., email, course announcements, course discussions, etc.) with their peers and instructor(s) to be successful in this course. You are expected to check, read, and respond when necessary to your course communications regularly (i.e., at least two times during the business week). Not reading email is an unacceptable excuse for missing course communications. 
+
+Student well-being is my/our primary concern. If I/we send you a communication that warrants a response and do not hear back from a you after following up twice, I/we will submit a Gillings School Graduate Student Early Alert Referral to Academic Coordinator Form. To ensure you have the support needed to be successful in this program, your academic coordinator, faculty mentor, assistant dean of master’s degree programs, associate dean for student affairs, and/or dean of students may get involved if non-responsiveness becomes a significant concern.  
+
+All UNC affiliates (including students, faculty, and staff) must use their University email account to conduct UNC business. Use of personal email addresses, including auto-forwarding to external/personal accounts, is not allowed for conducting University business. For more information, see the Individual Email Address Policy. 
+
 
 ### Honor Code
 As a student at UNC Chapel Hill, you are bound by the university’s Honor Code, through which UNC maintains standards of academic excellence and community values. It is your responsibility to learn about and abide by the code.  All written assignments or presentations (including team projects) should be completed in a manner that demonstrates academic integrity and excellence. Work should be completed in your own words, but your ideas should be supported with well-cited evidence and theory.  If you have any questions about your rights and responsibilities, please consult the Office of Student Conduct (https://studentconduct.unc.edu/) or review the following resources:
