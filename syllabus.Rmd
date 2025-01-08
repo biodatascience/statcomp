@@ -31,8 +31,8 @@ phone:  919-966-8150<br>
 web:  https://naimurashid.github.io/ <br>
 
 ### Graders
-Yiran Song (yrsong [at] email.unc.edu) <br>
-Xinyu Zhang (xinyuz16 [at] unc.edu)
+Amber Young (ayoung31 [at] live.unc.edu) <br>
+Xuejun Sun (xuejun_sun [at] unc.edu)
 
 ### Office Hours
 
@@ -45,7 +45,7 @@ https://biodatascience.github.io/statcomp/
 
 ### Class Days, Times, Location
 
-1:25-3:10 MW, MCG 1305
+1:25-3:10 MW, RO 228
 
 ### Course Overview
 
@@ -155,7 +155,7 @@ be due on the last week of regular classes.
 UNC-CH facilitates the implementation of reasonable accommodations, including resources and services, for students with disabilities, chronic medical conditions, a temporary disability, or pregnancy complications resulting in barriers to fully accessing University courses, programs and activities.  Accommodations are determined through the UNC Office of Accessibility Resources & Services (ARS), https://ars.unc.edu/; phone 919-962-8300; email ars@unc.edu. Students must document/register their need for accommodations with ARS before accommodations can be implemented.
 
 ### Attendance and Participation
-Your attendance and active participation are an integral part of your learning experience in this course. If you are unavoidably absent, please notify the course instructor (and Teaching Assistant if one is assigned).
+Your attendance and active participation are an integral part of your learning experience in this course. If you are unavoidably absent, please notify the course instructor.
 
 ### Community Standards in Our Course and Mask Use.
 UNC-Chapel Hill is committed to the well-being of our community – not just physically, but emotionally.  The indoor mask requirement was lifted for most of campus on March 7, 2022.  If you feel more comfortable wearing a mask, you are free to do so.  There are many reasons why a person may decide to continue to wear a mask, and we respect that choice.  For additional information, see [Carolina Together](https://carolinatogether.unc.edu/).
